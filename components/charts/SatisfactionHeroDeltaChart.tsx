@@ -12,15 +12,7 @@ export function SatisfactionHeroDeltaChart({
   toTier,
 }: SatisfactionHeroDeltaChartProps) {
   return (
-    <div
-      style={{
-        background: 'var(--bg-callout)',
-        borderRadius: 8,
-        padding: 32,
-        marginTop: 32,
-        marginBottom: 32,
-      }}
-    >
+    <div className="hero-stat-block">
       <div
         style={{
           fontFamily: 'var(--font-display)',

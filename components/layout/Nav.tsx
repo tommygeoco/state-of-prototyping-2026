@@ -13,62 +13,53 @@ export function Nav() {
       className="sticky top-0 z-50"
       style={{
         height: 'var(--nav-height)',
-        borderBottom: '1px solid var(--border-card)',
+        borderBottom: '1px solid var(--border-nav)',
         background: 'rgba(255,251,247,0.95)',
         backdropFilter: 'blur(8px)',
       }}
     >
       <div
-        className="mx-auto flex h-full items-center justify-between"
-        style={{ maxWidth: 'var(--page-width)', paddingInline: 60 }}
+        style={{
+          maxWidth: 'var(--content-width)',
+          margin: '0 auto',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingInline: 'var(--nav-padding-inline)',
+        }}
       >
-        <Link
-          href="/"
-          style={{
-            fontFamily: 'var(--font-data)',
-            fontSize: 14,
-            fontWeight: 700,
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase' as const,
-            color: 'var(--text-primary)',
-            lineHeight: '18px',
-          }}
-        >
-          UX Tools
-        </Link>
-        <div className="flex items-center gap-6">
-          <nav className="hidden items-center gap-5 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  fontFamily: 'var(--font-data)',
-                  fontSize: 12,
-                  fontWeight: 400,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase' as const,
-                  color: 'var(--text-secondary)',
-                  lineHeight: '16px',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <span
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          <Link
+            href="/"
             style={{
-              fontFamily: 'var(--font-data)',
-              fontSize: 12,
-              fontWeight: 400,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase' as const,
-              color: 'var(--text-secondary)',
-              lineHeight: '16px',
+              fontFamily: 'var(--font-body)',
+              fontSize: 16,
+              fontWeight: 600,
+              lineHeight: '20px',
+              color: 'var(--text-primary)',
             }}
           >
-            State of Prototyping · Spring 2026
-          </span>
+            State of Prototyping
+          </Link>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="hidden md:inline"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 14,
+                fontWeight: 400,
+                lineHeight: '18px',
+                color: 'var(--text-muted)',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
     </header>

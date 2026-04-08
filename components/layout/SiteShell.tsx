@@ -17,7 +17,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)' }}>
       <Nav />
-      <main style={{ width: 720, margin: '0 auto', paddingTop: 64 }}>
+      <main
+        style={{
+          width: 'var(--content-width)',
+          margin: '0 auto',
+          paddingBlock: 'var(--hero-padding-block)',
+        }}
+      >
         {children}
       </main>
       <Footer />
