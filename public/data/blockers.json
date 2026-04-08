@@ -1,0 +1,12 @@
+{
+  "question": "Top workflow blockers",
+  "n": 1478,
+  "data": [
+    { "label": "Time to learn tools", "pct": 55.6 },
+    { "label": "Too many tools", "pct": 53.1 },
+    { "label": "AI output quality", "pct": 52.2 },
+    { "label": "Budget / procurement", "pct": 34.3 },
+    { "label": "Security / compliance", "pct": 28.7 },
+    { "label": "Engineering constraints", "pct": 19.4 }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "question": "Q8 — Have you built your own tool with AI in the last 6 months?",
+  "n": 1478,
+  "data": [
+    { "label": "Yes, once or twice", "pct": 33.7 },
+    { "label": "No, but I want to", "pct": 30.4 },
+    { "label": "Yes, I do it regularly", "pct": 25.3 },
+    { "label": "No, don't plan to", "pct": 10.5 }
+  ]
+}

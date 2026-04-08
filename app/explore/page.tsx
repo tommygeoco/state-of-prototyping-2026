@@ -6,8 +6,9 @@ import { GroupedComparisonChart } from '@/components/charts/GroupedComparisonCha
 import { HeroStatChart } from '@/components/charts/HeroStatChart'
 import { SatisfactionHeroDeltaChart } from '@/components/charts/SatisfactionHeroDeltaChart'
 import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
+import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
-import { loadOutlook, loadSatisfaction, loadTools, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
+import { loadBlockers, loadBuiltTool, loadCompanyContext, loadInvestingNext, loadOutlook, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange } from '@/lib/data/loaders'
 
 export const metadata = {
   title: 'State of Prototyping: Spring 2026',
@@ -15,12 +16,21 @@ export const metadata = {
 }
 
 export default async function ExplorePage() {
-  const [outlook, satisfaction, tools, vibeByRole, vibeDistribution] = await Promise.all([
+  const [
+    blockers, builtTool, companyContext, investingNext, outlook,
+    satisfaction, tools, trustLevel, vibeByRole, vibeDistribution, workflowChange,
+  ] = await Promise.all([
+    loadBlockers(),
+    loadBuiltTool(),
+    loadCompanyContext(),
+    loadInvestingNext(),
     loadOutlook(),
     loadSatisfaction(),
     loadTools(),
+    loadTrustLevel(),
     loadVibeByRole(),
     loadVibeDistribution(),
+    loadWorkflowChange(),
   ])
 
   const icDesigner = vibeByRole.data.find((item) => item.role === 'IC Designer')
@@ -56,10 +66,15 @@ export default async function ExplorePage() {
           and Southeast Asia (7.3%) are the largest non-US regions. This is a global read on how
           design practitioners work.
         </p>
-        <div className="pull-quote">
-          Startup-heavy, indie-strong. Nearly half the sample is at a startup or working
-          independently — the cohort most likely to move fast on new tools.
-        </div>
+        <SocialCardContainer sponsor="MagicPatterns">
+          <SimpleBarChart
+            title="Company Context"
+            items={companyContext.data}
+            callout="Startup-heavy, indie-strong. Nearly half the sample is at a startup or working independently — the cohort most likely to move fast on new tools."
+            source="n=1,478 · % of respondents"
+            bare
+          />
+        </SocialCardContainer>
       </section>
 
       {/* ── 2. The stack right now ── */}
@@ -174,11 +189,12 @@ export default async function ExplorePage() {
           unlocked a new kind of creative leverage.
         </p>
         <SocialCardContainer sponsor="Framer">
-          <HeroStatChart
-            value="59%"
-            accentLabel="Built Their Own Tool"
-            label="of designers have built their own tool, app, or utility with AI-generated code in the last 6 months"
-            meta="1,478 respondents · Spring 2026"
+          <SimpleBarChart
+            title="Have You Built Your Own Tool With AI?"
+            items={builtTool.data}
+            callout="59% have built something. 30% want to but haven't yet. Only 10.5% have no plans to. The intent-to-try cohort is bigger than the never-will cohort by 3x."
+            source="n=1,478 · Last 6 months"
+            bare
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -199,10 +215,15 @@ export default async function ExplorePage() {
           We&apos;re in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line isn&apos;t whether AI
           works. It&apos;s how much cleanup it takes before it&apos;s usable.
         </p>
-        <div className="pull-quote">
-          34.1% trust AI for production work — review before shipping + minor tweaks +
-          full trust combined. Independents lead at 42.0%. Enterprise is lowest at 30.9%.
-        </div>
+        <SocialCardContainer sponsor="Mobbin">
+          <SimpleBarChart
+            title="How Far Do You Trust AI Output?"
+            items={trustLevel.data}
+            callout="34.1% trust AI for production work — review before shipping + minor tweaks + full trust combined. Independents lead at 42.0%. Enterprise is lowest at 30.9%."
+            source="n=1,478 · % of respondents"
+            bare
+          />
+        </SocialCardContainer>
       </section>
 
       {/* ── 7. What's blocking everyone ── */}
@@ -213,12 +234,15 @@ export default async function ExplorePage() {
           The top 3 blockers are within 3 percentage points of each other. That&apos;s not noise —
           that&apos;s signal. Three simultaneous problems, nearly identical in size.
         </p>
-        <div className="pull-quote">
-          A 3-point cluster at the top: time to learn tools (55.6%), too many tools (53.1%),
-          AI output quality (52.2%). The problem isn&apos;t that AI doesn&apos;t work. It&apos;s that no one
-          has time to learn it properly, there are too many options, and the output still
-          isn&apos;t reliable enough.
-        </div>
+        <SocialCardContainer sponsor="dscout">
+          <SimpleBarChart
+            title="Top Workflow Blockers"
+            items={blockers.data}
+            callout="A 3-point cluster at the top: 55.6%, 53.1%, 52.2%. The problem isn't that AI doesn't work. It's that no one has time to learn it properly, there are too many options, and the output still isn't reliable enough."
+            source="n=1,478 · % of respondents (multi-select)"
+            bare
+          />
+        </SocialCardContainer>
       </section>
 
       {/* ── 8. How workflows changed in 6 months ── */}
@@ -235,11 +259,12 @@ export default async function ExplorePage() {
           that maps directly to policy and procurement friction.
         </p>
         <SocialCardContainer sponsor="Dazl">
-          <HeroStatChart
-            value="71%"
-            accentLabel="Added AI to Workflow"
-            label="of designers have added AI tools or gone AI-central in the last 6 months"
-            meta="1,478 respondents · Spring 2026"
+          <SimpleBarChart
+            title="How Has Your Workflow Changed in 6 Months?"
+            items={workflowChange.data}
+            callout="Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap that maps directly to policy and procurement friction."
+            source="n=1,478 · % of respondents"
+            bare
           />
         </SocialCardContainer>
       </section>
@@ -283,11 +308,12 @@ export default async function ExplorePage() {
           it&apos;s getting more important as implementation gets easier.
         </p>
         <SocialCardContainer sponsor="MagicPath">
-          <HeroStatChart
-            value="64%"
-            accentLabel="AI-Generated Coding"
-            label="of designers say AI-generated coding is their top investment area for the next 12 months"
-            meta="1,478 respondents · Spring 2026"
+          <SimpleBarChart
+            title="Where Are You Investing Your Time Next? (Pick 3)"
+            items={investingNext.data}
+            callout="64% say AI-generated coding is their top investment. Agent workflows at 46% is about automating repetitive work. Design systems at 40% shows the systems layer isn't dead — it's getting more important as implementation gets easier."
+            source="n=1,478 · % of respondents (pick 3)"
+            bare
           />
         </SocialCardContainer>
       </section>

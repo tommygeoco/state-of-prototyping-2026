@@ -59,6 +59,36 @@ export function loadTools() {
   return readJson<ToolsResponse>(dataDir, 'tools.json')
 }
 
+interface SimpleBarData {
+  question: string
+  n: number
+  data: { label: string; pct: number }[]
+}
+
+export function loadCompanyContext() {
+  return readJson<SimpleBarData>(dataDir, 'company-context.json')
+}
+
+export function loadBuiltTool() {
+  return readJson<SimpleBarData>(dataDir, 'built-tool.json')
+}
+
+export function loadTrustLevel() {
+  return readJson<SimpleBarData>(dataDir, 'trust-level.json')
+}
+
+export function loadBlockers() {
+  return readJson<SimpleBarData>(dataDir, 'blockers.json')
+}
+
+export function loadWorkflowChange() {
+  return readJson<SimpleBarData>(dataDir, 'workflow-change.json')
+}
+
+export function loadInvestingNext() {
+  return readJson<SimpleBarData>(dataDir, 'investing-next.json')
+}
+
 export function loadFullSummary() {
   return readJson<FullSummaryResponse>(dataDir, 'full-summary.json')
 }

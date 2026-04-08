@@ -1,0 +1,11 @@
+{
+  "question": "How has your workflow changed in the last 6 months?",
+  "n": 1478,
+  "data": [
+    { "label": "Added AI tools", "pct": 36.5 },
+    { "label": "AI is now central", "pct": 34.6 },
+    { "label": "Still in flux", "pct": 15.2 },
+    { "label": "Mostly the same", "pct": 9.9 },
+    { "label": "Consolidated tools", "pct": 3.7 }
+  ]
+}

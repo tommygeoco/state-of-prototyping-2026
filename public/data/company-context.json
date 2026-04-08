@@ -1,0 +1,12 @@
+{
+  "question": "Q1 — Company context (work setting)",
+  "n": 1478,
+  "data": [
+    { "label": "Startup (2–100)", "pct": 29.3 },
+    { "label": "Independent / Freelance", "pct": 18.8 },
+    { "label": "Enterprise (1,000+)", "pct": 17.1 },
+    { "label": "Mid-size (101–999)", "pct": 15.4 },
+    { "label": "Agency / Consulting", "pct": 10.4 },
+    { "label": "Student / Between", "pct": 8.9 }
+  ]
+}
