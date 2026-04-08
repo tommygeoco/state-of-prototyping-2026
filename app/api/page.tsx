@@ -126,13 +126,9 @@ data = pd.read_json(url)
 vibe = pd.DataFrame(data["vibe_by_role"]["data"])
 print(vibe.sort_values("pct", ascending=False))`} />
           </Disclosure>
-        </div>
-      </section>
 
-      {/* ── Response example ── */}
-      <section style={{ marginBottom: 40 }}>
-        <Disclosure title="Example response — /api/v1/stats/vibe-by-role">
-          <CodeBlock code={`{
+          <Disclosure title="Example response — /api/v1/stats/vibe-by-role">
+            <CodeBlock code={`{
   "question": "Q7 × Q2 cross-tab — Vibe coding 50%+ by role",
   "n_total": 1478,
   "metric": "pct_spending_50pct_plus_on_vibe_coding",
@@ -145,7 +141,8 @@ print(vibe.sort_values("pct", ascending=False))`} />
     { "role": "Researcher", "n": 23, "pct": 26.1 }
   ]
 }`} />
-        </Disclosure>
+          </Disclosure>
+        </div>
       </section>
     </>
   )
