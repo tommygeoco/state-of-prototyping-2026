@@ -1,0 +1,48 @@
+{
+  "question": "Key headline numbers from the State of Prototyping Spring 2026 survey",
+  "n_total": 1478,
+  "data": [
+    {
+      "key": "total_responses",
+      "label": "Total responses",
+      "value": 1478,
+      "unit": "count"
+    },
+    {
+      "key": "vibe_coding_50plus",
+      "label": "Designers vibe coding 50%+ of their output",
+      "value": 43.8,
+      "unit": "pct"
+    },
+    {
+      "key": "built_tool_with_ai",
+      "label": "Built a custom tool with AI-generated code",
+      "value": 59.0,
+      "unit": "pct"
+    },
+    {
+      "key": "generate_code_ai",
+      "label": "Use AI or no-code to generate code in workflow",
+      "value": 63.1,
+      "unit": "pct"
+    },
+    {
+      "key": "non_na_respondents",
+      "label": "Respondents outside North America",
+      "value": 61.4,
+      "unit": "pct"
+    },
+    {
+      "key": "ai_invest_next_12mo",
+      "label": "Expect more AI investment in the next 12 months",
+      "value": 64.0,
+      "unit": "pct"
+    },
+    {
+      "key": "satisfaction_delta",
+      "label": "Satisfaction gap between zero and nearly all vibe coding",
+      "value": 1.46,
+      "unit": "delta"
+    }
+  ]
+}

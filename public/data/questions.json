@@ -1,0 +1,93 @@
+{
+  "survey": "State of Prototyping Spring 2026",
+  "data": [
+    {
+      "id": "Q1",
+      "field": "work_context",
+      "question": "Work context (company size/type)",
+      "type": "single_select",
+      "options": "6 options",
+      "published": false
+    },
+    {
+      "id": "Q2",
+      "field": "role",
+      "question": "Role",
+      "type": "single_select",
+      "options": "6 options",
+      "published": true
+    },
+    {
+      "id": "Q3",
+      "field": "region",
+      "question": "Region",
+      "type": "single_select",
+      "options": "18 regions",
+      "published": false
+    },
+    {
+      "id": "Q4",
+      "field": "weekly_tools",
+      "question": "Top tools used weekly",
+      "type": "multi_select",
+      "options": "20+ tools",
+      "published": true
+    },
+    {
+      "id": "Q5",
+      "field": "code_in_workflow",
+      "question": "Code in workflow",
+      "type": "multi_select",
+      "options": "5 options",
+      "published": false
+    },
+    {
+      "id": "Q6",
+      "field": "investment_12mo",
+      "question": "Anticipated investment next 12 months",
+      "type": "multi_select",
+      "options": "10 options",
+      "published": false
+    },
+    {
+      "id": "Q7",
+      "field": "vibe_coding_ratio",
+      "question": "Vibe coding ratio (% AI-generated output)",
+      "type": "single_select",
+      "options": "5 tiers",
+      "published": true
+    },
+    {
+      "id": "Q8",
+      "field": "built_ai_tool",
+      "question": "Built own tool with AI-generated code",
+      "type": "single_select",
+      "options": "4 options",
+      "published": false
+    },
+    {
+      "id": "Q9",
+      "field": "ai_trust_level",
+      "question": "AI trust level",
+      "type": "single_select",
+      "options": "6 levels",
+      "published": false
+    },
+    {
+      "id": "Q10",
+      "field": "workflow_satisfaction",
+      "question": "Satisfaction with current workflow",
+      "type": "continuous_scale",
+      "options": "1-10 scale",
+      "published": true
+    },
+    {
+      "id": "Q11",
+      "field": "role_outlook",
+      "question": "Design role outlook (AI impact)",
+      "type": "single_select",
+      "options": "5 options",
+      "published": true
+    }
+  ]
+}

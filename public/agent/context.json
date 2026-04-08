@@ -1,0 +1,34 @@
+{
+  "survey_name": "State of Prototyping Spring 2026",
+  "base_url": "https://data.prototypingstate.com/api/v1",
+  "publisher": "UX Tools",
+  "license": "CC BY 4.0",
+  "key_facts": [
+    "n = 1,478 total responses",
+    "18 world regions with no country-level data",
+    "6 role categories",
+    "6 work context categories"
+  ],
+  "headlines": [
+    "43.8% of designers spend 50%+ of output time on AI-generated code (vibe coding)",
+    "Design engineers: 80.9% vibe code 50%+ while IC designers are at 35.0%",
+    "Satisfaction rises from 5.93/10 among zero-vibe respondents to 7.39/10 among heavy vibe coders",
+    "59.0% have built a custom tool with AI-generated code",
+    "63.1% use AI or no-code to generate code in their workflow"
+  ],
+  "data_caveats": [
+    "No individual microdata is published",
+    "Researcher (n=23) should be treated as directional only",
+    "Multi-select questions sum to more than 100%",
+    "Cross-tab percentages are calculated within each role's n"
+  ],
+  "endpoints": [
+    "GET /meta",
+    "GET /stats/headline",
+    "GET /stats/vibe-by-role",
+    "GET /stats/satisfaction",
+    "GET /stats/outlook",
+    "GET /stats/tools",
+    "GET /download/json"
+  ]
+}

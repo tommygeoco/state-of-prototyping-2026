@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-canvas: #fffbf7;
+  --bg-card: #ffffff;
+  --bg-card-inner: #fafaf8;
+  --bg-callout: #f5f4f0;
+  --border-card: #e8e6e1;
+  --border-grid: #edebe7;
+
+  --text-primary: #1a1918;
+  --text-body: #4a4844;
+  --text-secondary: #8a8680;
+  --text-accent: #a34b3a;
+
+  --accent: #c9624d;
+
+  --bar-1: #c9624d;
+  --bar-2: #6b6560;
+  --bar-3: rgba(107, 101, 96, 0.75);
+  --bar-4: rgba(107, 101, 96, 0.58);
+  --bar-5: rgba(107, 101, 96, 0.42);
+  --bar-6: rgba(107, 101, 96, 0.28);
+  --bar-7: rgba(107, 101, 96, 0.18);
+  --bar-secondary: #a09890;
+
+  --delta-bg: rgba(44, 41, 36, 0.08);
+  --delta-border: rgba(44, 41, 36, 0.12);
+  --delta-text: #4a4844;
+  --delta-arrow: #2c2924;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --card-pad: 40px;
+  --card-pad-hero: 56px;
+
+  --font-display: 'PP Fraktion Mono', var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-data: var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+
+  --content-width: 720px;
+  --page-width: 1440px;
+  --nav-height: 65px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--bg-canvas);
+  color: var(--text-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+pre,
+code {
+  font: inherit;
+}
+
+pre,
+code {
+  font-family: var(--font-data);
+}
+
+::selection {
+  background: rgba(201, 98, 77, 0.18);
+}
+
+@layer components {
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-md border border-transparent bg-[var(--accent)] px-4 py-3 text-sm font-medium text-white transition hover:opacity-90;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center rounded-md border border-border bg-card px-4 py-3 text-sm font-medium text-text-primary transition hover:border-text-secondary;
+  }
+
+  .chart-card {
+    @apply rounded-lg border border-border bg-card;
+    padding: var(--card-pad);
+  }
+
+  .chart-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .chart-callout {
+    background: var(--bg-callout);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-body);
+    margin-top: 16px;
+  }
+
+  .code-block {
+    @apply overflow-x-auto rounded-lg border border-border bg-card px-4 py-4 text-sm leading-6 text-text-body;
+  }
+}

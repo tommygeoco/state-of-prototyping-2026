@@ -1,0 +1,10 @@
+{
+  "question": "Q11 — Role outlook by role",
+  "metric_labels": ["more_valuable", "less_secure", "about_same"],
+  "data": [
+    { "role": "Design Engineer", "more_valuable": 50.0, "less_secure": 10.6, "about_same": 10.6 },
+    { "role": "Lead / Principal", "more_valuable": 43.2, "less_secure": 20.0, "about_same": 24.6 },
+    { "role": "Manager/Director", "more_valuable": 35.4, "less_secure": 23.6, "about_same": 22.4 },
+    { "role": "IC Designer", "more_valuable": 24.8, "less_secure": 32.4, "about_same": 21.7 }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "question": "Q10 — Mean workflow satisfaction (1–10) by Q7 vibe coding tier",
+  "n": 1477,
+  "data": [
+    { "tier": "None (0%)", "mean": 5.93 },
+    { "tier": "Occasionally", "mean": 6.12 },
+    { "tier": "About half", "mean": 6.83 },
+    { "tier": "Most of it", "mean": 7.16 },
+    { "tier": "Nearly all", "mean": 7.39 }
+  ],
+  "overall_mean": 6.49,
+  "delta": {
+    "value": 1.46,
+    "from_tier": "None",
+    "to_tier": "Nearly all"
+  }
+}

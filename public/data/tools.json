@@ -1,0 +1,16 @@
+{
+  "question": "Q4 — Top tools used weekly",
+  "n_total": 1478,
+  "data": [
+    { "tool": "Figma", "n": 1221, "pct": 82.6 },
+    { "tool": "Claude", "n": 751, "pct": 50.8 },
+    { "tool": "ChatGPT", "n": 712, "pct": 48.2 },
+    { "tool": "Claude Code", "n": 568, "pct": 38.4 },
+    { "tool": "Figma Make", "n": 514, "pct": 34.8 },
+    { "tool": "FigJam", "n": 502, "pct": 34.0 },
+    { "tool": "Slack", "n": 483, "pct": 32.7 },
+    { "tool": "Gemini", "n": 478, "pct": 32.3 },
+    { "tool": "Google Meet", "n": 366, "pct": 24.8 },
+    { "tool": "Notion", "n": 362, "pct": 24.5 }
+  ]
+}
