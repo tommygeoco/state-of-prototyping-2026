@@ -26,13 +26,13 @@ export function SatisfactionHeroDeltaChart({
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: 700,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
-          color: 'var(--text-secondary)',
-          lineHeight: '16px',
-          marginBottom: 24,
+          color: 'var(--text-muted)',
+          lineHeight: '14px',
+          marginBottom: 20,
         }}
       >
         The Satisfaction Gap
@@ -45,7 +45,7 @@ export function SatisfactionHeroDeltaChart({
           fontWeight: 700,
           lineHeight: 1,
           color: 'var(--text-primary)',
-          marginBottom: 12,
+          marginBottom: 10,
         }}
       >
         {overallMean.toFixed(1)}/10
@@ -55,8 +55,8 @@ export function SatisfactionHeroDeltaChart({
         style={{
           fontFamily: 'var(--font-body)',
           fontSize: 14,
-          color: 'var(--text-secondary)',
-          marginBottom: 20,
+          color: 'var(--text-body)',
+          marginBottom: 16,
         }}
       >
         overall mean workflow satisfaction
@@ -71,7 +71,7 @@ export function SatisfactionHeroDeltaChart({
           border: '1px solid var(--delta-border)',
           borderRadius: 24,
           padding: '8px 16px',
-          marginBottom: 20,
+          marginBottom: 16,
         }}
       >
         <span
@@ -79,7 +79,7 @@ export function SatisfactionHeroDeltaChart({
             fontFamily: 'var(--font-data)',
             fontSize: 15,
             fontWeight: 700,
-            color: 'var(--accent)',
+            color: 'var(--bar-1)',
           }}
         >
           ▲ +{delta.toFixed(2)}
@@ -93,7 +93,7 @@ export function SatisfactionHeroDeltaChart({
         style={{
           fontFamily: 'var(--font-body)',
           fontSize: 13,
-          color: 'var(--text-secondary)',
+          color: 'var(--text-muted)',
           lineHeight: '18px',
         }}
       >
@@ -106,7 +106,7 @@ export function SatisfactionHeroDeltaChart({
           fontSize: 10,
           fontWeight: 400,
           color: 'var(--text-secondary)',
-          marginTop: 16,
+          marginTop: 12,
         }}
       >
         State of Prototyping · Spring 2026 · n=1,477

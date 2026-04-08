@@ -21,13 +21,13 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: 700,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
-          color: 'var(--text-secondary)',
-          lineHeight: '16px',
-          marginBottom: 24,
+          color: 'var(--text-muted)',
+          lineHeight: '14px',
+          marginBottom: 20,
         }}
       >
         State of Prototyping · Spring 2026
@@ -40,7 +40,7 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
           fontWeight: 700,
           lineHeight: 1,
           color: 'var(--text-primary)',
-          marginBottom: 20,
+          marginBottom: 16,
         }}
       >
         {value}
@@ -54,9 +54,9 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
             fontWeight: 700,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: 'var(--accent)',
+            color: 'var(--bar-1)',
             lineHeight: '18px',
-            marginBottom: 20,
+            marginBottom: 16,
           }}
         >
           {accentLabel}
@@ -67,8 +67,8 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         style={{
           width: 60,
           height: 2,
-          background: 'var(--accent)',
-          marginBottom: 20,
+          background: 'var(--bar-1)',
+          marginBottom: 16,
         }}
       />
 
@@ -77,7 +77,7 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
           fontFamily: 'var(--font-body)',
           fontSize: 14,
           lineHeight: '22px',
-          color: 'var(--text-secondary)',
+          color: 'var(--text-body)',
           maxWidth: '32ch',
         }}
       >
@@ -88,11 +88,11 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         <div
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 12,
+            fontSize: 11,
             fontWeight: 400,
-            color: 'var(--text-secondary)',
-            lineHeight: '16px',
-            marginTop: 12,
+            color: 'var(--text-muted)',
+            lineHeight: '14px',
+            marginTop: 10,
           }}
         >
           {meta}
