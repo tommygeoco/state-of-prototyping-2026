@@ -12,8 +12,6 @@ interface SegmentedDistributionChartProps {
 }
 
 export function SegmentedDistributionChart({ title, subtitle, distribution, callout, bare = false }: SegmentedDistributionChartProps) {
-  const maxPct = Math.max(...distribution.data.map((item) => item.pct))
-
   return (
     <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
@@ -23,7 +21,6 @@ export function SegmentedDistributionChart({ title, subtitle, distribution, call
             label={item.tier}
             pct={item.pct}
             rank={index + 1}
-            maxPct={maxPct}
             displayValue={`${item.pct.toFixed(1)}%`}
           />
         ))}

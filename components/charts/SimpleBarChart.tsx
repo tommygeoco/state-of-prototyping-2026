@@ -16,8 +16,6 @@ interface SimpleBarChartProps {
 }
 
 export function SimpleBarChart({ title, subtitle, items, callout, source, bare = false }: SimpleBarChartProps) {
-  const maxPct = Math.max(...items.map((item) => item.pct))
-
   return (
     <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
@@ -27,7 +25,6 @@ export function SimpleBarChart({ title, subtitle, items, callout, source, bare =
             label={item.label}
             pct={item.pct}
             rank={index + 1}
-            maxPct={maxPct}
             displayValue={`${item.pct.toFixed(1)}%`}
             accentWinner
           />

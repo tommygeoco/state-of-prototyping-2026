@@ -22,13 +22,11 @@ export function ComparativeSideBySideChart({
   callout,
   bare = false,
 }: ComparativeSideBySideChartProps) {
-  const maxPct = Math.max(leftValue, rightValue)
-
   return (
     <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
-        <HorizontalBarRow label={rightLabel} pct={rightValue} rank={1} maxPct={maxPct} displayValue={`${rightValue.toFixed(1)}%`} accentWinner />
-        <HorizontalBarRow label={leftLabel} pct={leftValue} rank={2} maxPct={maxPct} displayValue={`${leftValue.toFixed(1)}%`} />
+        <HorizontalBarRow label={rightLabel} pct={rightValue} rank={1} displayValue={`${rightValue.toFixed(1)}%`} accentWinner />
+        <HorizontalBarRow label={leftLabel} pct={leftValue} rank={2} displayValue={`${leftValue.toFixed(1)}%`} />
       </div>
       <div
         style={{

@@ -12,8 +12,6 @@ interface AdoptionBySegmentChartProps {
 }
 
 export function AdoptionBySegmentChart({ title, subtitle, items, callout, bare = false }: AdoptionBySegmentChartProps) {
-  const maxPct = Math.max(...items.map((item) => item.pct))
-
   return (
     <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
@@ -23,7 +21,6 @@ export function AdoptionBySegmentChart({ title, subtitle, items, callout, bare =
             label={item.role}
             pct={item.pct}
             rank={index + 1}
-            maxPct={maxPct}
             displayValue={`${item.pct.toFixed(1)}%`}
             accentWinner
           />

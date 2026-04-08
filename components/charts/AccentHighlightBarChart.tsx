@@ -12,8 +12,6 @@ interface AccentHighlightBarChartProps {
 }
 
 export function AccentHighlightBarChart({ title, subtitle, items, callout, bare = false }: AccentHighlightBarChartProps) {
-  const maxPct = Math.max(...items.map((item) => item.pct))
-
   return (
     <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
@@ -23,7 +21,6 @@ export function AccentHighlightBarChart({ title, subtitle, items, callout, bare 
             label={item.tool}
             pct={item.pct}
             rank={index + 1}
-            maxPct={maxPct}
             displayValue={`${item.pct.toFixed(1)}%`}
             accentWinner
           />
