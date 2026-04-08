@@ -10,20 +10,21 @@ interface ChartCardProps {
 export function ChartCard({ title, callout, children, bare = false }: ChartCardProps) {
   if (bare) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0%' }}>
-        <div className="chart-title" style={{ marginBottom: 16 }}>{title}</div>
-        <div style={{ flex: '1 1 0%' }}>{children}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0%', minHeight: 0 }}>
+        <div className="chart-title" style={{ marginBottom: 12 }}>{title}</div>
+        <div style={{ flex: '1 1 0%', minHeight: 0, overflow: 'auto' }}>{children}</div>
         {callout ? (
           <div
             style={{
               borderRadius: 6,
-              padding: '10px 14px',
-              background: 'var(--bg-callout)',
+              padding: '8px 12px',
+              background: '#F5F4F0',
               fontFamily: 'var(--font-body)',
-              fontSize: 12,
+              fontSize: 11,
               lineHeight: 1.5,
               color: 'var(--text-body)',
-              marginTop: 12,
+              marginTop: 10,
+              flexShrink: 0,
             }}
           >
             {callout}

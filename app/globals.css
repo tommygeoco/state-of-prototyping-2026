@@ -381,12 +381,131 @@ code {
   margin-top: 4px;
 }
 
-/* Social Card Container: documented in globals.css, implemented in SocialCardContainer.tsx
-   Source: Paper artboard 8MG-1 "Social Card Container"
-   Renders as a fluid 1:1 square (aspect-ratio: 1/1) at 100% column width.
-   Structure: outer #F7F6F3 bg → white card (flex-grow, border, radius, pad) → sponsor footer.
-   At 720px column width the card is 720×720. Screenshots at 2x = 1440×1440.
-   Proportions scaled from 1080px native: margins ~1.5%, padding ~3%, footer ~5%. */
+/* ── Social Card Container ──
+   Responsive 1:1 card. On desktop (720px column) = 720×720.
+   On mobile the aspect-ratio relaxes to auto so content isn't crushed. */
+
+.social-card-outer {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  background: #F7F6F3;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 32px 0;
+}
+
+.social-card-body {
+  flex: 1 1 0%;
+  margin: 16px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 24px;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid #E8E6E1;
+}
+
+.social-card-content {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0;
+}
+
+.social-card-footer {
+  height: 40px;
+  flex-shrink: 0;
+  margin: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 8px;
+  border-top: 1px solid #E8E6E1;
+}
+
+.social-card-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.social-card-footer-label {
+  font-family: var(--font-data);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 14px;
+  color: #8A8680;
+}
+
+.social-card-footer-sponsor {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.social-card-footer-brand {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1A1A1A;
+}
+
+@media (max-width: 600px) {
+  .social-card-outer {
+    aspect-ratio: auto;
+    min-height: 0;
+  }
+
+  .social-card-body {
+    margin: 12px 12px 0 12px;
+    padding: 16px;
+  }
+
+  .social-card-footer {
+    height: 36px;
+    margin: 0 12px;
+    padding-inline: 4px;
+  }
+
+  .chart-title {
+    font-size: 12px !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 12px !important;
+  }
+
+  .page-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .lead-text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .stats-strip {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .stats-strip-value {
+    font-size: 24px;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Utility Classes

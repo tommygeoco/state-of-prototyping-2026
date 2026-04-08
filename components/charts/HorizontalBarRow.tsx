@@ -7,14 +7,15 @@ interface HorizontalBarRowProps {
   accentWinner?: boolean
 }
 
-const colors = [
-  'var(--bar-1)',
-  'var(--bar-2)',
-  'var(--bar-3)',
-  'var(--bar-4)',
-  'var(--bar-5)',
-  'var(--bar-6)',
-  'var(--bar-7)',
+const ACCENT = '#C9624D'
+
+const grayRamp = [
+  '#6B6560',
+  'rgba(107, 101, 96, 0.75)',
+  'rgba(107, 101, 96, 0.58)',
+  'rgba(107, 101, 96, 0.42)',
+  'rgba(107, 101, 96, 0.28)',
+  'rgba(107, 101, 96, 0.18)',
 ]
 
 export function HorizontalBarRow({
@@ -25,19 +26,28 @@ export function HorizontalBarRow({
   maxPct = 100,
   accentWinner = false,
 }: HorizontalBarRowProps) {
-  const color = accentWinner && rank === 1 ? 'var(--accent)' : colors[Math.min(rank - 1, colors.length - 1)]
+  const isWinner = accentWinner && rank === 1
+  const barColor = isWinner ? ACCENT : grayRamp[Math.min(rank - 2, grayRamp.length - 1)] ?? grayRamp[0]
   const widthPct = Math.min((pct / maxPct) * 100, 100)
 
   return (
-    <div style={{ marginBottom: 6 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+    <div style={{ marginBottom: 8 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+          marginBottom: 4,
+          gap: 8,
+        }}
+      >
         <span
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: 13,
-            fontWeight: 500,
-            color: 'var(--text-primary)',
-            lineHeight: '16px',
+            fontWeight: isWinner ? 600 : 500,
+            color: isWinner ? '#1A1A1A' : 'var(--text-body)',
+            lineHeight: '18px',
           }}
         >
           {label}
@@ -46,9 +56,8 @@ export function HorizontalBarRow({
           style={{
             fontFamily: 'var(--font-data)',
             fontSize: 13,
-            fontWeight: 600,
-            color: 'var(--text-body)',
-            marginLeft: 12,
+            fontWeight: 700,
+            color: isWinner ? ACCENT : 'var(--text-body)',
             flexShrink: 0,
           }}
         >
@@ -58,8 +67,8 @@ export function HorizontalBarRow({
       <div
         style={{
           width: '100%',
-          height: 20,
-          background: 'var(--bg-callout)',
+          height: 16,
+          background: '#EDEBE7',
           borderRadius: 3,
           overflow: 'hidden',
         }}
@@ -68,8 +77,9 @@ export function HorizontalBarRow({
           style={{
             width: `${widthPct.toFixed(1)}%`,
             height: '100%',
-            background: color,
+            background: barColor,
             borderRadius: 3,
+            minWidth: 4,
           }}
         />
       </div>
