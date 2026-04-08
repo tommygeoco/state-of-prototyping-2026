@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import type { ReactNode } from 'react'
 
+import { sponsorLogos, sponsorLogoScale, UxToolsLogo } from '@/components/logos/SponsorLogos'
 import { sponsors } from '@/lib/site'
 
 interface SocialCardFrameProps {
@@ -17,24 +17,30 @@ export function SocialCardFrame({ children }: SocialCardFrameProps) {
         <div className="flex-1 p-5">
           <div className="h-full">{children}</div>
         </div>
-        <div className="mx-5 flex h-[80px] items-start justify-between border-t border-border pt-4">
-          <div>
-            <div className="font-display text-[12px] uppercase tracking-[0.12em] text-text-secondary">
+        <div className="mx-5 flex h-[80px] items-center justify-between border-t border-border">
+          <div className="flex items-center gap-3">
+            <span
+              style={{
+                fontFamily: 'var(--font-data)',
+                fontSize: 12,
+                fontWeight: 400,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                color: 'var(--text-secondary)',
+              }}
+            >
               Presented by
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {sponsors.slice(0, 3).map((sponsor) => (
-                <Image
-                  key={sponsor.slug}
-                  src={`/sponsors/${sponsor.slug}.svg`}
-                  alt={sponsor.name}
-                  width={112}
-                  height={28}
-                />
-              ))}
+            </span>
+            <div className="flex items-center gap-3">
+              {sponsors.slice(0, 3).map((sponsor) => {
+                const Logo = sponsorLogos[sponsor.name]
+                return Logo ? (
+                  <Logo key={sponsor.slug} style={{ height: 16 * (sponsorLogoScale[sponsor.name] ?? 1), width: 'auto', color: 'var(--text-primary)' }} />
+                ) : null
+              })}
             </div>
           </div>
-          <Image src="/sponsors/uxtools.svg" alt="UX Tools" width={132} height={32} />
+          <UxToolsLogo style={{ height: 16, width: 'auto', color: 'var(--text-primary)' }} />
         </div>
       </div>
     </div>

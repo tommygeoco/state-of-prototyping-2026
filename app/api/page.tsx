@@ -7,15 +7,16 @@ import { Disclosure } from '@/components/ui/disclosure'
 export const metadata = { title: 'API' }
 
 const endpoints = [
+  { method: 'GET', path: '/api/v1/responses', desc: 'All 1,478 responses (paginated)' },
+  { method: 'GET', path: '/api/v1/download/responses-csv', desc: 'Full response CSV' },
   { method: 'GET', path: '/api/v1/stats/tools', desc: 'Top 10 weekly tools' },
   { method: 'GET', path: '/api/v1/stats/vibe-by-role', desc: 'Vibe coding by role' },
   { method: 'GET', path: '/api/v1/stats/satisfaction', desc: 'Satisfaction by tier' },
   { method: 'GET', path: '/api/v1/stats/outlook', desc: 'Role outlook' },
   { method: 'GET', path: '/api/v1/stats/headline', desc: 'Headline numbers' },
   { method: 'GET', path: '/api/v1/meta', desc: 'Survey metadata' },
-  { method: 'GET', path: '/api/v1/questions', desc: 'Question list' },
-  { method: 'GET', path: '/api/v1/download/json', desc: 'Full dataset' },
-  { method: 'GET', path: '/api/v1/download/csv', desc: 'CSV export' },
+  { method: 'GET', path: '/api/v1/download/json', desc: 'Summary tables JSON' },
+  { method: 'GET', path: '/api/v1/download/csv', desc: 'Summary tables CSV' },
   { method: 'POST', path: '/api/v1/agent/query', desc: 'Natural language' },
 ]
 

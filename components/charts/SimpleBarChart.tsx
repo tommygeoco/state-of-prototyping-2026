@@ -10,14 +10,12 @@ interface SimpleBarChartProps {
   title: string
   subtitle?: string
   items: SimpleBarDatum[]
-  callout: string
-  source?: string
   bare?: boolean
 }
 
-export function SimpleBarChart({ title, subtitle, items, callout, source, bare = false }: SimpleBarChartProps) {
+export function SimpleBarChart({ title, subtitle, items, bare = false }: SimpleBarChartProps) {
   return (
-    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} bare={bare}>
       <div>
         {items.map((item, index) => (
           <HorizontalBarRow
@@ -30,21 +28,6 @@ export function SimpleBarChart({ title, subtitle, items, callout, source, bare =
           />
         ))}
       </div>
-      {source ? (
-        <div
-          style={{
-            marginTop: 12,
-            paddingTop: 8,
-            borderTop: '1px solid var(--border-grid)',
-            fontFamily: 'var(--font-data)',
-            fontSize: 14,
-            color: 'var(--text-secondary)',
-            letterSpacing: '0.02em',
-          }}
-        >
-          {source}
-        </div>
-      ) : null}
     </ChartCard>
   )
 }

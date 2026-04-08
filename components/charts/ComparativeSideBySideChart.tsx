@@ -8,7 +8,6 @@ interface ComparativeSideBySideChartProps {
   leftValue: number
   rightLabel: string
   rightValue: number
-  callout: string
   bare?: boolean
 }
 
@@ -19,27 +18,13 @@ export function ComparativeSideBySideChart({
   leftValue,
   rightLabel,
   rightValue,
-  callout,
   bare = false,
 }: ComparativeSideBySideChartProps) {
   return (
-    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} bare={bare}>
       <div>
         <HorizontalBarRow label={rightLabel} pct={rightValue} rank={1} displayValue={`${rightValue.toFixed(1)}%`} accentWinner />
         <HorizontalBarRow label={leftLabel} pct={leftValue} rank={2} displayValue={`${leftValue.toFixed(1)}%`} />
-      </div>
-      <div
-        style={{
-          marginTop: 12,
-          paddingTop: 8,
-          borderTop: '1px solid var(--border-grid)',
-          fontFamily: 'var(--font-data)',
-          fontSize: 14,
-          color: 'var(--text-secondary)',
-          letterSpacing: '0.02em',
-        }}
-      >
-        State of Prototyping · Spring 2026 · n=1,478
       </div>
     </ChartCard>
   )

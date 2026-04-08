@@ -34,48 +34,51 @@ interface SocialPageProps {
   params: { slug: string }
 }
 
+async function renderChart(slug: SocialSlug): Promise<ReactNode> {
+  switch (slug) {
+    case 'hero':
+      return (
+        <HeroStatChart value="43.8%" label="of designers spend more than half their building time vibe coding" />
+      )
+    case 'tools': {
+      const tools = await loadTools()
+      return <AccentHighlightBarChart title="Top 10 Tools Used Every Week" items={tools.data} />
+    }
+    case 'vibe-by-role': {
+      const vibeByRole = await loadVibeByRole()
+      return <AdoptionBySegmentChart title="% Spending 50%+ Time Vibe Coding — By Role" items={vibeByRole.data} />
+    }
+    case 'ic-vs-de': {
+      const vibeByRole = await loadVibeByRole()
+      const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
+      const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
+      return <ComparativeSideBySideChart title="50%+ Vibe Coding — IC vs DE" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} />
+    }
+    case 'outlook': {
+      const outlook = await loadOutlook()
+      return <GroupedComparisonChart title="Role Outlook — More Valuable vs. Less Secure" items={outlook.data} />
+    }
+    case 'distribution': {
+      const vibeDistribution = await loadVibeDistribution()
+      return <SegmentedDistributionChart title="Vibe Coding Distribution — All Respondents" distribution={vibeDistribution} />
+    }
+    case 'satisfaction': {
+      const satisfaction = await loadSatisfaction()
+      return <DualAxisChart title="Workflow Satisfaction by Vibe Coding Level (Mean / 10)" satisfaction={satisfaction} />
+    }
+    case 'satisfaction-delta': {
+      const satisfaction = await loadSatisfaction()
+      return <SatisfactionHeroDeltaChart overallMean={satisfaction.overall_mean} delta={satisfaction.delta.value} fromTier={satisfaction.delta.from_tier} toTier={satisfaction.delta.to_tier} />
+    }
+  }
+}
+
 export default async function SocialPage({ params }: SocialPageProps) {
   if (!socialSlugs.includes(params.slug as SocialSlug)) {
     notFound()
   }
 
-  const [outlook, satisfaction, tools, vibeByRole, vibeDistribution] = await Promise.all([
-    loadOutlook(),
-    loadSatisfaction(),
-    loadTools(),
-    loadVibeByRole(),
-    loadVibeDistribution(),
-  ])
+  const chart = await renderChart(params.slug as SocialSlug)
 
-  const icDesigner = vibeByRole.data.find((item) => item.role === 'IC Designer')
-  const designEngineer = vibeByRole.data.find((item) => item.role === 'Design Engineer')
-
-  const socialCharts: Record<SocialSlug, ReactNode> = {
-    hero: (
-      <HeroStatChart value="43.8%" label="of designers spend more than half their building time vibe coding" />
-    ),
-    tools: (
-      <AccentHighlightBarChart title="Top 10 Tools Used Every Week" items={tools.data} callout="Figma #1, Claude #2, ChatGPT #3." />
-    ),
-    'vibe-by-role': (
-      <AdoptionBySegmentChart title="% Spending 50%+ Time Vibe Coding — By Role" items={vibeByRole.data} callout="Design engineers lead at 80.9%." />
-    ),
-    'ic-vs-de': (
-      <ComparativeSideBySideChart title="50%+ Vibe Coding — IC vs DE" leftLabel="IC Designer" leftValue={icDesigner?.pct ?? 35.0} rightLabel="Design Engineer" rightValue={designEngineer?.pct ?? 80.9} callout="46-point gap." />
-    ),
-    outlook: (
-      <GroupedComparisonChart title="Role Outlook — More Valuable vs. Less Secure" items={outlook.data} callout="Confidence tracks with implementation exposure." />
-    ),
-    distribution: (
-      <SegmentedDistributionChart title="Vibe Coding Distribution — All Respondents" distribution={vibeDistribution} callout="38% do zero. 31% say most or all." />
-    ),
-    satisfaction: (
-      <DualAxisChart title="Workflow Satisfaction by Vibe Coding Level (Mean / 10)" satisfaction={satisfaction} callout={`${satisfaction.overall_mean.toFixed(1)}/10 overall mean.`} />
-    ),
-    'satisfaction-delta': (
-      <SatisfactionHeroDeltaChart overallMean={satisfaction.overall_mean} delta={satisfaction.delta.value} fromTier={satisfaction.delta.from_tier} toTier={satisfaction.delta.to_tier} />
-    ),
-  }
-
-  return <SocialCardFrame>{socialCharts[params.slug as SocialSlug]}</SocialCardFrame>
+  return <SocialCardFrame>{chart}</SocialCardFrame>
 }

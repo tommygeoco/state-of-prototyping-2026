@@ -48,13 +48,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'PP Fraktion Mono';
-  src: url('/fonts/PPFraktionMono-Black.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Design System Tokens
@@ -374,19 +367,6 @@ code {
   margin: 0;
 }
 
-/* In-card callout: 3px left accent border (article callout style) */
-.chart-callout {
-  background: var(--bg-callout);
-  border-left: 3px solid var(--accent);
-  border-radius: 0;
-  padding: 16px 20px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-body);
-  margin: 24px 0 0 0;
-}
-
 /* Pull quote: 3px left accent border, 20px left padding (article 6ED-0) */
 .pull-quote {
   border-left: 3px solid var(--accent);
@@ -447,6 +427,8 @@ code {
   border-radius: 12px;
   overflow: hidden;
   margin: 32px 0;
+  position: relative;
+  scroll-margin-top: calc(var(--nav-height) + 16px);
 }
 
 .social-card-body {
@@ -467,7 +449,7 @@ code {
 }
 
 .social-card-footer {
-  height: 40px;
+  height: 56px;
   flex-shrink: 0;
   margin: 0 16px;
   display: flex;
@@ -521,7 +503,7 @@ code {
   }
 
   .social-card-footer {
-    height: 36px;
+    height: 48px;
     margin: 0 12px;
     padding-inline: 4px;
   }
@@ -554,6 +536,95 @@ code {
 
   .stats-strip-value {
     font-size: 24px;
+  }
+}
+
+/* ── Chart Action Buttons ──
+   Appear top-right on hover. Hidden during image capture via html-to-image. */
+
+.chart-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  pointer-events: none;
+}
+
+.chart-hover-target:hover .chart-actions,
+.chart-hover-target:focus-within .chart-actions {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.chart-action-btn {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms, background 150ms;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.chart-action-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.chart-action-btn:active {
+  transform: scale(0.95);
+}
+
+.chart-action-tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  white-space: nowrap;
+  font-family: var(--font-data);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--text-primary);
+  color: var(--bg-canvas);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.chart-action-btn:hover .chart-action-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .chart-actions {
+    top: 6px;
+    right: 6px;
+  }
+
+  .chart-action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .chart-action-tooltip {
+    display: none;
   }
 }
 

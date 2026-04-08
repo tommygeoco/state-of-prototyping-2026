@@ -2,10 +2,9 @@ interface HeroStatChartProps {
   value: string
   label: string
   accentLabel?: string
-  meta?: string
 }
 
-export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChartProps) {
+export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps) {
   return (
     <div
       style={{
@@ -18,21 +17,6 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         padding: '24px 16px',
       }}
     >
-      <div
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 14,
-          fontWeight: 700,
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          color: 'var(--text-muted)',
-          lineHeight: '14px',
-          marginBottom: 20,
-        }}
-      >
-        State of Prototyping · Spring 2026
-      </div>
-
       <div
         style={{
           fontFamily: 'var(--font-display)',
@@ -84,20 +68,6 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         {label}
       </div>
 
-      {meta ? (
-        <div
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 14,
-            fontWeight: 400,
-            color: 'var(--text-muted)',
-            lineHeight: '14px',
-            marginTop: 10,
-          }}
-        >
-          {meta}
-        </div>
-      ) : null}
     </div>
   )
 }

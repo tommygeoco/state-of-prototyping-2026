@@ -100,17 +100,6 @@ export function SatisfactionHeroDeltaChart({
         {fromTier}: 5.93 → {toTier}: 7.39
       </div>
 
-      <div
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 14,
-          fontWeight: 400,
-          color: 'var(--text-secondary)',
-          marginTop: 12,
-        }}
-      >
-        State of Prototyping · Spring 2026 · n=1,477
-      </div>
     </div>
   )
 }

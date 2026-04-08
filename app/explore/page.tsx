@@ -1,14 +1,31 @@
+import dynamic from 'next/dynamic'
+
 import { AccentHighlightBarChart } from '@/components/charts/AccentHighlightBarChart'
-import { AdoptionBySegmentChart } from '@/components/charts/AdoptionBySegmentChart'
-import { ComparativeSideBySideChart } from '@/components/charts/ComparativeSideBySideChart'
-import { DualAxisChart } from '@/components/charts/DualAxisChart'
-import { GroupedComparisonChart } from '@/components/charts/GroupedComparisonChart'
-import { HeroStatChart } from '@/components/charts/HeroStatChart'
-import { SatisfactionHeroDeltaChart } from '@/components/charts/SatisfactionHeroDeltaChart'
-import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
 import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
 import { loadBlockers, loadBuiltTool, loadCompanyContext, loadInvestingNext, loadOutlook, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange } from '@/lib/data/loaders'
+
+const AdoptionBySegmentChart = dynamic(() =>
+  import('@/components/charts/AdoptionBySegmentChart').then((m) => m.AdoptionBySegmentChart),
+)
+const ComparativeSideBySideChart = dynamic(() =>
+  import('@/components/charts/ComparativeSideBySideChart').then((m) => m.ComparativeSideBySideChart),
+)
+const DualAxisChart = dynamic(() =>
+  import('@/components/charts/DualAxisChart').then((m) => m.DualAxisChart),
+)
+const GroupedComparisonChart = dynamic(() =>
+  import('@/components/charts/GroupedComparisonChart').then((m) => m.GroupedComparisonChart),
+)
+const HeroStatChart = dynamic(() =>
+  import('@/components/charts/HeroStatChart').then((m) => m.HeroStatChart),
+)
+const SatisfactionHeroDeltaChart = dynamic(() =>
+  import('@/components/charts/SatisfactionHeroDeltaChart').then((m) => m.SatisfactionHeroDeltaChart),
+)
+const SegmentedDistributionChart = dynamic(() =>
+  import('@/components/charts/SegmentedDistributionChart').then((m) => m.SegmentedDistributionChart),
+)
 
 export const metadata = {
   title: 'State of Prototyping: Spring 2026',
@@ -66,13 +83,11 @@ export default async function ExplorePage() {
           and Southeast Asia (7.3%) are the largest non-US regions. This is a global read on how
           design practitioners work.
         </p>
-        <SocialCardContainer sponsor="MagicPatterns">
+        <SocialCardContainer sponsor="MagicPatterns" anchorId="where-designers-work">
           <SimpleBarChart
             title="Where Designers Work"
             subtitle="Company size and work setting — 1,478 respondents, Spring 2026"
             items={companyContext.data}
-            callout="Startup-heavy, indie-strong. Nearly half the sample is at a startup or working independently — the cohort most likely to move fast on new tools."
-            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -91,12 +106,11 @@ export default async function ExplorePage() {
           alongside it in the weekly rotation. The traditional design tool stack has been
           restructured from the inside.
         </p>
-        <SocialCardContainer sponsor="Dazl">
+        <SocialCardContainer sponsor="Dazl" anchorId="top-10-weekly-tools">
           <AccentHighlightBarChart
             title="5 of the Top 10 Weekly Tools Are Now AI"
             subtitle="What designers use every week — % of respondents"
             items={tools.data}
-            callout="Claude is the #2 tool after Figma — 50.8% weekly use. Claude Code at #4 (38.4%) ranks above FigJam and Slack."
             bare
           />
         </SocialCardContainer>
@@ -117,24 +131,22 @@ export default async function ExplorePage() {
         <p className="body-text" style={{ marginBottom: 16 }}>
           The answer landed in three roughly equal camps. The profession has split into thirds.
         </p>
-        <SocialCardContainer sponsor="MagicPath" centered>
+        <SocialCardContainer sponsor="MagicPath" centered anchorId="vibe-coding-hero">
           <HeroStatChart
             value="43.8%"
             accentLabel="Vibe Coding 50%+"
             label="of designers now spend more than half their building time on AI-generated code"
-            meta="State of Prototyping · Spring 2026 · n=1,478"
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
           43.8% spend 50%+ time vibe coding. 31.2% say most or nearly all. The 38% doing zero
           is the more surprising number — the hype has outpaced adoption at the tail.
         </p>
-        <SocialCardContainer sponsor="Framer">
+        <SocialCardContainer sponsor="Framer" anchorId="vibe-coding-distribution">
           <SegmentedDistributionChart
             title="The Profession Has Split Into Thirds"
             subtitle="How much of your building time is AI-generated code?"
             distribution={vibeDistribution}
-            callout="38% do zero. 31% say most or all. The 38% doing zero is the more surprising number — the hype has outpaced adoption at the tail."
             bare
           />
         </SocialCardContainer>
@@ -153,12 +165,11 @@ export default async function ExplorePage() {
           Same profession. Different reality. The vibe coding split isn&apos;t random — it maps
           almost perfectly to role type.
         </p>
-        <SocialCardContainer sponsor="dscout">
+        <SocialCardContainer sponsor="dscout" anchorId="vibe-by-role">
           <AdoptionBySegmentChart
             title="An 81% vs 35% Split in the Same Design Org"
             subtitle="% spending 50%+ of building time on AI-generated code, by role"
             items={vibeByRole.data}
-            callout={`Design engineers: ${designEngineer?.pct.toFixed(1)}%. IC designers: ${icDesigner?.pct.toFixed(1)}%. A 46-point gap.`}
             bare
           />
         </SocialCardContainer>
@@ -166,7 +177,7 @@ export default async function ExplorePage() {
           The managers-at-47% number is telling. Vibe coding didn&apos;t just serve engineers — it
           gave managers and non-designers an exit from prototyping constraints they&apos;ve always had.
         </p>
-        <SocialCardContainer sponsor="MagicPatterns">
+        <SocialCardContainer sponsor="MagicPatterns" anchorId="ic-vs-design-engineer">
           <ComparativeSideBySideChart
             title="Same Profession, Different Reality"
             subtitle="% spending 50%+ time on AI-generated code"
@@ -174,7 +185,6 @@ export default async function ExplorePage() {
             leftValue={icDesigner?.pct ?? 35.0}
             rightLabel="Design Engineer"
             rightValue={designEngineer?.pct ?? 80.9}
-            callout="Design engineers are already working in conditions that reward heavy AI code generation."
             bare
           />
         </SocialCardContainer>
@@ -193,13 +203,11 @@ export default async function ExplorePage() {
           something for yourself — not a product, just a thing that solves your own problem — has
           unlocked a new kind of creative leverage.
         </p>
-        <SocialCardContainer sponsor="Framer">
+        <SocialCardContainer sponsor="Framer" anchorId="built-own-tool">
           <SimpleBarChart
             title="59% of Designers Have Built Their Own AI Tool"
             subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
             items={builtTool.data}
-            callout="30% want to but haven't yet. Only 10.5% have no plans to. The intent-to-try cohort is 3x the never-will cohort."
-            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -221,13 +229,11 @@ export default async function ExplorePage() {
           We&apos;re in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line isn&apos;t whether AI
           works. It&apos;s how much cleanup it takes before it&apos;s usable.
         </p>
-        <SocialCardContainer sponsor="Mobbin">
+        <SocialCardContainer sponsor="Mobbin" anchorId="trust-level">
           <SimpleBarChart
             title="Only 1.4% Trust AI Output Without Oversight"
             subtitle="How far do you trust AI-generated output in your workflow?"
             items={trustLevel.data}
-            callout="34% trust it for production with review. Independents lead at 42%. Enterprise is lowest at 31%."
-            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -241,13 +247,11 @@ export default async function ExplorePage() {
           The top 3 blockers are within 3 percentage points of each other. That&apos;s not noise —
           that&apos;s signal. Three simultaneous problems, nearly identical in size.
         </p>
-        <SocialCardContainer sponsor="dscout">
+        <SocialCardContainer sponsor="dscout" anchorId="top-blockers">
           <SimpleBarChart
             title="The Top 3 Blockers Are Within 3 Points of Each Other"
             subtitle="What's slowing down your workflow the most?"
             items={blockers.data}
-            callout="The problem isn't that AI doesn't work. It's time, too many options, and unreliable output — all nearly tied."
-            source="State of Prototyping · Spring 2026 · n=1,478 · multi-select"
             bare
           />
         </SocialCardContainer>
@@ -266,13 +270,11 @@ export default async function ExplorePage() {
           Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap
           that maps directly to policy and procurement friction.
         </p>
-        <SocialCardContainer sponsor="Dazl">
+        <SocialCardContainer sponsor="Dazl" anchorId="workflow-change">
           <SimpleBarChart
             title="71% Have Added AI or Gone AI-Central in 6 Months"
             subtitle="How has your design workflow changed since late 2025?"
             items={workflowChange.data}
-            callout="Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap."
-            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -287,12 +289,11 @@ export default async function ExplorePage() {
           Researchers are the most anxious. The gap between those two groups is the sharpest
           finding in the survey.
         </p>
-        <SocialCardContainer sponsor="Mobbin">
+        <SocialCardContainer sponsor="Mobbin" anchorId="role-outlook">
           <GroupedComparisonChart
             title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk."
             subtitle="How do you think AI will affect your role in the next 2 years?"
             items={outlook.data}
-            callout="39.1% of researchers feel less secure — highest in the survey. Design engineers invert that: 50% more valuable, only 11% less secure."
             bare
           />
         </SocialCardContainer>
@@ -317,13 +318,11 @@ export default async function ExplorePage() {
           automating repetitive work. Design systems at 40% shows the systems layer isn&apos;t dead —
           it&apos;s getting more important as implementation gets easier.
         </p>
-        <SocialCardContainer sponsor="MagicPath">
+        <SocialCardContainer sponsor="MagicPath" anchorId="investing-next">
           <SimpleBarChart
             title="2 of the Top 3 Investment Areas Are AI"
             subtitle="Where are you investing your time in the next 12 months? (pick 3)"
             items={investingNext.data}
-            callout="64% say AI coding. 46% say agent workflows. Design systems at 40% — the only non-AI holdout in the top tier."
-            source="State of Prototyping · Spring 2026 · n=1,478 · pick 3"
             bare
           />
         </SocialCardContainer>
@@ -337,12 +336,11 @@ export default async function ExplorePage() {
           1.5 points separates the floor from the ceiling. Both are people with the same job
           title. The difference is how much of their workflow runs on AI.
         </p>
-        <SocialCardContainer sponsor="dscout">
+        <SocialCardContainer sponsor="dscout" anchorId="satisfaction-by-vibe">
           <DualAxisChart
             title="Heavier Vibe Coders Are More Satisfied"
             subtitle="Mean workflow satisfaction (1–10) by vibe coding level"
             satisfaction={satisfaction}
-            callout={`${satisfaction.overall_mean.toFixed(1)}/10 overall mean. The curve is nearly perfectly linear with adoption.`}
             bare
           />
         </SocialCardContainer>
@@ -350,7 +348,7 @@ export default async function ExplorePage() {
           This isn&apos;t proof that vibe coding causes satisfaction. The causality likely runs both
           ways. But the correlation is strong enough to take seriously.
         </p>
-        <SocialCardContainer sponsor="Framer" centered>
+        <SocialCardContainer sponsor="Framer" centered anchorId="satisfaction-delta">
           <SatisfactionHeroDeltaChart
             overallMean={satisfaction.overall_mean}
             delta={satisfaction.delta.value}

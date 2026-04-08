@@ -3,8 +3,17 @@
   "base_url": "https://survey.uxtools.co/api/v1",
   "publisher": "UX Tools",
   "license": "CC BY 4.0",
+  "full_dataset_url": "https://survey.uxtools.co/api/v1/responses",
+  "full_csv_url": "https://survey.uxtools.co/api/v1/download/responses-csv",
+  "total_responses": 1478,
+  "columns": [
+    "work_context", "role_seat", "region", "design_tools", "code_in_workflow",
+    "anticipated_investment", "vibe_coding_ratio", "built_own_tool", "ai_trust",
+    "blockers", "workflow_shift", "role_outlook", "workflow_satisfaction"
+  ],
+  "de_identification": "Emails removed, timestamps removed, row order shuffled",
   "key_facts": [
-    "n = 1,478 total responses",
+    "n = 1,478 total responses (full individual microdata available)",
     "18 world regions with no country-level data",
     "6 role categories",
     "6 work context categories"
@@ -17,18 +26,21 @@
     "63.1% use AI or no-code to generate code in their workflow"
   ],
   "data_caveats": [
-    "No individual microdata is published",
+    "Full individual microdata is published (de-identified)",
     "Researcher (n=23) should be treated as directional only",
     "Multi-select questions sum to more than 100%",
     "Cross-tab percentages are calculated within each role's n"
   ],
   "endpoints": [
+    "GET /responses — full individual responses (paginated)",
+    "GET /download/responses-csv — all 1,478 responses as CSV",
     "GET /meta",
     "GET /stats/headline",
     "GET /stats/vibe-by-role",
     "GET /stats/satisfaction",
     "GET /stats/outlook",
     "GET /stats/tools",
-    "GET /download/json"
+    "GET /download/json — summary tables",
+    "POST /agent/query — natural language"
   ]
 }

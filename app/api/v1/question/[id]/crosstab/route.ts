@@ -1,4 +1,5 @@
 import { loadQuestions, loadVibeByRole } from '@/lib/data/loaders'
+import { cacheHeaders } from '@/lib/api/headers'
 
 interface RouteContext {
   params: {
@@ -12,7 +13,7 @@ export async function GET(request: Request, { params }: RouteContext) {
   const by = searchParams.get('by')?.toLowerCase()
 
   if (id === 'Q7' && by === 'role') {
-    return Response.json(await loadVibeByRole())
+    return Response.json(await loadVibeByRole(), { headers: cacheHeaders })
   }
 
   const questions = await loadQuestions()

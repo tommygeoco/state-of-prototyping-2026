@@ -1,4 +1,5 @@
 import { loadQuestionById, loadQuestions } from '@/lib/data/loaders'
+import { cacheHeaders } from '@/lib/api/headers'
 
 interface RouteContext {
   params: {
@@ -11,7 +12,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
   const result = await loadQuestionById(id)
 
   if (result) {
-    return Response.json(result)
+    return Response.json(result, { headers: cacheHeaders })
   }
 
   const questions = await loadQuestions()

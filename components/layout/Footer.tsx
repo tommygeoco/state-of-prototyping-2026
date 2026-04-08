@@ -1,3 +1,4 @@
+import { sponsorLogos, sponsorLogoScale } from '@/components/logos/SponsorLogos'
 import { sponsors } from '@/lib/site'
 
 export function Footer() {
@@ -13,27 +14,38 @@ export function Footer() {
           was supported by our Spring 2026 sponsors.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
-          {sponsors.map((sponsor) => (
-            <a
-              key={sponsor.slug}
-              href={sponsor.url}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                fontFamily: 'var(--font-data)',
-                fontSize: 14,
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-card)',
-                borderRadius: 8,
-                padding: '10px 20px',
-                textDecoration: 'none',
-              }}
-            >
-              {sponsor.name}
-            </a>
-          ))}
+          {sponsors.map((sponsor) => {
+            const Logo = sponsorLogos[sponsor.name]
+            return (
+              <a
+                key={sponsor.slug}
+                href={sponsor.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={sponsor.name}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--text-primary)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 8,
+                  padding: '10px 20px',
+                  textDecoration: 'none',
+                  minHeight: 44,
+                }}
+              >
+                {Logo ? (
+                  <Logo style={{ height: 18 * (sponsorLogoScale[sponsor.name] ?? 1), width: 'auto' }} />
+                ) : (
+                  <span style={{ fontFamily: 'var(--font-data)', fontSize: 14, fontWeight: 700 }}>
+                    {sponsor.name}
+                  </span>
+                )}
+              </a>
+            )
+          })}
         </div>
       </section>
 

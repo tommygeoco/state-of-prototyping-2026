@@ -6,8 +6,9 @@ Open dataset from the State of Prototyping survey. 1,478 designers across 18 reg
 
 ## What's here
 
+- **Full microdata** — 1,478 individual responses, de-identified (emails/timestamps removed, rows shuffled)
 - **Report** — 12-section editorial article with live charts at `/explore`
-- **Open data** — CSV and JSON downloads of all summary tables
+- **Summary tables** — pre-aggregated percentages and cross-tabs
 - **REST API** — query endpoints at `/api/v1/*`, no auth required
 - **Agent tools** — natural language query endpoint, LLM context file, tool definitions
 
@@ -53,10 +54,12 @@ Requires Node 18+. No database — all data lives in `public/data/*.json`.
 
 ## Data files
 
-All in `public/data/`:
+All in `public/data/`. The primary dataset is `responses.csv` / `responses.json` with all 1,478 individual responses. Summary tables are pre-aggregated for chart rendering.
 
 | File | Contents |
 |---|---|
+| `responses.csv` | **All 1,478 individual responses** (13 columns, de-identified) |
+| `responses.json` | Same as above, JSON array |
 | `tools.json` | Top 10 weekly tools (Q4) |
 | `vibe-distribution.json` | Vibe coding tier breakdown (Q7) |
 | `vibe-by-role.json` | 50%+ vibe coding by role (Q7×Q2) |
@@ -77,6 +80,8 @@ All in `public/data/`:
 
 | Method | Path | Description |
 |---|---|---|
+| GET | `/api/v1/responses` | **All 1,478 responses** (paginated, `?limit=100&offset=0`) |
+| GET | `/api/v1/download/responses-csv` | Full response CSV download |
 | GET | `/api/v1/stats/tools` | Top 10 weekly tools |
 | GET | `/api/v1/stats/vibe-by-role` | Vibe coding by role |
 | GET | `/api/v1/stats/satisfaction` | Satisfaction by tier |

@@ -84,15 +84,38 @@ paths:
       responses:
         "200":
           description: More valuable / less secure / about same metrics by role
+  /responses:
+    get:
+      summary: Full individual response data (1,478 rows, de-identified)
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 100
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+      responses:
+        "200":
+          description: Paginated array of individual survey responses
+  /download/responses-csv:
+    get:
+      summary: Download all 1,478 individual responses as CSV
+      responses:
+        "200":
+          description: CSV file with 13 columns, no PII
   /download/json:
     get:
-      summary: Full summary dataset as JSON
+      summary: Summary tables as JSON (pre-aggregated)
       responses:
         "200":
           description: Downloadable JSON dataset
   /download/csv:
     get:
-      summary: Full summary dataset as CSV
+      summary: Summary tables as CSV (pre-aggregated)
       responses:
         "200":
           description: Downloadable CSV dataset

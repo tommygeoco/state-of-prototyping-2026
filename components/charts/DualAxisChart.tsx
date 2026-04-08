@@ -7,16 +7,15 @@ interface DualAxisChartProps {
   title: string
   subtitle?: string
   satisfaction: SatisfactionResponse
-  callout: string
   bare?: boolean
 }
 
-export function DualAxisChart({ title, subtitle, satisfaction, callout, bare = false }: DualAxisChartProps) {
+export function DualAxisChart({ title, subtitle, satisfaction, bare = false }: DualAxisChartProps) {
   const maxMean = 10
   const reversed = [...satisfaction.data].reverse()
 
   return (
-    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} bare={bare}>
       <div>
         {reversed.map((item, index) => (
           <HorizontalBarRow
@@ -29,19 +28,6 @@ export function DualAxisChart({ title, subtitle, satisfaction, callout, bare = f
             accentWinner
           />
         ))}
-      </div>
-      <div
-        style={{
-          marginTop: 12,
-          paddingTop: 8,
-          borderTop: '1px solid var(--border-grid)',
-          fontFamily: 'var(--font-data)',
-          fontSize: 14,
-          color: 'var(--text-secondary)',
-          letterSpacing: '0.02em',
-        }}
-      >
-        State of Prototyping · Spring 2026 · n=1,477
       </div>
     </ChartCard>
   )

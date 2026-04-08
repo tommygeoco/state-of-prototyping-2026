@@ -7,13 +7,12 @@ interface SegmentedDistributionChartProps {
   title: string
   subtitle?: string
   distribution: VibeDistributionResponse
-  callout: string
   bare?: boolean
 }
 
-export function SegmentedDistributionChart({ title, subtitle, distribution, callout, bare = false }: SegmentedDistributionChartProps) {
+export function SegmentedDistributionChart({ title, subtitle, distribution, bare = false }: SegmentedDistributionChartProps) {
   return (
-    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} bare={bare}>
       <div>
         {distribution.data.map((item, index) => (
           <HorizontalBarRow
@@ -24,19 +23,6 @@ export function SegmentedDistributionChart({ title, subtitle, distribution, call
             displayValue={`${item.pct.toFixed(1)}%`}
           />
         ))}
-      </div>
-      <div
-        style={{
-          marginTop: 12,
-          paddingTop: 8,
-          borderTop: '1px solid var(--border-grid)',
-          fontFamily: 'var(--font-data)',
-          fontSize: 14,
-          color: 'var(--text-secondary)',
-          letterSpacing: '0.02em',
-        }}
-      >
-        State of Prototyping · Spring 2026 · n=1,478
       </div>
     </ChartCard>
   )

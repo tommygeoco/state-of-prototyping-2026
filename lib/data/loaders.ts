@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { cache } from 'react'
 
 import type {
   AgentContext,
@@ -23,41 +24,29 @@ async function readJson<T>(directory: string, fileName: string): Promise<T> {
   return JSON.parse(contents) as T
 }
 
-export function loadMeta() {
-  return readJson<SurveyMeta>(dataDir, 'meta.json')
-}
+export const loadMeta = cache(() => readJson<SurveyMeta>(dataDir, 'meta.json'))
 
-export function loadQuestions() {
-  return readJson<QuestionsResponse>(dataDir, 'questions.json')
-}
+export const loadQuestions = cache(() => readJson<QuestionsResponse>(dataDir, 'questions.json'))
 
-export function loadHeadline() {
-  return readJson<HeadlineResponse>(dataDir, 'headline.json')
-}
+export const loadHeadline = cache(() => readJson<HeadlineResponse>(dataDir, 'headline.json'))
 
-export function loadRoleDistribution() {
-  return readJson<RoleDistributionResponse>(dataDir, 'role-distribution.json')
-}
+export const loadRoleDistribution = cache(() =>
+  readJson<RoleDistributionResponse>(dataDir, 'role-distribution.json'),
+)
 
-export function loadVibeDistribution() {
-  return readJson<VibeDistributionResponse>(dataDir, 'vibe-distribution.json')
-}
+export const loadVibeDistribution = cache(() =>
+  readJson<VibeDistributionResponse>(dataDir, 'vibe-distribution.json'),
+)
 
-export function loadVibeByRole() {
-  return readJson<VibeByRoleResponse>(dataDir, 'vibe-by-role.json')
-}
+export const loadVibeByRole = cache(() => readJson<VibeByRoleResponse>(dataDir, 'vibe-by-role.json'))
 
-export function loadSatisfaction() {
-  return readJson<SatisfactionResponse>(dataDir, 'satisfaction.json')
-}
+export const loadSatisfaction = cache(() =>
+  readJson<SatisfactionResponse>(dataDir, 'satisfaction.json'),
+)
 
-export function loadOutlook() {
-  return readJson<OutlookResponse>(dataDir, 'outlook.json')
-}
+export const loadOutlook = cache(() => readJson<OutlookResponse>(dataDir, 'outlook.json'))
 
-export function loadTools() {
-  return readJson<ToolsResponse>(dataDir, 'tools.json')
-}
+export const loadTools = cache(() => readJson<ToolsResponse>(dataDir, 'tools.json'))
 
 interface SimpleBarData {
   question: string
@@ -65,37 +54,29 @@ interface SimpleBarData {
   data: { label: string; pct: number }[]
 }
 
-export function loadCompanyContext() {
-  return readJson<SimpleBarData>(dataDir, 'company-context.json')
-}
+export const loadCompanyContext = cache(() =>
+  readJson<SimpleBarData>(dataDir, 'company-context.json'),
+)
 
-export function loadBuiltTool() {
-  return readJson<SimpleBarData>(dataDir, 'built-tool.json')
-}
+export const loadBuiltTool = cache(() => readJson<SimpleBarData>(dataDir, 'built-tool.json'))
 
-export function loadTrustLevel() {
-  return readJson<SimpleBarData>(dataDir, 'trust-level.json')
-}
+export const loadTrustLevel = cache(() => readJson<SimpleBarData>(dataDir, 'trust-level.json'))
 
-export function loadBlockers() {
-  return readJson<SimpleBarData>(dataDir, 'blockers.json')
-}
+export const loadBlockers = cache(() => readJson<SimpleBarData>(dataDir, 'blockers.json'))
 
-export function loadWorkflowChange() {
-  return readJson<SimpleBarData>(dataDir, 'workflow-change.json')
-}
+export const loadWorkflowChange = cache(() =>
+  readJson<SimpleBarData>(dataDir, 'workflow-change.json'),
+)
 
-export function loadInvestingNext() {
-  return readJson<SimpleBarData>(dataDir, 'investing-next.json')
-}
+export const loadInvestingNext = cache(() =>
+  readJson<SimpleBarData>(dataDir, 'investing-next.json'),
+)
 
-export function loadFullSummary() {
-  return readJson<FullSummaryResponse>(dataDir, 'full-summary.json')
-}
+export const loadFullSummary = cache(() =>
+  readJson<FullSummaryResponse>(dataDir, 'full-summary.json'),
+)
 
-export function loadAgentContext() {
-  return readJson<AgentContext>(agentDir, 'context.json')
-}
+export const loadAgentContext = cache(() => readJson<AgentContext>(agentDir, 'context.json'))
 
 export async function loadQuestionById(id: string) {
   switch (id.toUpperCase()) {
