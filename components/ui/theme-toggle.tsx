@@ -72,7 +72,13 @@ export function ThemeToggle() {
   }
 
   if (!mounted) {
-    return <div style={{ width: 32, height: 32 }} />
+    return (
+      <div className="theme-toggle-group">
+        <button type="button" className="theme-toggle-btn theme-toggle-active" aria-label="system mode">
+          {modes[1].icon}
+        </button>
+      </div>
+    )
   }
 
   const active = modes.find((m) => m.id === theme)!

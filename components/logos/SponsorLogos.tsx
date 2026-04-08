@@ -93,4 +93,5 @@ export const sponsorLogos: Record<string, (props: LogoProps) => React.JSX.Elemen
 
 export const sponsorLogoScale: Record<string, number> = {
   Mobbin: 0.72,
+  dscout: 0.85,
 }
