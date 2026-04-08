@@ -1,3 +1,5 @@
+import { cacheHeaders } from '@/lib/api/headers'
+
 const openApiDocument = `openapi: 3.1.0
 info:
   title: State of Prototyping Open Data API
@@ -141,6 +143,7 @@ export async function GET() {
   return new Response(openApiDocument, {
     headers: {
       'Content-Type': 'application/yaml; charset=utf-8',
+      ...cacheHeaders,
     },
   })
 }

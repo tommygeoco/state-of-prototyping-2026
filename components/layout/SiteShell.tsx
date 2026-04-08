@@ -2,15 +2,23 @@ import type { ReactNode } from 'react'
 
 import { Footer } from '@/components/layout/Footer'
 import { Nav } from '@/components/layout/Nav'
-import { SiteShellInner } from '@/components/layout/SiteShellInner'
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <SiteShellInner
-      nav={<Nav />}
-      footer={<Footer />}
-    >
-      {children}
-    </SiteShellInner>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)' }}>
+      <Nav />
+      <main
+        style={{
+          width: '100%',
+          maxWidth: 'var(--content-width)',
+          margin: '0 auto',
+          paddingBlock: 'var(--hero-padding-block)',
+          paddingInline: 'var(--nav-padding-inline)',
+        }}
+      >
+        {children}
+      </main>
+      <Footer />
+    </div>
   )
 }

@@ -2,19 +2,29 @@ import type { ReactNode } from 'react'
 
 import { ImageResponse } from 'next/og'
 
-import { sponsorLogos, sponsorLogoScale, UxToolsLogo } from '@/components/logos/SponsorLogos'
+import {
+  DazlLogo,
+  DscoutLogo,
+  MagicPathLogo,
+  MagicPatternsLogo,
+  MobbinLogo,
+  UxToolsLogo,
+} from '@/components/logos/SponsorLogos'
 import {
   loadBlockers,
   loadBuiltTool,
   loadCompanyContext,
+  loadHeadline,
   loadInvestingNext,
   loadOutlook,
+  loadRegionDistribution,
   loadSatisfaction,
   loadTools,
   loadTrustLevel,
   loadVibeByRole,
   loadVibeDistribution,
   loadWorkflowChange,
+  loadWorkflowChangeByCompany,
 } from '@/lib/data/loaders'
 import type { OutlookDatum, SatisfactionDatum, VibeByRoleDatum, VibeDistributionDatum } from '@/lib/data/schema'
 
@@ -22,6 +32,10 @@ export const runtime = 'nodejs'
 
 const DEFAULT_WIDTH = 720
 const DEFAULT_HEIGHT = 520
+const MIN_WIDTH = 320
+const MIN_HEIGHT = 240
+const MAX_WIDTH = 1600
+const MAX_HEIGHT = 1200
 
 const palette = {
   bgCanvas: '#fffbf7',
@@ -45,6 +59,7 @@ const palette = {
 }
 
 const sponsorBySlug: Record<string, string> = {
+  'global-respondent-mix': 'Mobbin',
   'where-designers-work': 'MagicPatterns',
   'top-10-weekly-tools': 'Dazl',
   'vibe-coding-hero': 'MagicPath',
@@ -55,6 +70,7 @@ const sponsorBySlug: Record<string, string> = {
   'trust-level': 'Mobbin',
   'top-blockers': 'dscout',
   'workflow-change': 'Dazl',
+  'ai-central-by-company': 'MagicPatterns',
   'role-outlook': 'Mobbin',
   'investing-next': 'MagicPath',
   'satisfaction-by-vibe': 'dscout',
@@ -72,8 +88,6 @@ function ChartFrame({
   sponsor: string
   children: ReactNode
 }) {
-  const SponsorLogo = sponsorLogos[sponsor]
-
   return (
     <div
       style={{
@@ -120,23 +134,40 @@ function ChartFrame({
           <span style={{ color: palette.textSecondary, fontSize: 14, lineHeight: 1 }}>
             Presented by
           </span>
-          {SponsorLogo ? (
-            <SponsorLogo
-              style={{
-                height: 16 * (sponsorLogoScale[sponsor] ?? 1),
-                width: 'auto',
-                color: palette.textPrimary,
-                flexShrink: 0,
-              }}
-            />
-          ) : (
-            <span style={{ color: palette.textPrimary, fontWeight: 700 }}>{sponsor}</span>
-          )}
+          <SponsorFooterLogo sponsor={sponsor} />
         </div>
-        <UxToolsLogo style={{ height: 16, width: 'auto', color: palette.textPrimary, flexShrink: 0 }} />
+        <UxToolsLogo style={{ width: 54, height: 16, color: palette.textPrimary, flexShrink: 0 }} />
       </div>
     </div>
   )
+}
+
+function SponsorFooterLogo({ sponsor }: { sponsor: string }) {
+  const common = { color: palette.textPrimary, flexShrink: 0 }
+
+  switch (sponsor) {
+    case 'MagicPatterns':
+      return <MagicPatternsLogo style={{ ...common, width: 106, height: 16 }} />
+    case 'MagicPath':
+      return <MagicPathLogo style={{ ...common, width: 80, height: 16 }} />
+    case 'dscout':
+      return <DscoutLogo style={{ ...common, width: 66, height: 14 }} />
+    case 'Mobbin':
+      return <MobbinLogo style={{ ...common, width: 81, height: 12 }} />
+    case 'Dazl':
+      return <DazlLogo style={{ ...common, width: 52, height: 16 }} />
+    case 'Framer':
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: palette.textPrimary }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+            <path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z" />
+          </svg>
+          <span style={{ fontSize: 16, fontWeight: 600, lineHeight: 1 }}>Framer</span>
+        </div>
+      )
+    default:
+      return <span style={{ color: palette.textPrimary, fontWeight: 700 }}>{sponsor}</span>
+  }
 }
 
 function ChartHeader({ title, subtitle }: { title: string; subtitle?: string }) {
@@ -279,11 +310,15 @@ function SatisfactionDelta({
   delta,
   fromTier,
   toTier,
+  fromValue,
+  toValue,
 }: {
   overallMean: number
   delta: number
   fromTier: string
   toTier: string
+  fromValue: number
+  toValue: number
 }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1 }}>
@@ -310,7 +345,7 @@ function SatisfactionDelta({
         <span style={{ fontSize: 14, color: palette.textBody }}>heavy vibers vs. non-vibers</span>
       </div>
       <div style={{ display: 'flex', fontSize: 14, lineHeight: '18px', color: palette.textMuted }}>
-        {`${fromTier}: 5.93 → ${toTier}: 7.39`}
+        {`${fromTier}: ${fromValue.toFixed(2)} → ${toTier}: ${toValue.toFixed(2)}`}
       </div>
     </div>
   )
@@ -351,6 +386,17 @@ function OutlookTable({ title, subtitle, items }: { title: string; subtitle?: st
 
 async function renderSlug(slug: string) {
   switch (slug) {
+    case 'global-respondent-mix': {
+      const data = await loadRegionDistribution()
+      return (
+        <SimpleBars
+          title="A Global Sample, Not a North America-Only Read"
+          subtitle={`Top regions in the sample — ${data.pct_outside_na.pct.toFixed(1)}% of respondents are outside North America`}
+          items={data.data.slice(0, 6).map((item) => ({ label: item.region, pct: item.pct }))}
+          accentWinner
+        />
+      )
+    }
     case 'where-designers-work': {
       const data = await loadCompanyContext()
       return <SimpleBars title="Where Designers Work" subtitle="Company size and work setting — 1,478 respondents, Spring 2026" items={data.data} accentWinner />
@@ -359,11 +405,14 @@ async function renderSlug(slug: string) {
       const tools = await loadTools()
       return <SimpleBars title="5 of the Top 10 Weekly Tools Are Now AI" subtitle="What designers use every week — % of respondents" items={tools.data.map((item) => ({ label: item.tool, pct: item.pct }))} accentWinner />
     }
-    case 'vibe-coding-hero':
-      return <HeroStat value="43.8%" accentLabel="Vibe Coding 50%+" label="of designers now spend more than half their building time on AI-generated code" />
+    case 'vibe-coding-hero': {
+      const headline = await loadHeadline()
+      const vibeCoding = headline.data.find((item) => item.key === 'vibe_coding_50plus')
+      return <HeroStat value={`${vibeCoding?.value.toFixed(1) ?? '43.8'}%`} accentLabel="Vibe Coding 50%+" label="of designers now spend more than half their building time on AI-generated code" />
+    }
     case 'vibe-coding-distribution': {
       const distribution = await loadVibeDistribution()
-      return <SimpleBars title="The Profession Has Split Into Thirds" subtitle="How much of your building time is AI-generated code?" items={distribution.data.map((item: VibeDistributionDatum) => ({ label: item.tier, pct: item.pct }))} />
+      return <SimpleBars title="The Profession Has Split Into Thirds" subtitle="How much of your building time is AI-generated code?" items={distribution.data.map((item: VibeDistributionDatum) => ({ label: item.tier, pct: item.pct }))} accentWinner />
     }
     case 'vibe-by-role': {
       const vibeByRole = await loadVibeByRole()
@@ -386,7 +435,11 @@ async function renderSlug(slug: string) {
     }
     case 'trust-level': {
       const data = await loadTrustLevel()
-      return <SimpleBars title="Only 1.4% Trust AI Output Without Oversight" subtitle="How far do you trust AI-generated output in your workflow?" items={data.data} accentWinner />
+      const trustWithReview = (
+        (data.data.find((item) => item.label === 'Review before shipping')?.pct ?? 0) +
+        (data.data.find((item) => item.label === 'Ships with minor tweaks')?.pct ?? 0)
+      ).toFixed(1)
+      return <SimpleBars title={`${trustWithReview}% Trust AI for Production With Review`} subtitle="How far do you trust AI-generated output in your workflow?" items={data.data} accentWinner />
     }
     case 'top-blockers': {
       const data = await loadBlockers()
@@ -397,6 +450,17 @@ async function renderSlug(slug: string) {
       const data = await loadWorkflowChange()
       const combinedPct = (data.data[0].pct + data.data[1].pct).toFixed(1)
       return <SimpleBars title={`${combinedPct}% Have Added AI or Gone AI-Central in 6 Months`} subtitle="How has your design workflow changed since late 2025?" items={data.data} accentWinner />
+    }
+    case 'ai-central-by-company': {
+      const data = await loadWorkflowChangeByCompany()
+      return (
+        <SimpleBars
+          title="AI-Central Workflows Show Up Across Company Types"
+          subtitle='Share saying "AI is now central" by work context'
+          items={data.data.map((item) => ({ label: item.context, pct: item.pct }))}
+          accentWinner
+        />
+      )
     }
     case 'role-outlook': {
       const data = await loadOutlook()
@@ -413,26 +477,42 @@ async function renderSlug(slug: string) {
     }
     case 'satisfaction-delta': {
       const data = await loadSatisfaction()
-      return <SatisfactionDelta overallMean={data.overall_mean} delta={data.delta.value} fromTier={data.delta.from_tier} toTier={data.delta.to_tier} />
+      const fromValue = data.data.find((item) => item.tier.startsWith(data.delta.from_tier))?.mean ?? 0
+      const toValue = data.data.find((item) => item.tier.startsWith(data.delta.to_tier))?.mean ?? 0
+      return <SatisfactionDelta overallMean={data.overall_mean} delta={data.delta.value} fromTier={data.delta.from_tier} toTier={data.delta.to_tier} fromValue={fromValue} toValue={toValue} />
     }
     default:
       return null
   }
 }
 
+function parseDimension(value: string | null, fallback: number, min: number, max: number) {
+  if (value == null) {
+    return fallback
+  }
+
+  const numeric = Number(value)
+  if (!Number.isFinite(numeric)) {
+    return fallback
+  }
+
+  return Math.min(max, Math.max(min, Math.round(numeric)))
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } },
+  { params }: { params: Promise<{ slug: string }> },
 ) {
-  const sponsor = sponsorBySlug[params.slug]
+  const { slug } = await params
+  const sponsor = sponsorBySlug[slug]
   if (!sponsor) {
     return new Response('Not found', { status: 404 })
   }
 
   const url = new URL(request.url)
-  const width = Math.max(320, Number(url.searchParams.get('w') ?? DEFAULT_WIDTH) || DEFAULT_WIDTH)
-  const height = Math.max(240, Number(url.searchParams.get('h') ?? DEFAULT_HEIGHT) || DEFAULT_HEIGHT)
-  const chart = await renderSlug(params.slug)
+  const width = parseDimension(url.searchParams.get('w'), DEFAULT_WIDTH, MIN_WIDTH, MAX_WIDTH)
+  const height = parseDimension(url.searchParams.get('h'), DEFAULT_HEIGHT, MIN_HEIGHT, MAX_HEIGHT)
+  const chart = await renderSlug(slug)
   if (!chart) {
     return new Response('Not found', { status: 404 })
   }

@@ -10,61 +10,111 @@ import { GroupedComparisonChart } from '@/components/charts/GroupedComparisonCha
 import { HeroStatChart } from '@/components/charts/HeroStatChart'
 import { SatisfactionHeroDeltaChart } from '@/components/charts/SatisfactionHeroDeltaChart'
 import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
+import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardFrame } from '@/components/social/SocialCardFrame'
-import { loadOutlook, loadSatisfaction, loadTools, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
+import { loadBuiltTool, loadHeadline, loadOutlook, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
 
-const socialSlugs = [
-  'hero',
-  'tools',
-  'vibe-by-role',
-  'ic-vs-de',
-  'outlook',
-  'distribution',
-  'satisfaction',
-  'satisfaction-delta',
-] as const
+const socialSlugMap = {
+  hero: 'vibe-coding-hero',
+  'vibe-coding-hero': 'vibe-coding-hero',
+  tools: 'top-10-weekly-tools',
+  'top-10-weekly-tools': 'top-10-weekly-tools',
+  'vibe-by-role': 'vibe-by-role',
+  'ic-vs-de': 'ic-vs-design-engineer',
+  'ic-vs-design-engineer': 'ic-vs-design-engineer',
+  outlook: 'role-outlook',
+  'role-outlook': 'role-outlook',
+  distribution: 'vibe-coding-distribution',
+  'vibe-coding-distribution': 'vibe-coding-distribution',
+  satisfaction: 'satisfaction-by-vibe',
+  'satisfaction-by-vibe': 'satisfaction-by-vibe',
+  'satisfaction-delta': 'satisfaction-delta',
+  'built-own-tool': 'built-own-tool',
+  'trust-level': 'trust-level',
+} as const
 
-type SocialSlug = (typeof socialSlugs)[number]
+type SocialSlug = keyof typeof socialSlugMap
+type CanonicalSocialSlug = (typeof socialSlugMap)[SocialSlug]
 
 export function generateStaticParams() {
-  return socialSlugs.map((slug) => ({ slug }))
+  return Object.keys(socialSlugMap).map((slug) => ({ slug }))
 }
 
 interface SocialPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-async function renderChart(slug: SocialSlug): Promise<ReactNode> {
+async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
   switch (slug) {
-    case 'hero':
+    case 'vibe-coding-hero': {
+      const headline = await loadHeadline()
+      const vibeCoding = headline.data.find((item) => item.key === 'vibe_coding_50plus')
       return (
-        <HeroStatChart value="43.8%" label="of designers spend more than half their building time vibe coding" />
+        <HeroStatChart
+          value={`${vibeCoding?.value.toFixed(1) ?? '43.8'}%`}
+          label="of designers spend more than half their building time vibe coding"
+        />
       )
-    case 'tools': {
+    }
+    case 'top-10-weekly-tools': {
       const tools = await loadTools()
-      return <AccentHighlightBarChart title="Top 10 Tools Used Every Week" items={tools.data} />
+      return <AccentHighlightBarChart title="5 of the Top 10 Weekly Tools Are Now AI" items={tools.data} />
     }
     case 'vibe-by-role': {
       const vibeByRole = await loadVibeByRole()
-      return <AdoptionBySegmentChart title="% Spending 50%+ Time Vibe Coding — By Role" items={vibeByRole.data} />
+      const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
+      const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
+      return (
+        <AdoptionBySegmentChart
+          title={`An ${de?.pct.toFixed(1) ?? '80.9'}% vs ${ic?.pct.toFixed(1) ?? '35.0'}% Split in the Same Design Org`}
+          items={vibeByRole.data}
+        />
+      )
     }
-    case 'ic-vs-de': {
+    case 'ic-vs-design-engineer': {
       const vibeByRole = await loadVibeByRole()
       const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
       const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
-      return <ComparativeSideBySideChart title="50%+ Vibe Coding — IC vs DE" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} />
+      return <ComparativeSideBySideChart title="Same Profession, Different Reality" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} />
     }
-    case 'outlook': {
+    case 'role-outlook': {
       const outlook = await loadOutlook()
-      return <GroupedComparisonChart title="Role Outlook — More Valuable vs. Less Secure" items={outlook.data} />
+      return <GroupedComparisonChart title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk." items={outlook.data} />
     }
-    case 'distribution': {
+    case 'vibe-coding-distribution': {
       const vibeDistribution = await loadVibeDistribution()
-      return <SegmentedDistributionChart title="Vibe Coding Distribution — All Respondents" distribution={vibeDistribution} />
+      return <SegmentedDistributionChart title="The Profession Has Split Into Thirds" distribution={vibeDistribution} />
     }
-    case 'satisfaction': {
+    case 'built-own-tool': {
+      const builtTool = await loadBuiltTool()
+      const builtSomething = builtTool.data
+        .filter((item) => item.label === 'Yes, once or twice' || item.label === 'Yes, I do it regularly')
+        .reduce((sum, item) => sum + item.pct, 0)
+      return (
+        <SimpleBarChart
+          title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
+          subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
+          items={builtTool.data}
+        />
+      )
+    }
+    case 'trust-level': {
+      const trustLevel = await loadTrustLevel()
+      const trustWithReview = (
+        (trustLevel.data.find((item) => item.label === 'Review before shipping')?.pct ?? 0) +
+        (trustLevel.data.find((item) => item.label === 'Ships with minor tweaks')?.pct ?? 0)
+      ).toFixed(1)
+      return (
+        <SimpleBarChart
+          title={`${trustWithReview}% Trust AI for Production With Review`}
+          subtitle="How far do you trust AI-generated output in your workflow?"
+          items={trustLevel.data}
+        />
+      )
+    }
+    case 'satisfaction-by-vibe': {
       const satisfaction = await loadSatisfaction()
-      return <DualAxisChart title="Workflow Satisfaction by Vibe Coding Level (Mean / 10)" satisfaction={satisfaction} />
+      return <DualAxisChart title="Heavier Vibe Coders Are More Satisfied" satisfaction={satisfaction} />
     }
     case 'satisfaction-delta': {
       const satisfaction = await loadSatisfaction()
@@ -74,11 +124,13 @@ async function renderChart(slug: SocialSlug): Promise<ReactNode> {
 }
 
 export default async function SocialPage({ params }: SocialPageProps) {
-  if (!socialSlugs.includes(params.slug as SocialSlug)) {
+  const { slug } = await params
+
+  if (!(slug in socialSlugMap)) {
     notFound()
   }
 
-  const chart = await renderChart(params.slug as SocialSlug)
+  const chart = await renderChart(socialSlugMap[slug as SocialSlug])
 
   return <SocialCardFrame>{chart}</SocialCardFrame>
 }

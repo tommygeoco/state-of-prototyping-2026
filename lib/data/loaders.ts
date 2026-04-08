@@ -21,6 +21,7 @@ import type {
 
 const dataDir = path.join(process.cwd(), 'public', 'data')
 const agentDir = path.join(process.cwd(), 'public', 'agent')
+let responsesPromise: Promise<Record<string, string>[]> | undefined
 
 async function readJson<T>(directory: string, fileName: string): Promise<T> {
   const contents = await readFile(path.join(directory, fileName), 'utf8')
@@ -82,6 +83,11 @@ export const loadFullSummary = cache(() =>
 )
 
 export const loadAgentContext = cache(() => readJson<AgentContext>(agentDir, 'context.json'))
+
+export function loadResponses() {
+  responsesPromise ??= readJson<Record<string, string>[]>(dataDir, 'responses.json')
+  return responsesPromise
+}
 
 export async function loadQuestionById(id: string) {
   switch (id.toUpperCase()) {

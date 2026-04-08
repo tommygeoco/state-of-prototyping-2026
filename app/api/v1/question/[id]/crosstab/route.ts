@@ -2,13 +2,14 @@ import { loadQuestions, loadVibeByRole, loadWorkflowChangeByCompany } from '@/li
 import { cacheHeaders } from '@/lib/api/headers'
 
 interface RouteContext {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export async function GET(request: Request, { params }: RouteContext) {
-  const id = params.id.toUpperCase()
+  const { id: rawId } = await params
+  const id = rawId.toUpperCase()
   const { searchParams } = new URL(request.url)
   const by = searchParams.get('by')?.toLowerCase()
 
@@ -24,7 +25,7 @@ export async function GET(request: Request, { params }: RouteContext) {
   const definition = questions.data.find((question) => question.id === id)
 
   if (!definition) {
-    return Response.json({ error: `Unknown question: ${id}` }, { status: 404 })
+    return Response.json({ error: `Unknown question: ${id}` }, { status: 404, headers: cacheHeaders })
   }
 
   return Response.json(
@@ -32,6 +33,6 @@ export async function GET(request: Request, { params }: RouteContext) {
       error: `No published cross-tab for ${id}${by ? ` by ${by}` : ''}.`,
       available_cross_tabs: ['Q7 by role', 'Q10 by company'],
     },
-    { status: 404 },
+    { status: 404, headers: cacheHeaders },
   )
 }

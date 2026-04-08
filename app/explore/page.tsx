@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 
 import { AccentHighlightBarChart } from '@/components/charts/AccentHighlightBarChart'
+import { KPIStripChart } from '@/components/charts/KPIStripChart'
 import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
 import { loadBlockers, loadBuiltTool, loadCompanyContext, loadHeadline, loadInvestingNext, loadOutlook, loadRegionDistribution, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange, loadWorkflowChangeByCompany } from '@/lib/data/loaders'
@@ -76,6 +77,20 @@ export default async function ExplorePage() {
   const researcherOutlook = outlook.data.find((item) => item.role === 'Researcher')
   const noneSatisfaction = satisfaction.data.find((item) => item.tier === 'None (0%)')
   const heavySatisfaction = satisfaction.data.find((item) => item.tier === 'Nearly all')
+  const topTool = tools.data[0]
+  const secondTool = tools.data[1]
+  const claudeCode = tools.data.find((item) => item.tool === 'Claude Code')
+  const figJam = tools.data.find((item) => item.tool === 'FigJam')
+  const claudeCodeRank = claudeCode ? tools.data.findIndex((item) => item.tool === claudeCode.tool) + 1 : null
+  const topAiTools = tools.data.filter((item) => ['Claude', 'ChatGPT', 'Claude Code', 'Figma Make', 'Gemini'].includes(item.tool)).length
+  const regionChartItems = regionDistribution.data.slice(0, 6).map((item) => ({
+    label: item.region,
+    pct: item.pct,
+  }))
+  const workflowByCompanyItems = workflowChangeByCompany.data.map((item) => ({
+    label: item.context,
+    pct: item.pct,
+  }))
 
   const mostOrNearlyAllPct = ((mostVibe?.pct ?? 0) + (nearlyAllVibe?.pct ?? 0)).toFixed(1)
   const productionWithReviewPct = (
@@ -89,6 +104,40 @@ export default async function ExplorePage() {
   const startupEnterpriseGap = (
     (startupAiCentral?.pct ?? 0) - (enterpriseAiCentral?.pct ?? 0)
   ).toFixed(1)
+  const keyBites = [
+    { value: `${topAiTools} / 10`, label: 'top weekly tools are AI', href: '#top-10-weekly-tools' },
+    { value: `${vibeDistribution.pct_50plus.pct.toFixed(1)}%`, label: 'spend 50%+ of their building time vibe coding', href: '#vibe-coding-hero' },
+    { value: `${designEngineer?.pct.toFixed(1) ?? '80.9'}% vs ${icDesigner?.pct.toFixed(1) ?? '35.0'}%`, label: 'design engineers vs IC designers', href: '#ic-vs-design-engineer' },
+    { value: `${builtSomething?.value.toFixed(1) ?? '59.1'}%`, label: 'have built their own AI tool', href: '#built-own-tool' },
+    { value: `${productionWithReviewPct}% / ${fullTrust?.pct.toFixed(1) ?? '1.4'}%`, label: 'trust AI for production with review vs without oversight', href: '#trust-level' },
+    { value: `+${satisfaction.delta.value.toFixed(2)}`, label: 'workflow satisfaction gap for heavy vibe coders', href: '#satisfaction-delta' },
+  ]
+  const summaryFindings = [
+    {
+      title: `${secondTool?.tool ?? 'Claude'} is the #2 weekly tool in design, after ${topTool?.tool ?? 'Figma'}.`,
+      body: `${secondTool?.pct.toFixed(1) ?? '0.0'}% of designers use it every week. ${claudeCode?.tool ?? 'Claude Code'} sits at ${claudeCodeRank ? `#${claudeCodeRank}` : 'the top tier'}${figJam ? `, ahead of ${figJam.tool}` : ''}.`,
+    },
+    {
+      title: `${vibeDistribution.pct_50plus.pct.toFixed(1)}% of designers spend more than half their building time vibe coding.`,
+      body: `The profession has split into thirds: no vibe coding (${noneVibe?.pct.toFixed(1) ?? '0.0'}%), some (${(100 - (noneVibe?.pct ?? 0) - vibeDistribution.pct_50plus.pct).toFixed(1)}%), and majority AI-generated code (${vibeDistribution.pct_50plus.pct.toFixed(1)}%). Design engineers at ${designEngineer?.pct.toFixed(1) ?? '0.0'}% vs. IC designers at ${icDesigner?.pct.toFixed(1) ?? '0.0'}%.`,
+    },
+    {
+      title: `${builtSomething?.value.toFixed(1) ?? '0.0'}% of designers have built their own tool with AI in the last 6 months.`,
+      body: `One in four does it regularly. Only ${noBuildPlans?.pct.toFixed(1) ?? '0.0'}% have no plans to. The builder instinct is spreading across the design org.`,
+    },
+    {
+      title: 'The top 3 blockers are nearly tied.',
+      body: `${blockers.data[0]?.label ?? 'Time to learn'} (${blockers.data[0]?.pct.toFixed(1) ?? '0.0'}%), ${blockers.data[1]?.label ?? 'Too many tools'} (${blockers.data[1]?.pct.toFixed(1) ?? '0.0'}%), and ${blockers.data[2]?.label ?? 'Output quality'} (${blockers.data[2]?.pct.toFixed(1) ?? '0.0'}%) are within ${blockerSpread} points of each other.`,
+    },
+    {
+      title: `${outlook.data[0]?.role ?? 'Design Engineers'} feel more valuable. ${researcherOutlook?.role ?? 'Researchers'} feel most at risk.`,
+      body: `${outlook.data[0]?.role ?? 'Design Engineers'}: ${outlook.data[0]?.more_valuable.toFixed(1) ?? '0.0'}% more valuable, ${outlook.data[0]?.less_secure.toFixed(1) ?? '0.0'}% less secure. ${researcherOutlook?.role ?? 'Researchers'}: ${researcherOutlook?.more_valuable.toFixed(1) ?? '0.0'}% more valuable, ${researcherOutlook?.less_secure.toFixed(1) ?? '0.0'}% less secure.`,
+    },
+    {
+      title: `Vibe coders are ${satisfaction.delta.value.toFixed(1)} points more satisfied with their workflow.`,
+      body: `No vibe coding: ${noneSatisfaction?.mean.toFixed(2) ?? '0.00'}/10. Heavy vibe coders: ${heavySatisfaction?.mean.toFixed(2) ?? '0.00'}/10. The satisfaction gradient is nearly linear across adoption levels.`,
+    },
+  ]
 
   return (
     <article>
@@ -107,9 +156,18 @@ export default async function ExplorePage() {
         </p>
       </header>
 
+      <section id="key-bites" style={{ marginBottom: 48 }}>
+        <p className="page-eyebrow" style={{ marginBottom: 12 }}>Key bites</p>
+        <p className="body-text" style={{ marginBottom: 20 }}>
+          If you only need the findings that travel, start here. These six charts do the best
+          job of explaining the current state of prototyping at a glance.
+        </p>
+        <KPIStripChart items={keyBites} />
+      </section>
+
       {/* ── 1. Who took this survey ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="who-took-this-survey" style={{ marginBottom: 48 }}>
         <h2 className="section-title">1. Who took this survey</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           This is the first edition of our quarterly State of Prototyping — a recurring snapshot
@@ -122,6 +180,14 @@ export default async function ExplorePage() {
           the largest non-North America regions. This is a global read on how
           design practitioners work.
         </p>
+        <SocialCardContainer sponsor="Mobbin" anchorId="global-respondent-mix">
+          <SimpleBarChart
+            title="A Global Sample, Not a North America-Only Read"
+            subtitle={`Top regions in the sample — ${regionDistribution.pct_outside_na.pct.toFixed(1)}% of respondents are outside North America`}
+            items={regionChartItems}
+            bare
+          />
+        </SocialCardContainer>
         <SocialCardContainer sponsor="MagicPatterns" anchorId="where-designers-work">
           <SimpleBarChart
             title="Where Designers Work"
@@ -134,7 +200,7 @@ export default async function ExplorePage() {
 
       {/* ── 2. The stack right now ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="the-stack-right-now" style={{ marginBottom: 48 }}>
         <h2 className="section-title">2. The stack right now</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Five of the ten most-used weekly tools are now AI tools. That sentence didn&apos;t make
@@ -161,7 +227,7 @@ export default async function ExplorePage() {
 
       {/* ── 3. The vibe coding split ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="the-vibe-coding-split" style={{ marginBottom: 48 }}>
         <h2 className="section-title">3. The vibe coding split</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           This was the centerpiece question: how much of your building is actually vibe coding —
@@ -198,7 +264,7 @@ export default async function ExplorePage() {
 
       {/* ── 4. Vibe coding by role ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="vibe-coding-by-role" style={{ marginBottom: 48 }}>
         <h2 className="section-title">4. Vibe coding by role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Same profession. Different reality. The vibe coding split isn&apos;t random — it maps
@@ -231,7 +297,7 @@ export default async function ExplorePage() {
 
       {/* ── 5. Who's building their own tools ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="who-is-building-their-own-tools" style={{ marginBottom: 48 }}>
         <h2 className="section-title">5. Who&apos;s building their own tools</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           {builtSomething?.value.toFixed(1)}% of designers have built their own tool, app, or utility with AI in the last 6 months. One in four does it regularly.
@@ -257,7 +323,7 @@ export default async function ExplorePage() {
 
       {/* ── 6. The trust line ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="the-trust-line" style={{ marginBottom: 48 }}>
         <h2 className="section-title">6. The trust line</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Only {fullTrust?.pct.toFixed(1)}% trust AI output without oversight. But {productionWithReviewPct}% trust it for production — with review. That&apos;s a bigger number than most people would have guessed.
@@ -268,7 +334,7 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Mobbin" anchorId="trust-level">
           <SimpleBarChart
-            title="Only 1.4% Trust AI Output Without Oversight"
+            title={`${productionWithReviewPct}% Trust AI for Production With Review`}
             subtitle="How far do you trust AI-generated output in your workflow?"
             items={trustLevel.data}
             bare
@@ -278,7 +344,7 @@ export default async function ExplorePage() {
 
       {/* ── 7. What's blocking everyone ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="what-is-blocking-everyone" style={{ marginBottom: 48 }}>
         <h2 className="section-title">7. What&apos;s blocking everyone</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           The top 3 blockers are within {blockerSpread} percentage points of each other. That&apos;s not noise —
@@ -296,7 +362,7 @@ export default async function ExplorePage() {
 
       {/* ── 8. How workflows changed in 6 months ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="how-workflows-changed" style={{ marginBottom: 48 }}>
         <h2 className="section-title">8. How workflows changed in 6 months</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           {addedOrCentralPct}% have added AI or gone AI-central in the last 6 months. Only {(workflowChange.data.find((item) => item.label === 'Mostly the same')?.pct ?? 0).toFixed(1)}% say
@@ -314,11 +380,19 @@ export default async function ExplorePage() {
             bare
           />
         </SocialCardContainer>
+        <SocialCardContainer sponsor="MagicPatterns" anchorId="ai-central-by-company">
+          <SimpleBarChart
+            title="AI-Central Workflows Show Up Across Company Types"
+            subtitle='Share saying "AI is now central" by work context'
+            items={workflowByCompanyItems}
+            bare
+          />
+        </SocialCardContainer>
       </section>
 
       {/* ── 9. How designers feel about their role ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="how-designers-feel-about-their-role" style={{ marginBottom: 48 }}>
         <h2 className="section-title">9. How designers feel about their role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Your confidence tracks with your seat. Design engineers are the most optimistic.
@@ -342,7 +416,7 @@ export default async function ExplorePage() {
 
       {/* ── 10. Where designers are investing next ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="where-designers-are-investing-next" style={{ marginBottom: 48 }}>
         <h2 className="section-title">10. Where designers are investing next</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Two of the top 3 are AI. Design systems are the only holdout in the top tier — and
@@ -365,7 +439,7 @@ export default async function ExplorePage() {
 
       {/* ── 11. The satisfaction gap ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="the-satisfaction-gap" style={{ marginBottom: 48 }}>
         <h2 className="section-title">11. The satisfaction gap</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           1.5 points separates the floor from the ceiling. Both are people with the same job
@@ -395,38 +469,13 @@ export default async function ExplorePage() {
 
       {/* ── 12. The story in summary ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="the-story-in-summary" style={{ marginBottom: 48 }}>
         <h2 className="section-title">12. The story in summary</h2>
         <p className="body-text" style={{ marginBottom: 24 }}>
           Six findings that capture what this data actually says.
         </p>
         <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {[
-            {
-              title: 'Claude is the #2 weekly tool in design, after Figma.',
-              body: '50.8% of designers use it every week. Claude Code sits at #4 — ahead of every collaboration tool. An AI coding terminal now ranks above FigJam in the designer\'s everyday stack.',
-            },
-            {
-              title: '43.8% of designers spend more than half their building time vibe coding.',
-              body: 'The profession has split into thirds: no vibe coding (37.7%), some (18.5%), and majority AI-generated code (43.8%). Design engineers at 80.9% vs. IC designers at 35.0%. Same profession, different reality.',
-            },
-            {
-              title: '59.1% of designers have built their own tool with AI in the last 6 months.',
-              body: 'One in four does it regularly. Only 10.4% have no plans to. The builder instinct is spreading across the design org — no longer limited to engineers.',
-            },
-            {
-              title: 'The top 3 blockers are nearly tied — and none of them are \'AI doesn\'t work.\'',
-              body: 'Time to learn (55.7%), too many tools (53.0%), output quality (52.2%) — within 3.5 points of each other. The barrier isn\'t belief in AI. It\'s time, clarity, and consistency.',
-            },
-            {
-              title: 'Design engineers feel more valuable. Researchers feel most at risk.',
-              body: 'Design engineers: 50.0% more valuable, 10.6% less secure. Researchers: 17.4% more valuable, 39.1% less secure. The confidence gap tracks directly with proximity to code.',
-            },
-            {
-              title: 'Vibe coders are 1.5 points more satisfied with their workflow.',
-              body: 'No vibe coding: 5.93/10. Heavy vibe coders: 7.39/10. The satisfaction gradient is nearly perfectly linear across adoption levels.',
-            },
-          ].map((item, index) => (
+          {summaryFindings.map((item, index) => (
             <li key={index} style={{ marginBottom: 24 }}>
               <p style={{ fontSize: 16, fontWeight: 600, lineHeight: '24px', color: 'var(--text-primary)', margin: '0 0 4px 0' }}>
                 {index + 1}. {item.title}
@@ -439,7 +488,7 @@ export default async function ExplorePage() {
 
       {/* ── Methodology note ── */}
       <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
+      <section id="methodology" style={{ marginBottom: 48 }}>
         <h2 className="section-title">Methodology</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           The State of Prototyping Spring 2026 survey ran from March 14 to April 6, 2026 and
@@ -450,7 +499,7 @@ export default async function ExplorePage() {
           Published charts use aggregated data, and the full de-identified microdata is also
           available for download. One malformed role response in the raw CSV is excluded from
           role-based breakdown tables. The &ldquo;Researcher&rdquo; role (n=23) should be treated as
-          directional only due to small sample size. Multi-select questions sum to more than 100%.
+          directional only due to small sample size. Region breakdowns use n={regionDistribution.n} because two respondents did not provide a region. Multi-select questions sum to more than 100%.
           Cross-tab percentages are calculated within each role&apos;s n.
         </p>
         <p className="body-text">

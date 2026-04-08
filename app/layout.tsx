@@ -1,20 +1,10 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import type { ReactNode } from 'react'
 
-import { SiteShell } from '@/components/layout/SiteShell'
 import { inter, spaceMono } from '@/lib/fonts'
 
 import './globals.css'
-
-const themeScript = `
-(function(){
-  var t = localStorage.getItem('theme') || 'system';
-  var d = t === 'system'
-    ? window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    : t;
-  if (d === 'dark') document.documentElement.classList.add('dark');
-})();
-`
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://survey.uxtools.co'),
@@ -63,33 +53,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={`${inter.variable} ${spaceMono.variable}`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
         <link rel="ai-context" href="/agent/SURVEY_CONTEXT.md" />
-        <script dangerouslySetInnerHTML={{ __html: `
-/*
-
-  ██    ██ ██   ██   ████████  ██████   ██████  ██      ███████
-  ██    ██  ██ ██       ██    ██    ██ ██    ██ ██      ██
-  ██    ██   ███        ██    ██    ██ ██    ██ ██      ███████
-  ██    ██  ██ ██       ██    ██    ██ ██    ██ ██           ██
-   ██████  ██   ██      ██     ██████   ██████  ███████ ███████
-
-  State of Prototyping · Spring 2026
-  1,478 designers · 18 regions · CC BY 4.0
-
-  survey.uxtools.co
-  Built by UX Tools
-
-  API:    survey.uxtools.co/api/v1/responses
-  Agent:  survey.uxtools.co/agent/SURVEY_CONTEXT.md
-  Data:   survey.uxtools.co/api/v1/download/responses-csv
-
-*/
-` }} />
       </head>
-      <body>
-        <SiteShell>{children}</SiteShell>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
