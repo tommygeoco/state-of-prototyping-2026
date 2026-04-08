@@ -35,6 +35,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="ai-context" href="/agent/SURVEY_CONTEXT.md" />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script dangerouslySetInnerHTML={{ __html: `
+/*
+
+  ██    ██ ██   ██   ████████  ██████   ██████  ██      ███████
+  ██    ██  ██ ██       ██    ██    ██ ██    ██ ██      ██
+  ██    ██   ███        ██    ██    ██ ██    ██ ██      ███████
+  ██    ██  ██ ██       ██    ██    ██ ██    ██ ██           ██
+   ██████  ██   ██      ██     ██████   ██████  ███████ ███████
+
+  State of Prototyping · Spring 2026
+  1,478 designers · 18 regions · CC BY 4.0
+
+  survey.uxtools.co
+  Built by UX Tools
+
+  API:    survey.uxtools.co/api/v1/responses
+  Agent:  survey.uxtools.co/agent/SURVEY_CONTEXT.md
+  Data:   survey.uxtools.co/api/v1/download/responses-csv
+
+*/
+` }} />
       </head>
       <body>
         <SiteShell>{children}</SiteShell>
