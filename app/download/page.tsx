@@ -11,165 +11,82 @@ export default async function DownloadPage() {
 
   return (
     <>
-      <header style={{ marginBottom: 40 }}>
-        <p className="page-eyebrow">Download</p>
-        <h1 className="page-title" style={{ marginBottom: 12 }}>Get the data</h1>
+      <header style={{ marginBottom: 48 }}>
+        <h1 className="page-title">Get the data</h1>
         <p className="lead-text" style={{ marginBottom: 24 }}>
-          The complete State of Prototyping Spring 2026 dataset.
-          Released under CC BY 4.0 — use it, cite it, build with it.
+          CC BY 4.0. Use it, cite it, build with it.
         </p>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <Button asChild>
-            <Link href="/api/v1/download/csv">Download CSV</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/api/v1/download/json">Download JSON</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <a href="/api/openapi.yaml">OpenAPI YAML</a>
-          </Button>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <Button asChild><Link href="/api/v1/download/csv">CSV</Link></Button>
+          <Button asChild variant="outline"><Link href="/api/v1/download/json">JSON</Link></Button>
+          <Button asChild variant="outline"><a href="/api/openapi.yaml">OpenAPI</a></Button>
         </div>
       </header>
 
-      {/* ── Data dictionary ── */}
-      <section style={{ marginBottom: 40 }}>
-        <h2 className="section-title" style={{ marginBottom: 16 }}>Data dictionary</h2>
-        <div
-          style={{
-            border: '1px solid var(--border-card)',
-            borderRadius: 8,
-            background: 'var(--bg-card)',
-            overflow: 'hidden',
-          }}
-        >
-          {questions.data.map((q, i) => (
-            <div
-              key={q.id}
-              style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: 16,
-                padding: '10px 20px',
-                borderTop: i > 0 ? '1px solid var(--border-grid)' : 'none',
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: 'var(--font-data)',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  width: 32,
-                  flexShrink: 0,
-                }}
-              >
-                {q.id}
-              </span>
-              <span style={{ fontSize: 14, color: 'var(--text-body)', flex: 1, minWidth: 0 }}>
-                {q.field}
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-data)',
-                  fontSize: 12,
-                  color: 'var(--text-secondary)',
-                  flexShrink: 0,
-                }}
-              >
-                {q.type}
-              </span>
-              <span
-                style={{
-                  fontSize: 13,
-                  color: 'var(--text-secondary)',
-                  flexShrink: 0,
-                  width: 80,
-                  textAlign: 'right',
-                }}
-              >
-                {q.options}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
+      <hr className="section-divider" />
 
-      {/* ── Citation + license ── */}
-      <section style={{ marginBottom: 40 }}>
-        <h2 className="section-title" style={{ marginBottom: 16 }}>Citation</h2>
-        <div
-          style={{
-            padding: '16px 20px',
-            borderRadius: 8,
-            background: 'var(--bg-callout)',
-            fontFamily: 'var(--font-data)',
-            fontSize: 13,
-            lineHeight: '20px',
-            color: 'var(--text-body)',
-          }}
-        >
-          UX Tools. (2026). State of Prototyping Spring 2026. https://data.prototypingstate.com. CC BY 4.0.
-        </div>
-      </section>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 48 }}>
+        <Disclosure title="Data dictionary (11 fields)" defaultOpen>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {questions.data.map((q) => (
+              <div
+                key={q.id}
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: 12,
+                  padding: '6px 0',
+                  borderBottom: '1px solid var(--border-grid)',
+                }}
+              >
+                <span style={{ fontFamily: 'var(--font-data)', fontSize: 12, fontWeight: 700, color: 'var(--text-primary)', width: 28, flexShrink: 0 }}>
+                  {q.id}
+                </span>
+                <span style={{ fontSize: 13, color: 'var(--text-body)', flex: 1 }}>{q.field}</span>
+                <span style={{ fontFamily: 'var(--font-data)', fontSize: 11, color: 'var(--text-secondary)' }}>{q.type}</span>
+                <span style={{ fontSize: 12, color: 'var(--text-muted)', width: 72, textAlign: 'right', flexShrink: 0 }}>{q.options}</span>
+              </div>
+            ))}
+          </div>
+        </Disclosure>
 
-      {/* ── What's included (collapsed) ── */}
-      <section style={{ marginBottom: 40 }}>
-        <Disclosure title="What's in the CSV?">
-          <p className="body-text" style={{ marginBottom: 8 }}>
-            Summary-level aggregated tables — not individual response microdata. Each row
-            represents a dimension (role, vibe tier, tool, etc.) with its count and percentage.
-          </p>
-          <p className="body-text">
-            Multi-select questions sum to more than 100%. Cross-tab percentages are calculated
-            within each role&apos;s n. The Researcher role (n=23) is directional only.
+        <Disclosure title="What's in the download?">
+          <p style={{ fontSize: 14, lineHeight: '22px', color: 'var(--text-body)' }}>
+            Summary-level aggregated tables — not individual microdata. Multi-select questions sum to more than 100%.
+            The Researcher role (n=23) is directional only.
           </p>
         </Disclosure>
-      </section>
 
-      {/* ── Other ways to access ── */}
-      <section style={{ marginBottom: 40 }}>
-        <h2 className="section-title" style={{ marginBottom: 16 }}>Other ways to access</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <Disclosure title="Citation">
+          <p style={{ fontFamily: 'var(--font-data)', fontSize: 12, lineHeight: '18px', color: 'var(--text-body)' }}>
+            UX Tools. (2026). State of Prototyping Spring 2026. https://data.prototypingstate.com. CC BY 4.0.
+          </p>
+        </Disclosure>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {[
+          { href: '/api', label: 'REST API', desc: 'Query endpoints, no auth' },
+          { href: '/agent', label: 'Agent tools', desc: 'LLM integrations, natural language' },
+          { href: '/explore', label: 'Full report', desc: '12 sections, all charts' },
+        ].map((item) => (
           <Link
-            href="/api"
+            key={item.href}
+            href={item.href}
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              padding: '14px 20px',
-              borderRadius: 8,
-              border: '1px solid var(--border-card)',
-              background: 'var(--bg-card)',
+              padding: '12px 0',
+              borderBottom: '1px solid var(--border-grid)',
               textDecoration: 'none',
             }}
           >
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>REST API</div>
-              <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>Query endpoints directly, no auth required</div>
-            </div>
-            <span style={{ color: 'var(--text-secondary)' }}>→</span>
+            <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>{item.label}</span>
+            <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{item.desc} →</span>
           </Link>
-          <Link
-            href="/agent"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '14px 20px',
-              borderRadius: 8,
-              border: '1px solid var(--border-card)',
-              background: 'var(--bg-card)',
-              textDecoration: 'none',
-            }}
-          >
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>Agent integration</div>
-              <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>Natural language queries, LLM tool definitions</div>
-            </div>
-            <span style={{ color: 'var(--text-secondary)' }}>→</span>
-          </Link>
-        </div>
-      </section>
+        ))}
+      </div>
     </>
   )
 }
