@@ -9,10 +9,6 @@ interface ChartActionsProps {
   anchorId: string
 }
 
-function shouldIncludeNode(node: HTMLElement) {
-  return !node.dataset?.chartActions
-}
-
 export function ChartActions({ anchorId }: ChartActionsProps) {
   const [urlState, setUrlState] = useState<ActionState>('idle')
   const [imgState, setImgState] = useState<ActionState>('idle')
@@ -28,27 +24,69 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
     setTimeout(() => setUrlState('idle'), 2000)
   }, [anchorId])
 
-  const captureImage = useCallback(async () => {
+  const captureImage = useCallback(() => {
     const node = document.getElementById(anchorId)
     if (!node) return
 
-    try {
-      const dataUrl = await toPng(node, {
-        pixelRatio: 2,
-        cacheBust: true,
-        filter: shouldIncludeNode,
-      })
+    const SIZE = 1080
 
-      const res = await fetch(dataUrl)
-      const blob = await res.blob()
-      await navigator.clipboard.write([
-        new ClipboardItem({ 'image/png': blob }),
-      ])
-      setImgState('copied')
-    } catch {
-      setImgState('failed')
+    async function render(): Promise<Blob> {
+      const clone = node!.cloneNode(true) as HTMLElement
+      clone.removeAttribute('id')
+      clone.style.cssText = [
+        `position:fixed; left:-9999px; top:0`,
+        `width:${SIZE}px; height:${SIZE}px`,
+        `margin:0; border-radius:24px`,
+        `pointer-events:none; z-index:-1`,
+        `overflow:hidden`,
+      ].join(';')
+      clone.querySelectorAll('[data-chart-actions]').forEach((el) => el.remove())
+      document.body.appendChild(clone)
+
+      try {
+        const dataUrl = await toPng(clone, {
+          width: SIZE,
+          height: SIZE,
+          pixelRatio: 2,
+          cacheBust: true,
+        })
+        const res = await fetch(dataUrl)
+        return await res.blob()
+      } finally {
+        clone.remove()
+      }
     }
-    setTimeout(() => setImgState('idle'), 2000)
+
+    const blobPromise = render()
+
+    if (typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
+      navigator.clipboard
+        .write([new ClipboardItem({ 'image/png': blobPromise })])
+        .then(() => setImgState('copied'))
+        .catch((err) => {
+          console.error('[ChartActions] clipboard.write failed:', err)
+          blobPromise.then(downloadFallback).catch(() => setImgState('failed'))
+        })
+        .finally(() => setTimeout(() => setImgState('idle'), 2000))
+    } else {
+      blobPromise
+        .then(downloadFallback)
+        .then(() => setImgState('copied'))
+        .catch((err) => {
+          console.error('[ChartActions] capture failed:', err)
+          setImgState('failed')
+        })
+        .finally(() => setTimeout(() => setImgState('idle'), 2000))
+    }
+
+    function downloadFallback(blob: Blob) {
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${anchorId}.png`
+      a.click()
+      URL.revokeObjectURL(url)
+    }
   }, [anchorId])
 
   return (

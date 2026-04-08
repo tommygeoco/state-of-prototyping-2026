@@ -466,11 +466,11 @@ code {
 }
 
 .social-card-footer-label {
-  font-family: var(--font-data);
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   line-height: 14px;
   color: var(--text-secondary);
 }
