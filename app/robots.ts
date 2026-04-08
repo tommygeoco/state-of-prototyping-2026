@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: ['/', '/api/'],
       },
     ],
-    host: 'https://data.prototypingstate.com',
-    sitemap: 'https://data.prototypingstate.com/sitemap.xml',
+    host: 'https://survey.uxtools.co',
+    sitemap: 'https://survey.uxtools.co/sitemap.xml',
   }
 }

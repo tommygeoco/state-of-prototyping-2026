@@ -17,7 +17,7 @@ const themeScript = `
 `
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://data.prototypingstate.com'),
+  metadataBase: new URL('https://survey.uxtools.co'),
   title: {
     default: 'State of Prototyping 2026 Open Dataset',
     template: '%s · State of Prototyping 2026',

@@ -59,7 +59,7 @@ export default async function DownloadPage() {
 
         <Disclosure title="Citation">
           <p style={{ fontFamily: 'var(--font-data)', fontSize: 12, lineHeight: '18px', color: 'var(--text-body)' }}>
-            UX Tools. (2026). State of Prototyping Spring 2026. https://data.prototypingstate.com. CC BY 4.0.
+            UX Tools. (2026). State of Prototyping Spring 2026. https://survey.uxtools.co. CC BY 4.0.
           </p>
         </Disclosure>
       </div>

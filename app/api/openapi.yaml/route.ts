@@ -7,7 +7,7 @@ info:
     name: UX Tools
     url: https://uxtools.co
 servers:
-  - url: https://data.prototypingstate.com/api/v1
+  - url: https://survey.uxtools.co/api/v1
 paths:
   /meta:
     get:

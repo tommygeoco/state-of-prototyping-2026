@@ -69,20 +69,20 @@ export default function ApiDocsPage() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <Disclosure title="cURL" defaultOpen>
-          <CodeBlock code={`curl https://data.prototypingstate.com/api/v1/stats/vibe-by-role`} />
+          <CodeBlock code={`curl https://survey.uxtools.co/api/v1/stats/vibe-by-role`} />
         </Disclosure>
         <Disclosure title="Natural language query">
-          <CodeBlock code={`curl -X POST https://data.prototypingstate.com/api/v1/agent/query \\
+          <CodeBlock code={`curl -X POST https://survey.uxtools.co/api/v1/agent/query \\
   -H "Content-Type: application/json" \\
   -d '{"question":"What percentage of design engineers vibe code?"}'`} />
         </Disclosure>
         <Disclosure title="JavaScript">
-          <CodeBlock code={`const data = await fetch('https://data.prototypingstate.com/api/v1/stats/tools').then(r => r.json())
+          <CodeBlock code={`const data = await fetch('https://survey.uxtools.co/api/v1/stats/tools').then(r => r.json())
 console.log(data.data[0]) // { tool: "Figma", n: 1221, pct: 82.6 }`} />
         </Disclosure>
         <Disclosure title="Python">
           <CodeBlock code={`import pandas as pd
-data = pd.read_json("https://data.prototypingstate.com/api/v1/download/json")
+data = pd.read_json("https://survey.uxtools.co/api/v1/download/json")
 print(pd.DataFrame(data["vibe_by_role"]["data"]).sort_values("pct", ascending=False))`} />
         </Disclosure>
         <Disclosure title="Example response">

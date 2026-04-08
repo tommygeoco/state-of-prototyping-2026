@@ -2,7 +2,7 @@
 
 Open dataset from the State of Prototyping survey. 1,478 designers across 18 regions. Published by [UX Tools](https://uxtools.co).
 
-**[Read the report →](https://data.prototypingstate.com/explore)**
+**[Read the report →](https://survey.uxtools.co/explore)**
 
 ## What's here
 
@@ -23,15 +23,15 @@ Open dataset from the State of Prototyping survey. 1,478 designers across 18 reg
 
 ```bash
 # Get the data
-curl https://data.prototypingstate.com/api/v1/stats/vibe-by-role
+curl https://survey.uxtools.co/api/v1/stats/vibe-by-role
 
 # Ask a question
-curl -X POST https://data.prototypingstate.com/api/v1/agent/query \
+curl -X POST https://survey.uxtools.co/api/v1/agent/query \
   -H "Content-Type: application/json" \
   -d '{"question":"Which role vibes the most?"}'
 
 # Download everything
-curl -O https://data.prototypingstate.com/api/v1/download/csv
+curl -O https://survey.uxtools.co/api/v1/download/csv
 ```
 
 ## Run locally
@@ -99,7 +99,7 @@ def query_survey(question: str) -> dict:
     """Query the State of Prototyping 2026 survey. n=1,478."""
     import requests
     return requests.post(
-        "https://data.prototypingstate.com/api/v1/agent/query",
+        "https://survey.uxtools.co/api/v1/agent/query",
         json={"question": question}
     ).json()
 
@@ -110,4 +110,4 @@ survey_tool = StructuredTool.from_function(query_survey)
 
 Data: **CC BY 4.0**. Code: MIT.
 
-**Citation:** UX Tools. (2026). State of Prototyping Spring 2026. https://data.prototypingstate.com.
+**Citation:** UX Tools. (2026). State of Prototyping Spring 2026. https://survey.uxtools.co.

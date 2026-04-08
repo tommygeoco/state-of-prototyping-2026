@@ -25,7 +25,7 @@ Publisher: UX Tools. License: CC BY 4.0.
 - Cross-tab percentages calculated within each role's n
 
 ## API Endpoints
-Base URL: https://data.prototypingstate.com/api/v1
+Base URL: https://survey.uxtools.co/api/v1
 
 GET /meta                    → survey metadata
 GET /stats/headline          → key headline numbers

@@ -421,7 +421,7 @@ export default async function ExplorePage() {
         </p>
         <p className="body-text">
           The full dataset is available under CC BY 4.0. Citation: UX Tools. (2026). State of
-          Prototyping Spring 2026. https://data.prototypingstate.com.
+          Prototyping Spring 2026. https://survey.uxtools.co.
         </p>
       </section>
     </article>

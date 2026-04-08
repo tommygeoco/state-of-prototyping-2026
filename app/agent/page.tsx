@@ -34,7 +34,7 @@ export default async function AgentPage() {
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             /agent/SURVEY_CONTEXT.md
           </span>
-          <CopyButton text="https://data.prototypingstate.com/agent/SURVEY_CONTEXT.md" label="Copy" />
+          <CopyButton text="https://survey.uxtools.co/agent/SURVEY_CONTEXT.md" label="Copy" />
         </div>
       </header>
 
@@ -57,7 +57,7 @@ def query_survey(question: str) -> dict:
     """Query the State of Prototyping 2026 survey. n=1,478."""
     import requests
     return requests.post(
-        "https://data.prototypingstate.com/api/v1/agent/query",
+        "https://survey.uxtools.co/api/v1/agent/query",
         json={"question": question}
     ).json()
 
@@ -75,7 +75,7 @@ survey_tool = StructuredTool.from_function(query_survey)`} />
 }`} />
           </Disclosure>
           <Disclosure title="cURL">
-            <CodeBlock code={`curl -X POST https://data.prototypingstate.com/api/v1/agent/query \\
+            <CodeBlock code={`curl -X POST https://survey.uxtools.co/api/v1/agent/query \\
   -H "Content-Type: application/json" \\
   -d '{"question":"Which role vibes the most?"}'`} />
           </Disclosure>

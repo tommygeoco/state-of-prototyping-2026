@@ -1,6 +1,6 @@
 {
   "survey_name": "State of Prototyping Spring 2026",
-  "base_url": "https://data.prototypingstate.com/api/v1",
+  "base_url": "https://survey.uxtools.co/api/v1",
   "publisher": "UX Tools",
   "license": "CC BY 4.0",
   "key_facts": [
