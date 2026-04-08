@@ -20,10 +20,10 @@ export default async function AgentPage() {
         </p>
         <div
           style={{
-            display: 'inline-flex',
+            display: 'flex',
             alignItems: 'center',
             gap: 8,
-            padding: '8px 14px',
+            padding: '10px 14px',
             borderRadius: 6,
             background: 'var(--bg-callout)',
             fontFamily: 'var(--font-data)',
@@ -31,8 +31,8 @@ export default async function AgentPage() {
             color: 'var(--text-body)',
           }}
         >
-          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            /agent/SURVEY_CONTEXT.md
+          <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            https://survey.uxtools.co/agent/SURVEY_CONTEXT.md
           </span>
           <CopyButton text="https://survey.uxtools.co/agent/SURVEY_CONTEXT.md" label="Copy" />
         </div>
