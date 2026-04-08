@@ -557,6 +557,22 @@ code {
   }
 }
 
+.disclosure-content {
+  padding: 0 16px 12px 16px;
+  border-top: 1px solid var(--border-grid);
+}
+
+.disclosure-content .code-block {
+  border: none;
+  border-radius: 4px;
+  background: var(--bg-callout);
+  margin: 0;
+}
+
+.disclosure-content p {
+  margin: 0;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    Utility Classes
    ═══════════════════════════════════════════════════════════════════════════ */

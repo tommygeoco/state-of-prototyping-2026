@@ -29,7 +29,7 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '14px 20px',
+          padding: '12px 16px',
           background: 'none',
           border: 'none',
           cursor: 'pointer',
@@ -39,7 +39,7 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
         <span
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 14,
+            fontSize: 13,
             fontWeight: 600,
             color: 'var(--text-primary)',
           }}
@@ -49,7 +49,7 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
         <span
           style={{
             fontFamily: 'var(--font-data)',
-            fontSize: 12,
+            fontSize: 11,
             color: 'var(--text-secondary)',
             transition: 'transform 150ms',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -59,8 +59,8 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
         </span>
       </button>
       {open ? (
-        <div style={{ padding: '0 20px 16px 20px', borderTop: '1px solid var(--border-grid)' }}>
-          <div style={{ paddingTop: 16 }}>{children}</div>
+        <div className="disclosure-content">
+          {children}
         </div>
       ) : null}
     </div>
