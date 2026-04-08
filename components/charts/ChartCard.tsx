@@ -2,17 +2,37 @@ import type { ReactNode } from 'react'
 
 interface ChartCardProps {
   title: string
+  subtitle?: string
   callout?: string
   children: ReactNode
   bare?: boolean
 }
 
-export function ChartCard({ title, callout, children, bare = false }: ChartCardProps) {
+export function ChartCard({ title, subtitle, callout, children, bare = false }: ChartCardProps) {
+  const header = (
+    <div style={{ marginBottom: 16 }}>
+      <div className="chart-title">{title}</div>
+      {subtitle ? (
+        <div
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 13,
+            lineHeight: '18px',
+            color: 'var(--text-secondary)',
+            marginTop: 4,
+          }}
+        >
+          {subtitle}
+        </div>
+      ) : null}
+    </div>
+  )
+
   if (bare) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0%', minHeight: 0 }}>
-        <div className="chart-title" style={{ marginBottom: 12 }}>{title}</div>
-        <div style={{ flex: '1 1 0%', minHeight: 0, overflow: 'auto' }}>{children}</div>
+        {header}
+        <div style={{ flex: '1 1 0%', minHeight: 0 }}>{children}</div>
         {callout ? (
           <div
             style={{
@@ -36,7 +56,7 @@ export function ChartCard({ title, callout, children, bare = false }: ChartCardP
 
   return (
     <div className="chart-card">
-      <div className="chart-title">{title}</div>
+      {header}
       {children}
       {callout ? <div className="chart-callout">{callout}</div> : null}
     </div>

@@ -3,6 +3,7 @@ import { HorizontalBarRow } from '@/components/charts/HorizontalBarRow'
 
 interface ComparativeSideBySideChartProps {
   title: string
+  subtitle?: string
   leftLabel: string
   leftValue: number
   rightLabel: string
@@ -13,6 +14,7 @@ interface ComparativeSideBySideChartProps {
 
 export function ComparativeSideBySideChart({
   title,
+  subtitle,
   leftLabel,
   leftValue,
   rightLabel,
@@ -23,7 +25,7 @@ export function ComparativeSideBySideChart({
   const maxPct = Math.max(leftValue, rightValue)
 
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
         <HorizontalBarRow label={rightLabel} pct={rightValue} rank={1} maxPct={maxPct} displayValue={`${rightValue.toFixed(1)}%`} accentWinner />
         <HorizontalBarRow label={leftLabel} pct={leftValue} rank={2} maxPct={maxPct} displayValue={`${leftValue.toFixed(1)}%`} />
@@ -39,7 +41,7 @@ export function ComparativeSideBySideChart({
           letterSpacing: '0.02em',
         }}
       >
-        n=1,478 · % spending 50%+ time vibe coding
+        State of Prototyping · Spring 2026 · n=1,478
       </div>
     </ChartCard>
   )

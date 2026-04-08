@@ -68,10 +68,11 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="MagicPatterns">
           <SimpleBarChart
-            title="Company Context"
+            title="Where Designers Work"
+            subtitle="Company size and work setting — 1,478 respondents, Spring 2026"
             items={companyContext.data}
             callout="Startup-heavy, indie-strong. Nearly half the sample is at a startup or working independently — the cohort most likely to move fast on new tools."
-            source="n=1,478 · % of respondents"
+            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -92,9 +93,10 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Dazl">
           <AccentHighlightBarChart
-            title="Top 10 Tools Used Every Week"
+            title="5 of the Top 10 Weekly Tools Are Now AI"
+            subtitle="What designers use every week — % of respondents"
             items={tools.data}
-            callout="Claude is the #2 tool after Figma — 50.8% weekly use. Claude Code at #4 (38.4%) ranks above FigJam and Slack. An AI coding terminal is now more embedded in designer workflows than any whiteboarding tool."
+            callout="Claude is the #2 tool after Figma — 50.8% weekly use. Claude Code at #4 (38.4%) ranks above FigJam and Slack."
             bare
           />
         </SocialCardContainer>
@@ -119,8 +121,8 @@ export default async function ExplorePage() {
           <HeroStatChart
             value="43.8%"
             accentLabel="Vibe Coding 50%+"
-            label="of designers spend more than half their building time on AI-generated code"
-            meta="1,478 respondents · Spring 2026"
+            label="of designers now spend more than half their building time on AI-generated code"
+            meta="State of Prototyping · Spring 2026 · n=1,478"
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -129,9 +131,10 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Framer">
           <SegmentedDistributionChart
-            title="Vibe Coding Distribution — All Respondents"
+            title="The Profession Has Split Into Thirds"
+            subtitle="How much of your building time is AI-generated code?"
             distribution={vibeDistribution}
-            callout="43.8% spend 50%+ time vibe coding. 31.2% say most or nearly all. The 38% doing zero is the more surprising number — the hype has outpaced adoption at the tail."
+            callout="38% do zero. 31% say most or all. The 38% doing zero is the more surprising number — the hype has outpaced adoption at the tail."
             bare
           />
         </SocialCardContainer>
@@ -152,9 +155,10 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="dscout">
           <AdoptionBySegmentChart
-            title="% Spending 50%+ Time Vibe Coding — By Role"
+            title="An 81% vs 35% Split in the Same Design Org"
+            subtitle="% spending 50%+ of building time on AI-generated code, by role"
             items={vibeByRole.data}
-            callout={`Design engineers: ${designEngineer?.pct.toFixed(1)}%. IC designers: ${icDesigner?.pct.toFixed(1)}%. A 46-point gap between two roles in the same design org.`}
+            callout={`Design engineers: ${designEngineer?.pct.toFixed(1)}%. IC designers: ${icDesigner?.pct.toFixed(1)}%. A 46-point gap.`}
             bare
           />
         </SocialCardContainer>
@@ -164,12 +168,13 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="MagicPatterns">
           <ComparativeSideBySideChart
-            title="50%+ Vibe Coding — IC Designer vs Design Engineer"
+            title="Same Profession, Different Reality"
+            subtitle="% spending 50%+ time on AI-generated code"
             leftLabel="IC Designer"
             leftValue={icDesigner?.pct ?? 35.0}
             rightLabel="Design Engineer"
             rightValue={designEngineer?.pct ?? 80.9}
-            callout="Design engineers are already working in conditions that reward heavy AI code generation. IC designers are still mostly in Figma."
+            callout="Design engineers are already working in conditions that reward heavy AI code generation."
             bare
           />
         </SocialCardContainer>
@@ -190,10 +195,11 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Framer">
           <SimpleBarChart
-            title="Have You Built Your Own Tool With AI?"
+            title="59% of Designers Have Built Their Own AI Tool"
+            subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
             items={builtTool.data}
-            callout="59% have built something. 30% want to but haven't yet. Only 10.5% have no plans to. The intent-to-try cohort is bigger than the never-will cohort by 3x."
-            source="n=1,478 · Last 6 months"
+            callout="30% want to but haven't yet. Only 10.5% have no plans to. The intent-to-try cohort is 3x the never-will cohort."
+            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -217,10 +223,11 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Mobbin">
           <SimpleBarChart
-            title="How Far Do You Trust AI Output?"
+            title="Only 1.4% Trust AI Output Without Oversight"
+            subtitle="How far do you trust AI-generated output in your workflow?"
             items={trustLevel.data}
-            callout="34.1% trust AI for production work — review before shipping + minor tweaks + full trust combined. Independents lead at 42.0%. Enterprise is lowest at 30.9%."
-            source="n=1,478 · % of respondents"
+            callout="34% trust it for production with review. Independents lead at 42%. Enterprise is lowest at 31%."
+            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -236,10 +243,11 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="dscout">
           <SimpleBarChart
-            title="Top Workflow Blockers"
+            title="The Top 3 Blockers Are Within 3 Points of Each Other"
+            subtitle="What's slowing down your workflow the most?"
             items={blockers.data}
-            callout="A 3-point cluster at the top: 55.6%, 53.1%, 52.2%. The problem isn't that AI doesn't work. It's that no one has time to learn it properly, there are too many options, and the output still isn't reliable enough."
-            source="n=1,478 · % of respondents (multi-select)"
+            callout="The problem isn't that AI doesn't work. It's time, too many options, and unreliable output — all nearly tied."
+            source="State of Prototyping · Spring 2026 · n=1,478 · multi-select"
             bare
           />
         </SocialCardContainer>
@@ -260,10 +268,11 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Dazl">
           <SimpleBarChart
-            title="How Has Your Workflow Changed in 6 Months?"
+            title="71% Have Added AI or Gone AI-Central in 6 Months"
+            subtitle="How has your design workflow changed since late 2025?"
             items={workflowChange.data}
-            callout="Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap that maps directly to policy and procurement friction."
-            source="n=1,478 · % of respondents"
+            callout="Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap."
+            source="State of Prototyping · Spring 2026 · n=1,478"
             bare
           />
         </SocialCardContainer>
@@ -280,9 +289,10 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Mobbin">
           <GroupedComparisonChart
-            title="Role Outlook — More Valuable vs. Less Secure"
+            title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk."
+            subtitle="How do you think AI will affect your role in the next 2 years?"
             items={outlook.data}
-            callout="Researcher anxiety is the loudest signal in this table. 39.1% feel less secure — highest in the survey. Design engineers invert that entirely: 50% more valuable, only 11% less secure."
+            callout="39.1% of researchers feel less secure — highest in the survey. Design engineers invert that: 50% more valuable, only 11% less secure."
             bare
           />
         </SocialCardContainer>
@@ -309,10 +319,11 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="MagicPath">
           <SimpleBarChart
-            title="Where Are You Investing Your Time Next? (Pick 3)"
+            title="2 of the Top 3 Investment Areas Are AI"
+            subtitle="Where are you investing your time in the next 12 months? (pick 3)"
             items={investingNext.data}
-            callout="64% say AI-generated coding is their top investment. Agent workflows at 46% is about automating repetitive work. Design systems at 40% shows the systems layer isn't dead — it's getting more important as implementation gets easier."
-            source="n=1,478 · % of respondents (pick 3)"
+            callout="64% say AI coding. 46% say agent workflows. Design systems at 40% — the only non-AI holdout in the top tier."
+            source="State of Prototyping · Spring 2026 · n=1,478 · pick 3"
             bare
           />
         </SocialCardContainer>
@@ -328,9 +339,10 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="dscout">
           <DualAxisChart
-            title="Workflow Satisfaction by Vibe Coding Level (Mean / 10)"
+            title="Heavier Vibe Coders Are More Satisfied"
+            subtitle="Mean workflow satisfaction (1–10) by vibe coding level"
             satisfaction={satisfaction}
-            callout={`${satisfaction.overall_mean.toFixed(1)}/10 overall mean. The satisfaction curve is nearly linear with adoption.`}
+            callout={`${satisfaction.overall_mean.toFixed(1)}/10 overall mean. The curve is nearly perfectly linear with adoption.`}
             bare
           />
         </SocialCardContainer>

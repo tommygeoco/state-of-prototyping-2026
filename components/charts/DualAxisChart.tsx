@@ -5,17 +5,18 @@ import { HorizontalBarRow } from '@/components/charts/HorizontalBarRow'
 
 interface DualAxisChartProps {
   title: string
+  subtitle?: string
   satisfaction: SatisfactionResponse
   callout: string
   bare?: boolean
 }
 
-export function DualAxisChart({ title, satisfaction, callout, bare = false }: DualAxisChartProps) {
+export function DualAxisChart({ title, subtitle, satisfaction, callout, bare = false }: DualAxisChartProps) {
   const maxMean = 10
   const reversed = [...satisfaction.data].reverse()
 
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
         {reversed.map((item, index) => (
           <HorizontalBarRow
@@ -40,7 +41,7 @@ export function DualAxisChart({ title, satisfaction, callout, bare = false }: Du
           letterSpacing: '0.02em',
         }}
       >
-        n=1,477 · Mean satisfaction score (1–10 scale)
+        State of Prototyping · Spring 2026 · n=1,477
       </div>
     </ChartCard>
   )

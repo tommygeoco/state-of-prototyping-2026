@@ -4,14 +4,15 @@ import { ChartCard } from '@/components/charts/ChartCard'
 
 interface GroupedComparisonChartProps {
   title: string
+  subtitle?: string
   items: OutlookDatum[]
   callout: string
   bare?: boolean
 }
 
-export function GroupedComparisonChart({ title, items, callout, bare = false }: GroupedComparisonChartProps) {
+export function GroupedComparisonChart({ title, subtitle, items, callout, bare = false }: GroupedComparisonChartProps) {
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>

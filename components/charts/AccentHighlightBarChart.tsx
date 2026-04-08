@@ -5,16 +5,17 @@ import { HorizontalBarRow } from '@/components/charts/HorizontalBarRow'
 
 interface AccentHighlightBarChartProps {
   title: string
+  subtitle?: string
   items: ToolDatum[]
   callout: string
   bare?: boolean
 }
 
-export function AccentHighlightBarChart({ title, items, callout, bare = false }: AccentHighlightBarChartProps) {
+export function AccentHighlightBarChart({ title, subtitle, items, callout, bare = false }: AccentHighlightBarChartProps) {
   const maxPct = Math.max(...items.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
         {items.map((item, index) => (
           <HorizontalBarRow
@@ -32,14 +33,14 @@ export function AccentHighlightBarChart({ title, items, callout, bare = false }:
         style={{
           marginTop: 12,
           paddingTop: 8,
-          borderTop: '1px solid var(--border-grid)',
+          borderTop: '1px solid #EDEBE7',
           fontFamily: 'var(--font-data)',
           fontSize: 10,
           color: 'var(--text-secondary)',
           letterSpacing: '0.02em',
         }}
       >
-        n=1,478 · % of respondents
+        State of Prototyping · Spring 2026 · n=1,478
       </div>
     </ChartCard>
   )

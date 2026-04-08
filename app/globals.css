@@ -308,16 +308,15 @@ code {
   margin: var(--card-margin-block) 0;
 }
 
-/* PP Fraktion Mono 14px/700, uppercase, 0.12em, #1A1918, mb 32px (article chart titles) */
+/* Chart title: bold headline that works standalone as a screenshot.
+   Uses Inter (not mono) so longer titles read naturally. */
 .chart-title {
-  font-family: var(--font-display);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 18px;
-  margin: 0 0 32px 0;
+  line-height: 22px;
+  margin: 0;
 }
 
 /* In-card callout: 3px left accent border (article callout style) */

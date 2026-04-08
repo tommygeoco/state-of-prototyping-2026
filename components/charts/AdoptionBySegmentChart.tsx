@@ -5,16 +5,17 @@ import { HorizontalBarRow } from '@/components/charts/HorizontalBarRow'
 
 interface AdoptionBySegmentChartProps {
   title: string
+  subtitle?: string
   items: VibeByRoleDatum[]
   callout: string
   bare?: boolean
 }
 
-export function AdoptionBySegmentChart({ title, items, callout, bare = false }: AdoptionBySegmentChartProps) {
+export function AdoptionBySegmentChart({ title, subtitle, items, callout, bare = false }: AdoptionBySegmentChartProps) {
   const maxPct = Math.max(...items.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
         {items.map((item, index) => (
           <HorizontalBarRow
@@ -39,7 +40,7 @@ export function AdoptionBySegmentChart({ title, items, callout, bare = false }: 
           letterSpacing: '0.02em',
         }}
       >
-        n=1,478 · % spending 50%+ time on vibe coding
+        State of Prototyping · Spring 2026 · n=1,478
       </div>
     </ChartCard>
   )

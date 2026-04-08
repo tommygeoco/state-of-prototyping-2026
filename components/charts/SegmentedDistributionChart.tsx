@@ -5,16 +5,17 @@ import { HorizontalBarRow } from '@/components/charts/HorizontalBarRow'
 
 interface SegmentedDistributionChartProps {
   title: string
+  subtitle?: string
   distribution: VibeDistributionResponse
   callout: string
   bare?: boolean
 }
 
-export function SegmentedDistributionChart({ title, distribution, callout, bare = false }: SegmentedDistributionChartProps) {
+export function SegmentedDistributionChart({ title, subtitle, distribution, callout, bare = false }: SegmentedDistributionChartProps) {
   const maxPct = Math.max(...distribution.data.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
         {distribution.data.map((item, index) => (
           <HorizontalBarRow
@@ -38,7 +39,7 @@ export function SegmentedDistributionChart({ title, distribution, callout, bare 
           letterSpacing: '0.02em',
         }}
       >
-        n=1,478 · % of respondents
+        State of Prototyping · Spring 2026 · n=1,478
       </div>
     </ChartCard>
   )

@@ -8,17 +8,18 @@ export interface SimpleBarDatum {
 
 interface SimpleBarChartProps {
   title: string
+  subtitle?: string
   items: SimpleBarDatum[]
   callout: string
   source?: string
   bare?: boolean
 }
 
-export function SimpleBarChart({ title, items, callout, source, bare = false }: SimpleBarChartProps) {
+export function SimpleBarChart({ title, subtitle, items, callout, source, bare = false }: SimpleBarChartProps) {
   const maxPct = Math.max(...items.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout} bare={bare}>
+    <ChartCard title={title} subtitle={subtitle} callout={callout} bare={bare}>
       <div>
         {items.map((item, index) => (
           <HorizontalBarRow
@@ -37,7 +38,7 @@ export function SimpleBarChart({ title, items, callout, source, bare = false }: 
           style={{
             marginTop: 12,
             paddingTop: 8,
-            borderTop: '1px solid var(--border-grid)',
+            borderTop: '1px solid #EDEBE7',
             fontFamily: 'var(--font-data)',
             fontSize: 10,
             color: 'var(--text-secondary)',

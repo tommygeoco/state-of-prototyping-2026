@@ -19,85 +19,97 @@ export function SatisfactionHeroDeltaChart({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '48px 32px',
+        flex: '1 1 0%',
+        padding: '24px 16px',
       }}
     >
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: 700,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
-          color: 'var(--text-primary)',
-          lineHeight: '18px',
+          color: 'var(--text-secondary)',
+          lineHeight: '16px',
           marginBottom: 24,
         }}
       >
-        Q10 Workflow Satisfaction · N=1,477
+        The Satisfaction Gap
       </div>
 
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(48px, 10vw, 80px)',
+          fontSize: 'clamp(48px, 10vw, 72px)',
           fontWeight: 700,
           lineHeight: 1,
           color: 'var(--text-primary)',
           marginBottom: 12,
         }}
       >
-        {overallMean.toFixed(2)}
+        {overallMean.toFixed(1)}/10
       </div>
 
       <div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 15,
+          fontSize: 14,
           color: 'var(--text-secondary)',
-          marginBottom: 24,
+          marginBottom: 20,
         }}
       >
-        mean workflow satisfaction out of 10
+        overall mean workflow satisfaction
       </div>
 
       <div
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: 10,
-          background: 'var(--delta-bg)',
-          border: '1px solid var(--delta-border)',
+          gap: 8,
+          background: 'rgba(201, 98, 77, 0.08)',
+          border: '1px solid rgba(201, 98, 77, 0.16)',
           borderRadius: 24,
-          padding: '10px 20px',
-          marginBottom: 24,
+          padding: '8px 16px',
+          marginBottom: 20,
         }}
       >
         <span
           style={{
             fontFamily: 'var(--font-data)',
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: 700,
-            color: 'var(--delta-arrow)',
+            color: '#C9624D',
           }}
         >
           ▲ +{delta.toFixed(2)}
         </span>
-        <span style={{ fontSize: 14, color: 'var(--delta-text)' }}>
+        <span style={{ fontSize: 13, color: 'var(--text-body)' }}>
           heavy vibers vs. non-vibers
         </span>
       </div>
 
       <div
         style={{
-          fontFamily: 'var(--font-display)',
+          fontFamily: 'var(--font-body)',
           fontSize: 13,
-          fontWeight: 400,
           color: 'var(--text-secondary)',
           lineHeight: '18px',
         }}
       >
-        Non-vibers: {(overallMean - delta / 2).toFixed(2)} → Heavy vibers: {(overallMean + delta / 2).toFixed(2)}
+        {fromTier}: 5.93 → {toTier}: 7.39
+      </div>
+
+      <div
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 10,
+          fontWeight: 400,
+          color: 'var(--text-secondary)',
+          marginTop: 16,
+        }}
+      >
+        State of Prototyping · Spring 2026 · n=1,477
       </div>
     </div>
   )
