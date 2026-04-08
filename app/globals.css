@@ -346,6 +346,21 @@ code {
   margin-top: 4px;
 }
 
+/* Social Card Container: documented in globals.css, implemented in SocialCardContainer.tsx
+   Source: Paper artboard 8MG-1 "Social Card Container"
+   - Outer: 1080×1080, bg #F7F6F3
+   - Card: flex-grow, margin 20 20 0 20, #FFF bg, 1px #E8E6E1 border, 8px radius, 40px pad
+   - Footer: 80px, margin 0 20, 1px top border #E8E6E1, 16px inline pad
+   - "PRESENTED BY" + sponsor left, UX Tools logo right
+   When placed inside a 720px column, the card centers itself with negative margin. */
+
+.social-card-wrapper {
+  width: 1080px;
+  margin-left: calc((720px - 1080px) / 2);
+  margin-top: var(--card-margin-block);
+  margin-bottom: var(--card-margin-block);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    Utility Classes
    ═══════════════════════════════════════════════════════════════════════════ */

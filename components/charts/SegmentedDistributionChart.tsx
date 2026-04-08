@@ -7,13 +7,14 @@ interface SegmentedDistributionChartProps {
   title: string
   distribution: VibeDistributionResponse
   callout: string
+  bare?: boolean
 }
 
-export function SegmentedDistributionChart({ title, distribution, callout }: SegmentedDistributionChartProps) {
+export function SegmentedDistributionChart({ title, distribution, callout, bare = false }: SegmentedDistributionChartProps) {
   const maxPct = Math.max(...distribution.data.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout}>
+    <ChartCard title={title} callout={callout} bare={bare}>
       {distribution.data.map((item, index) => (
         <HorizontalBarRow
           key={item.tier}

@@ -7,14 +7,15 @@ interface DualAxisChartProps {
   title: string
   satisfaction: SatisfactionResponse
   callout: string
+  bare?: boolean
 }
 
-export function DualAxisChart({ title, satisfaction, callout }: DualAxisChartProps) {
+export function DualAxisChart({ title, satisfaction, callout, bare = false }: DualAxisChartProps) {
   const maxMean = Math.max(...satisfaction.data.map((item) => item.mean))
   const reversed = [...satisfaction.data].reverse()
 
   return (
-    <ChartCard title={title} callout={callout}>
+    <ChartCard title={title} callout={callout} bare={bare}>
       {reversed.map((item, index) => (
         <HorizontalBarRow
           key={item.tier}

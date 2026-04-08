@@ -7,13 +7,14 @@ interface AdoptionBySegmentChartProps {
   title: string
   items: VibeByRoleDatum[]
   callout: string
+  bare?: boolean
 }
 
-export function AdoptionBySegmentChart({ title, items, callout }: AdoptionBySegmentChartProps) {
+export function AdoptionBySegmentChart({ title, items, callout, bare = false }: AdoptionBySegmentChartProps) {
   const maxPct = Math.max(...items.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout}>
+    <ChartCard title={title} callout={callout} bare={bare}>
       {items.map((item, index) => (
         <HorizontalBarRow
           key={item.role}

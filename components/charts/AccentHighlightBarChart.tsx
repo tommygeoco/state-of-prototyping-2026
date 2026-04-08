@@ -7,13 +7,14 @@ interface AccentHighlightBarChartProps {
   title: string
   items: ToolDatum[]
   callout: string
+  bare?: boolean
 }
 
-export function AccentHighlightBarChart({ title, items, callout }: AccentHighlightBarChartProps) {
+export function AccentHighlightBarChart({ title, items, callout, bare = false }: AccentHighlightBarChartProps) {
   const maxPct = Math.max(...items.map((item) => item.pct))
 
   return (
-    <ChartCard title={title} callout={callout}>
+    <ChartCard title={title} callout={callout} bare={bare}>
       {items.map((item, index) => (
         <HorizontalBarRow
           key={item.tool}
