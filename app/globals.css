@@ -190,26 +190,26 @@
   --border-nav: rgba(255, 255, 255, 0.08);
 
   --text-primary: #ffffff;
-  --text-body: #a1a1a1;
+  --text-body: #cccccc;
   --text-list: #d4d4d4;
-  --text-secondary: #666666;
-  --text-muted: #888888;
-  --text-accent: #d4785f;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+  --text-accent: #A8BC42;
 
-  --accent: #d4785f;
+  --accent: #A8BC42;
 
-  --bar-1: #d4785f;
-  --bar-2: #8a8580;
-  --bar-3: rgba(138, 133, 128, 0.7);
-  --bar-4: rgba(138, 133, 128, 0.5);
-  --bar-5: rgba(138, 133, 128, 0.35);
-  --bar-6: rgba(138, 133, 128, 0.22);
-  --bar-7: rgba(138, 133, 128, 0.12);
+  --bar-1: #A8BC42;
+  --bar-2: #E8DFC9;
+  --bar-3: rgba(232, 223, 201, 0.75);
+  --bar-4: rgba(232, 223, 201, 0.55);
+  --bar-5: rgba(232, 223, 201, 0.38);
+  --bar-6: rgba(232, 223, 201, 0.24);
+  --bar-7: rgba(232, 223, 201, 0.14);
 
-  --delta-bg: rgba(212, 120, 95, 0.12);
-  --delta-border: rgba(212, 120, 95, 0.2);
-  --delta-text: #a1a1a1;
-  --delta-arrow: #d4785f;
+  --delta-bg: rgba(168, 188, 66, 0.15);
+  --delta-border: rgba(168, 188, 66, 0.25);
+  --delta-text: #cccccc;
+  --delta-arrow: #A8BC42;
 
   --background: 0 0% 5%;
   --foreground: 0 0% 100%;
@@ -217,19 +217,19 @@
   --card-foreground: 0 0% 100%;
   --popover: 0 0% 8%;
   --popover-foreground: 0 0% 100%;
-  --primary: 12 48% 60%;
-  --primary-foreground: 0 0% 100%;
+  --primary: 72 48% 50%;
+  --primary-foreground: 0 0% 10%;
   --secondary: 0 0% 12%;
   --secondary-foreground: 0 0% 90%;
   --muted: 0 0% 12%;
   --muted-foreground: 0 0% 40%;
-  --ui-accent: 12 48% 60%;
-  --ui-accent-foreground: 0 0% 100%;
+  --ui-accent: 72 48% 50%;
+  --ui-accent-foreground: 0 0% 10%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --border: 0 0% 16%;
   --input: 0 0% 16%;
-  --ring: 12 48% 60%;
+  --ring: 72 48% 50%;
 }
 
 /* ── Reset ── */
