@@ -16,9 +16,9 @@ export function HeroStatChart({ value, label }: HeroStatChartProps) {
     >
       <div
         style={{
-          fontFamily: 'var(--font-data)',
+          fontFamily: 'var(--font-display)',
           fontSize: 72,
-          fontWeight: 700,
+          fontWeight: 800,
           lineHeight: 1,
           color: 'var(--text-primary)',
         }}

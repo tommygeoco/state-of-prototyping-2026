@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'PP Fraktion Mono';
+  src: url('/fonts/PPFraktionMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Fraktion Mono';
+  src: url('/fonts/PPFraktionMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Fraktion Mono';
+  src: url('/fonts/PPFraktionMono-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Fraktion Mono';
+  src: url('/fonts/PPFraktionMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Fraktion Mono';
+  src: url('/fonts/PPFraktionMono-Black.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-canvas: #fffbf7;
   --bg-card: #ffffff;
@@ -32,7 +72,7 @@
   --delta-text: #4a4844;
   --delta-arrow: #2c2924;
 
-  --font-display: var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: 'PP Fraktion Mono', var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
   --font-data: var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
   --font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
 
@@ -145,7 +185,7 @@ code {
 }
 
 .chart-title {
-  font-family: var(--font-data);
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
   color: var(--text-primary);

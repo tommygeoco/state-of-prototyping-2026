@@ -23,9 +23,9 @@ export function SatisfactionHeroDeltaChart({
     >
       <div
         style={{
-          fontFamily: 'var(--font-data)',
+          fontFamily: 'var(--font-display)',
           fontSize: 56,
-          fontWeight: 700,
+          fontWeight: 800,
           lineHeight: 1,
           color: 'var(--text-primary)',
         }}
