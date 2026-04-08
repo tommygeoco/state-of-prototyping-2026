@@ -19,9 +19,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <Nav />
       <main
         style={{
-          width: 'var(--content-width)',
+          width: '100%',
+          maxWidth: 'var(--content-width)',
           margin: '0 auto',
           paddingBlock: 'var(--hero-padding-block)',
+          paddingInline: 'var(--nav-padding-inline)',
         }}
       >
         {children}

@@ -2,7 +2,7 @@ import { sponsors } from '@/lib/site'
 
 export function Footer() {
   return (
-    <footer style={{ width: 720, margin: '0 auto', paddingBottom: 64 }}>
+    <footer style={{ width: '100%', maxWidth: 720, margin: '0 auto', paddingBottom: 64, paddingInline: 24 }}>
       <hr className="section-divider" />
 
       <section style={{ marginTop: 48, marginBottom: 48 }}>
