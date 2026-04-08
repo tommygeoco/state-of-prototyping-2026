@@ -10,10 +10,11 @@
   --border-card: #e8e6e1;
   --border-grid: #edebe7;
 
-  --text-primary: #1a1918;
+  --text-primary: #1a1a1a;
   --text-body: #4a4844;
   --text-secondary: #8a8680;
-  --text-accent: #a34b3a;
+  --text-muted: #6b6560;
+  --text-accent: #c9624d;
 
   --accent: #c9624d;
 
@@ -31,16 +32,7 @@
   --delta-text: #4a4844;
   --delta-arrow: #2c2924;
 
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --card-pad: 40px;
-  --card-pad-hero: 56px;
-
-  --font-display: 'PP Fraktion Mono', var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
   --font-data: var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
   --font-body: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
 
@@ -60,6 +52,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.625;
   background: var(--bg-canvas);
   color: var(--text-body);
 }
@@ -71,9 +65,7 @@ a {
 
 button,
 input,
-textarea,
-pre,
-code {
+textarea {
   font: inherit;
 }
 
@@ -86,42 +78,168 @@ code {
   background: rgba(201, 98, 77, 0.18);
 }
 
+/* ── Typography roles (from Paper artboard computed styles) ── */
+
+.eyebrow {
+  font-family: var(--font-data);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+}
+
+.page-eyebrow {
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+}
+
+.section-title {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--text-primary);
+}
+
+.page-title {
+  font-family: var(--font-body);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.9px;
+  color: var(--text-primary);
+}
+
+.lead-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.625;
+  color: var(--text-muted);
+}
+
+.body-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.625;
+  color: var(--text-body);
+}
+
+/* ── Chart card (from Paper: white bg, 1px border, 8px radius, 40px pad) ── */
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 40px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.chart-title {
+  font-family: var(--font-data);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 18px;
+  margin-bottom: 32px;
+}
+
+/* In-card callout (from Paper: #F5F4F0 bg, 3px left accent border, 32px pad) */
+.chart-callout {
+  background: var(--bg-callout);
+  border-radius: 0;
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-body);
+  margin-top: 24px;
+}
+
+/* Pull quote (outside chart card, from Paper: 3px left accent border, 20px left pad) */
+.pull-quote {
+  border-left: 3px solid var(--accent);
+  padding-left: 20px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.625;
+  color: var(--text-primary);
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+/* Section divider (1px rule between sections in Paper) */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-card);
+  margin: 0;
+  border: none;
+}
+
+/* Hero stats strip (from Paper: #F5F4F0 bg, 8px radius, 24px pad, flex row) */
+.stats-strip {
+  display: flex;
+  gap: 24px;
+  background: var(--bg-callout);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.stats-strip-item {
+  flex: 1;
+}
+
+.stats-strip-value {
+  font-family: var(--font-data);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.stats-strip-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
 @layer components {
   .button-primary {
-    @apply inline-flex items-center justify-center rounded-md border border-transparent bg-[var(--accent)] px-4 py-3 text-sm font-medium text-white transition hover:opacity-90;
+    @apply inline-flex items-center justify-center rounded-md border border-transparent px-4 py-3 text-sm font-medium text-white transition hover:opacity-90;
+    background: var(--accent);
   }
 
   .button-secondary {
-    @apply inline-flex items-center justify-center rounded-md border border-border bg-card px-4 py-3 text-sm font-medium text-text-primary transition hover:border-text-secondary;
-  }
-
-  .chart-card {
-    @apply rounded-lg border border-border bg-card;
-    padding: var(--card-pad);
-  }
-
-  .chart-title {
-    font-family: var(--font-display);
-    font-size: 17px;
-    font-weight: 700;
+    @apply inline-flex items-center justify-center rounded-md px-4 py-3 text-sm font-medium transition;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
     color: var(--text-primary);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
   }
 
-  .chart-callout {
-    background: var(--bg-callout);
-    border-radius: 6px;
-    padding: 14px 18px;
-    font-family: var(--font-display);
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--text-body);
-    margin-top: 16px;
+  .button-secondary:hover {
+    border-color: var(--text-secondary);
   }
 
   .code-block {
-    @apply overflow-x-auto rounded-lg border border-border bg-card px-4 py-4 text-sm leading-6 text-text-body;
+    @apply overflow-x-auto rounded-lg px-4 py-4 text-sm leading-6;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    color: var(--text-body);
+    font-family: var(--font-data);
   }
 }

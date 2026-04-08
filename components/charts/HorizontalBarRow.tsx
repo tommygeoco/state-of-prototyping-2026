@@ -28,20 +28,51 @@ export function HorizontalBarRow({
   const color = accentWinner && rank === 1 ? 'var(--accent)' : colors[Math.min(rank - 1, colors.length - 1)]
 
   return (
-    <div className="flex items-center gap-3 py-[4.5px]">
+    <div style={{ display: 'flex', alignItems: 'center', marginBottom: 9 }}>
       <div
-        className="font-data text-[14px] uppercase tracking-[0.03em] text-text-secondary"
-        style={{ width: 170, textAlign: 'right', flexShrink: 0 }}
+        style={{
+          fontFamily: 'var(--font-data)',
+          fontSize: 12,
+          color: 'var(--text-secondary)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.03em',
+          width: 170,
+          textAlign: 'right',
+          paddingRight: 12,
+          flexShrink: 0,
+        }}
       >
         {label}
       </div>
-      <div className="h-[22px] flex-1 overflow-hidden rounded-[3px] bg-[var(--bg-callout)]">
+      <div
+        style={{
+          flex: 1,
+          height: 22,
+          background: 'var(--bg-callout)',
+          borderRadius: 3,
+          overflow: 'hidden',
+        }}
+      >
         <div
-          className="h-full rounded-[3px]"
-          style={{ width: `${Math.min((pct / maxPct) * 100, 100)}%`, backgroundColor: color }}
+          style={{
+            width: `${Math.min((pct / maxPct) * 100, 100).toFixed(1)}%`,
+            height: '100%',
+            background: color,
+            borderRadius: 3,
+          }}
         />
       </div>
-      <div className="w-[58px] flex-shrink-0 font-data text-[14px] font-medium text-text-body">
+      <div
+        style={{
+          fontFamily: 'var(--font-data)',
+          fontSize: 13,
+          fontWeight: 500,
+          color: 'var(--text-body)',
+          width: 52,
+          paddingLeft: 8,
+          flexShrink: 0,
+        }}
+      >
         {displayValue ?? `${pct.toFixed(1)}%`}
       </div>
     </div>

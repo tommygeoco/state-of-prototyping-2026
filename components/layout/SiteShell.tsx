@@ -15,10 +15,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)' }}>
       <Nav />
-      <main>{children}</main>
+      <main style={{ width: 720, margin: '0 auto', paddingTop: 64 }}>
+        {children}
+      </main>
       <Footer />
-    </>
+    </div>
   )
 }

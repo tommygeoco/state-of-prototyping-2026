@@ -26,9 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="ai-context" href="/agent/SURVEY_CONTEXT.md" />
       </head>
       <body>
-        <div className="min-h-screen bg-canvas text-text-body">
-          <SiteShell>{children}</SiteShell>
-        </div>
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   )

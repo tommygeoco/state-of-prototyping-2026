@@ -4,20 +4,38 @@ interface PageSectionProps {
   eyebrow?: string
   title?: string
   intro?: string
+  body?: string
   children: ReactNode
+  divider?: boolean
 }
 
-export function PageSection({ eyebrow, title, intro, children }: PageSectionProps) {
+export function PageSection({ eyebrow, title, intro, body, children, divider = true }: PageSectionProps) {
   return (
-    <section className="px-6 py-12 md:px-10 md:py-16">
-      <div className="mx-auto max-w-content">
+    <>
+      {divider ? <hr className="section-divider" /> : null}
+      <section style={{ marginBottom: 48 }}>
         {eyebrow ? (
-          <p className="mb-3 font-display text-sm uppercase tracking-[0.12em] text-text-accent">{eyebrow}</p>
+          <p className="eyebrow" style={{ marginBottom: 12 }}>
+            {eyebrow}
+          </p>
         ) : null}
-        {title ? <h2 className="text-[24px] font-semibold leading-8 text-text-primary">{title}</h2> : null}
-        {intro ? <p className="mt-4 max-w-[62ch] text-lg leading-[1.625] text-text-body">{intro}</p> : null}
-        <div className={title || intro || eyebrow ? 'mt-8' : ''}>{children}</div>
-      </div>
-    </section>
+        {title ? (
+          <h2 className="section-title" style={{ marginBottom: 24 }}>
+            {title}
+          </h2>
+        ) : null}
+        {intro ? (
+          <p className="body-text" style={{ marginBottom: 16 }}>
+            {intro}
+          </p>
+        ) : null}
+        {body ? (
+          <p className="body-text" style={{ marginBottom: 16 }}>
+            {body}
+          </p>
+        ) : null}
+        {children}
+      </section>
+    </>
   )
 }

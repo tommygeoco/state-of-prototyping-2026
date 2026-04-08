@@ -4,19 +4,15 @@ import { ComparativeSideBySideChart } from '@/components/charts/ComparativeSideB
 import { DualAxisChart } from '@/components/charts/DualAxisChart'
 import { GroupedComparisonChart } from '@/components/charts/GroupedComparisonChart'
 import { HeroStatChart } from '@/components/charts/HeroStatChart'
-import { KPIStripChart } from '@/components/charts/KPIStripChart'
-import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
 import { SatisfactionHeroDeltaChart } from '@/components/charts/SatisfactionHeroDeltaChart'
+import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
 import { PageSection } from '@/components/layout/PageSection'
-import { loadHeadline, loadOutlook, loadSatisfaction, loadTools, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
+import { loadOutlook, loadSatisfaction, loadTools, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
 
-export const metadata = {
-  title: 'Explore',
-}
+export const metadata = { title: 'Explore' }
 
 export default async function ExplorePage() {
-  const [headline, outlook, satisfaction, tools, vibeByRole, vibeDistribution] = await Promise.all([
-    loadHeadline(),
+  const [outlook, satisfaction, tools, vibeByRole, vibeDistribution] = await Promise.all([
     loadOutlook(),
     loadSatisfaction(),
     loadTools(),
@@ -24,71 +20,116 @@ export default async function ExplorePage() {
     loadVibeDistribution(),
   ])
 
-  const vibe50 = headline.data.find((item) => item.key === 'vibe_coding_50plus')
-  const builtTool = headline.data.find((item) => item.key === 'built_tool_with_ai')
-  const generateCode = headline.data.find((item) => item.key === 'generate_code_ai')
   const icDesigner = vibeByRole.data.find((item) => item.role === 'IC Designer')
   const designEngineer = vibeByRole.data.find((item) => item.role === 'Design Engineer')
-  const kpiItems = headline.data.filter((item) =>
-    ['vibe_coding_50plus', 'built_tool_with_ai', 'generate_code_ai'].includes(item.key),
-  )
 
   return (
-    <PageSection
-      eyebrow="Explore"
-      title="Interactive Charts"
-      intro="Every chart on this page is rendered live from the open summary tables and mirrored by the REST API."
-    >
-      <div className="space-y-6">
+    <>
+      <section style={{ marginBottom: 64 }}>
+        <p className="page-eyebrow" style={{ marginBottom: 16 }}>Explore</p>
+        <h1 className="page-title" style={{ marginBottom: 24 }}>Interactive Charts</h1>
+        <p className="lead-text">
+          Every chart on this page is rendered live from the open summary tables.
+          The same JSON files power the REST API and the downloadable dataset.
+        </p>
+      </section>
+
+      <PageSection
+        eyebrow="Section 01"
+        title="The vibe coding split"
+        intro="This was the centerpiece question: how much of your building is actually vibe coding — using AI to generate code you may not fully understand, but that works?"
+      >
         <HeroStatChart
-          value={vibe50?.value ?? 43.8}
-          label="Designers spend 50%+ of output time on AI-generated code"
-          supporting={[
-            `${designEngineer?.pct.toFixed(1)}% among design engineers`,
-            `${icDesigner?.pct.toFixed(1)}% among IC designers`,
-          ]}
-          callout="The 50%+ threshold is the primary adoption metric in the release because it marks respondents who have already crossed from occasional usage into workflow-level reliance."
+          value="44%"
+          label="of designers spend more than half their building time vibe coding"
         />
-        <KPIStripChart
-          items={kpiItems}
-          callout="The KPI strip pairs adoption with behavior: it is not just that respondents use AI, but that many are already generating code and shipping their own tools."
+        <SegmentedDistributionChart
+          title="Vibe Coding Distribution — All Respondents"
+          distribution={vibeDistribution}
+          callout="43.8% spend 50%+ time vibe coding. 31.2% say most or nearly all. The 38% doing zero is the more surprising number — the hype has outpaced adoption at the tail."
         />
+        <div className="pull-quote">
+          &ldquo;38% of designers do zero vibe coding. 31% say it&apos;s most or all of how they build.
+          These aren&apos;t different generations — they&apos;re working in the same orgs, on the same products.&rdquo;
+        </div>
+      </PageSection>
+
+      <PageSection
+        eyebrow="Section 02"
+        title="The stack right now"
+        intro="Five of the ten most-used weekly tools are now AI tools. Figma holds its seat. But Claude, ChatGPT, Claude Code, Figma Make, and Gemini now sit alongside it in the weekly rotation."
+      >
         <AccentHighlightBarChart
+          title="Top 10 Tools Used Every Week"
           items={tools.data}
-          callout="The tool stack is still design-native at the top, but the rest of the top ten shows language models and agentic coding tools consolidating into weekly habits."
+          callout="Claude is the #2 tool after Figma — 50.8% weekly use. Claude Code at #4 (38.4%) ranks above FigJam and Slack."
         />
+      </PageSection>
+
+      <PageSection
+        eyebrow="Section 03"
+        title="Vibe coding by role"
+        intro="Same profession. Different reality. The vibe coding split isn't random — it maps almost perfectly to role type."
+      >
         <AdoptionBySegmentChart
+          title="% Spending 50%+ Time Vibe Coding — By Role"
           items={vibeByRole.data}
-          callout="Role is the clearest segmentation variable in the published cross-tabs. The design engineer cohort sits well ahead of everyone else, while researchers remain the most cautious."
+          callout={`Design engineers: ${designEngineer?.pct.toFixed(1)}%. IC designers: ${icDesigner?.pct.toFixed(1)}%. A 46-point gap between two roles in the same design org.`}
         />
+        <div className="pull-quote">
+          &ldquo;The managers-at-47% number is telling. Vibe coding didn&apos;t just serve engineers — it gave
+          managers and non-designers an exit from prototyping constraints they&apos;ve always had.&rdquo;
+        </div>
+      </PageSection>
+
+      <PageSection
+        eyebrow="Section 04"
+        title="IC Designer vs Design Engineer"
+        intro="The two largest practitioner roles sit on opposite sides of the vibe coding divide."
+      >
         <ComparativeSideBySideChart
+          title="50%+ Vibe Coding — IC Designer vs Design Engineer"
           leftLabel="IC Designer"
           leftValue={icDesigner?.pct ?? 35.0}
           rightLabel="Design Engineer"
           rightValue={designEngineer?.pct ?? 80.9}
-          callout="This side-by-side view turns the main role gap into a simple contrast. Design engineers are already working in conditions that reward heavy AI code generation."
+          callout="Design engineers are already working in conditions that reward heavy AI code generation. IC designers are still mostly in Figma."
         />
+      </PageSection>
+
+      <PageSection
+        eyebrow="Section 05"
+        title="How designers feel about their role"
+        intro="Your confidence tracks with your seat. Design engineers are the most optimistic. Researchers are the most anxious."
+      >
         <GroupedComparisonChart
+          title="Role Outlook — More Valuable vs. Less Secure"
           items={outlook.data}
-          callout="Outlook diverges by seat. The more a role already includes implementation, the more likely respondents are to see AI as leverage instead of threat."
+          callout="Researcher anxiety is the loudest signal in this table. 39.1% feel less secure — highest in the survey. Design engineers invert that entirely: 50% more valuable, only 11% less secure."
         />
-        <SegmentedDistributionChart
-          distribution={vibeDistribution}
-          callout="The distribution shows a polarized market: the largest single bucket is still zero vibe coding, but the combined 50%+ share now rivals the cautious middle."
-        />
+        <div className="pull-quote">
+          &ldquo;IC designers and researchers are the most exposed. They&apos;re also the largest
+          groups in most design orgs. This is the conversation that&apos;s not happening loudly enough.&rdquo;
+        </div>
+      </PageSection>
+
+      <PageSection
+        eyebrow="Section 06"
+        title="The satisfaction gap"
+        intro="1.5 points separates the floor from the ceiling. Both are people with the same job title. The difference is how much of their workflow runs on AI."
+      >
         <DualAxisChart
-          distribution={vibeDistribution}
+          title="Workflow Satisfaction by Vibe Coding Level (Mean / 10)"
           satisfaction={satisfaction}
-          callout="Adoption share and satisfaction move in the same direction. The heavier the vibe-coding tier, the higher the reported workflow satisfaction."
+          callout={`${satisfaction.overall_mean.toFixed(1)}/10 overall mean. The satisfaction curve is nearly linear with adoption.`}
         />
         <SatisfactionHeroDeltaChart
           overallMean={satisfaction.overall_mean}
           delta={satisfaction.delta.value}
           fromTier={satisfaction.delta.from_tier}
           toTier={satisfaction.delta.to_tier}
-          callout="The average score alone is useful, but the delta is the story beat worth remembering: the difference between zero-vibe and nearly-all-vibe respondents is 1.46 points."
         />
-      </div>
-    </PageSection>
+      </PageSection>
+    </>
   )
 }

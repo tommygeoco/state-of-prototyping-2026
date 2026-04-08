@@ -6,9 +6,7 @@ import { CodeBlock } from '@/components/common/CodeBlock'
 import { CopyButton } from '@/components/common/CopyButton'
 import { PageSection } from '@/components/layout/PageSection'
 
-export const metadata = {
-  title: 'For Agents',
-}
+export const metadata = { title: 'For Agents' }
 
 const curlSnippet = `# Get vibe coding breakdown by role
 curl https://data.prototypingstate.com/api/v1/stats/vibe-by-role
@@ -41,7 +39,7 @@ survey_tool = StructuredTool.from_function(query_survey)`
 
 const openAiSnippet = `{
   "name": "query_prototyping_survey",
-  "description": "Query the State of Prototyping Spring 2026 survey. 1,478 designers. Data on vibe coding adoption, AI tool usage, workflow satisfaction, role outlooks. CC BY 4.0.",
+  "description": "Query the State of Prototyping Spring 2026 survey.",
   "parameters": {
     "type": "object",
     "properties": {
@@ -58,58 +56,45 @@ export default async function AgentPage() {
   const contextMarkdown = await readFile(path.join(process.cwd(), 'public', 'agent', 'SURVEY_CONTEXT.md'), 'utf8')
 
   return (
-    <PageSection
-      eyebrow="For AI Agents & Developers"
-      title="Agent-ready dataset"
-      intro="Query the survey in natural language, integrate it as a tool, or load the context file into an LLM before calling the structured endpoints."
-    >
-      <div className="space-y-8">
-        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card px-6 py-5">
-          <div className="text-sm text-text-body">Context file URL: https://data.prototypingstate.com/agent/SURVEY_CONTEXT.md</div>
-          <CopyButton text="https://data.prototypingstate.com/agent/SURVEY_CONTEXT.md" label="Copy context file URL" />
+    <>
+      <section style={{ marginBottom: 64 }}>
+        <p className="page-eyebrow" style={{ marginBottom: 16 }}>For AI Agents & Developers</p>
+        <h1 className="page-title" style={{ marginBottom: 24 }}>Agent-ready dataset</h1>
+        <p className="lead-text" style={{ marginBottom: 32 }}>
+          Query the survey in natural language, integrate it as a tool, or load the context
+          file into any LLM before calling the structured endpoints.
+        </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontFamily: 'var(--font-data)', fontSize: 13, color: 'var(--text-body)' }}>
+            https://data.prototypingstate.com/agent/SURVEY_CONTEXT.md
+          </span>
+          <CopyButton text="https://data.prototypingstate.com/agent/SURVEY_CONTEXT.md" label="Copy URL" />
         </div>
+      </section>
 
+      <PageSection eyebrow="Playground" title="Natural Language Query">
         <AgentQueryPlayground />
+      </PageSection>
 
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <div className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">LangChain Tool</div>
-          <div className="mt-5">
-            <CodeBlock code={langChainSnippet} />
-          </div>
-        </div>
+      <PageSection eyebrow="Integration" title="LangChain Tool">
+        <CodeBlock code={langChainSnippet} />
+      </PageSection>
 
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <div className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">
-            OpenAI Function Definition
-          </div>
-          <div className="mt-5">
-            <CodeBlock code={openAiSnippet} />
-          </div>
-        </div>
+      <PageSection eyebrow="Integration" title="OpenAI Function Definition">
+        <CodeBlock code={openAiSnippet} />
+      </PageSection>
 
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <div className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">cURL</div>
-          <div className="mt-5">
-            <CodeBlock code={curlSnippet} />
-          </div>
-        </div>
+      <PageSection eyebrow="Integration" title="cURL">
+        <CodeBlock code={curlSnippet} />
+      </PageSection>
 
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <div className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">Python + pandas</div>
-          <div className="mt-5">
-            <CodeBlock code={pythonSnippet} />
-          </div>
-        </div>
+      <PageSection eyebrow="Integration" title="Python + pandas">
+        <CodeBlock code={pythonSnippet} />
+      </PageSection>
 
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <div className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">
-            Context File (Inline)
-          </div>
-          <div className="mt-5">
-            <CodeBlock code={contextMarkdown} />
-          </div>
-        </div>
-      </div>
-    </PageSection>
+      <PageSection eyebrow="Reference" title="Context File (Inline)">
+        <CodeBlock code={contextMarkdown} />
+      </PageSection>
+    </>
   )
 }

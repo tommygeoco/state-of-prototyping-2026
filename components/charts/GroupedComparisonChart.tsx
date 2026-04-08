@@ -3,45 +3,127 @@ import type { OutlookDatum } from '@/lib/data/schema'
 import { ChartCard } from '@/components/charts/ChartCard'
 
 interface GroupedComparisonChartProps {
+  title: string
   items: OutlookDatum[]
   callout: string
 }
 
-const metrics = [
-  { key: 'more_valuable', label: 'More valuable', color: 'var(--accent)' },
-  { key: 'less_secure', label: 'Less secure', color: 'var(--bar-2)' },
-  { key: 'about_same', label: 'About same', color: 'var(--bar-5)' },
-] as const
-
-export function GroupedComparisonChart({ items, callout }: GroupedComparisonChartProps) {
+export function GroupedComparisonChart({ title, items, callout }: GroupedComparisonChartProps) {
   return (
-    <ChartCard title="Role Outlook By Role" callout={callout}>
-      <div className="space-y-6">
-        {items.map((item) => (
-          <div key={item.role} className="rounded-md border border-grid bg-[var(--bg-card-inner)] p-5">
-            <div className="mb-4 font-display text-sm uppercase tracking-[0.12em] text-text-primary">{item.role}</div>
-            <div className="space-y-3">
-              {metrics.map((metric) => {
-                const value = item[metric.key]
-                return (
-                  <div key={metric.key}>
-                    <div className="mb-1 flex items-center justify-between text-sm text-text-body">
-                      <span>{metric.label}</span>
-                      <span className="font-data">{value.toFixed(1)}%</span>
-                    </div>
-                    <div className="h-3 rounded-full bg-[var(--bg-callout)]">
-                      <div
-                        className="h-full rounded-full"
-                        style={{ width: `${value}%`, backgroundColor: metric.color }}
-                      />
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
+    <ChartCard title={title} callout={callout}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th
+              style={{
+                fontFamily: 'var(--font-data)',
+                fontSize: 11,
+                fontWeight: 400,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--text-accent)',
+                textAlign: 'left',
+                paddingBottom: 16,
+              }}
+            >
+              Role
+            </th>
+            <th
+              style={{
+                fontFamily: 'var(--font-data)',
+                fontSize: 11,
+                fontWeight: 400,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--text-secondary)',
+                textAlign: 'left',
+                paddingBottom: 16,
+              }}
+            >
+              More Valuable
+            </th>
+            <th
+              style={{
+                fontFamily: 'var(--font-data)',
+                fontSize: 11,
+                fontWeight: 400,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--text-secondary)',
+                textAlign: 'left',
+                paddingBottom: 16,
+              }}
+            >
+              Less Secure
+            </th>
+            <th
+              style={{
+                fontFamily: 'var(--font-data)',
+                fontSize: 11,
+                fontWeight: 400,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--text-secondary)',
+                textAlign: 'left',
+                paddingBottom: 16,
+              }}
+            >
+              About Same
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.role} style={{ borderTop: '1px solid var(--border-grid)' }}>
+              <td
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: 'var(--text-primary)',
+                  paddingBlock: 14,
+                  paddingRight: 16,
+                }}
+              >
+                {item.role}
+              </td>
+              <td
+                style={{
+                  fontFamily: 'var(--font-data)',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: 'var(--text-accent)',
+                  paddingBlock: 14,
+                }}
+              >
+                {item.more_valuable.toFixed(1)}%
+              </td>
+              <td
+                style={{
+                  fontFamily: 'var(--font-data)',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: 'var(--text-accent)',
+                  paddingBlock: 14,
+                }}
+              >
+                {item.less_secure.toFixed(1)}%
+              </td>
+              <td
+                style={{
+                  fontFamily: 'var(--font-data)',
+                  fontSize: 14,
+                  fontWeight: 400,
+                  color: 'var(--text-secondary)',
+                  paddingBlock: 14,
+                }}
+              >
+                {item.about_same.toFixed(1)}%
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </ChartCard>
   )
 }

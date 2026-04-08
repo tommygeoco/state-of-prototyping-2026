@@ -8,21 +8,19 @@ import { ComparativeSideBySideChart } from '@/components/charts/ComparativeSideB
 import { DualAxisChart } from '@/components/charts/DualAxisChart'
 import { GroupedComparisonChart } from '@/components/charts/GroupedComparisonChart'
 import { HeroStatChart } from '@/components/charts/HeroStatChart'
-import { KPIStripChart } from '@/components/charts/KPIStripChart'
-import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
 import { SatisfactionHeroDeltaChart } from '@/components/charts/SatisfactionHeroDeltaChart'
+import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
 import { SocialCardFrame } from '@/components/social/SocialCardFrame'
-import { loadHeadline, loadOutlook, loadSatisfaction, loadTools, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
+import { loadOutlook, loadSatisfaction, loadTools, loadVibeByRole, loadVibeDistribution } from '@/lib/data/loaders'
 
 const socialSlugs = [
   'hero',
-  'kpis',
   'tools',
   'vibe-by-role',
   'ic-vs-de',
   'outlook',
   'distribution',
-  'dual-axis',
+  'satisfaction',
   'satisfaction-delta',
 ] as const
 
@@ -33,9 +31,7 @@ export function generateStaticParams() {
 }
 
 interface SocialPageProps {
-  params: {
-    slug: string
-  }
+  params: { slug: string }
 }
 
 export default async function SocialPage({ params }: SocialPageProps) {
@@ -43,8 +39,7 @@ export default async function SocialPage({ params }: SocialPageProps) {
     notFound()
   }
 
-  const [headline, outlook, satisfaction, tools, vibeByRole, vibeDistribution] = await Promise.all([
-    loadHeadline(),
+  const [outlook, satisfaction, tools, vibeByRole, vibeDistribution] = await Promise.all([
     loadOutlook(),
     loadSatisfaction(),
     loadTools(),
@@ -52,81 +47,33 @@ export default async function SocialPage({ params }: SocialPageProps) {
     loadVibeDistribution(),
   ])
 
-  const vibe50 = headline.data.find((item) => item.key === 'vibe_coding_50plus')
-  const builtTool = headline.data.find((item) => item.key === 'built_tool_with_ai')
-  const generateCode = headline.data.find((item) => item.key === 'generate_code_ai')
   const icDesigner = vibeByRole.data.find((item) => item.role === 'IC Designer')
   const designEngineer = vibeByRole.data.find((item) => item.role === 'Design Engineer')
-  const kpiItems = headline.data.filter((item) =>
-    ['vibe_coding_50plus', 'built_tool_with_ai', 'generate_code_ai'].includes(item.key),
-  )
 
   const socialCharts: Record<SocialSlug, ReactNode> = {
     hero: (
-      <HeroStatChart
-        value={vibe50?.value ?? 43.8}
-        label="Designers spend 50%+ of output time on AI-generated code"
-        supporting={[
-          `${designEngineer?.pct.toFixed(1)}% among design engineers`,
-          `${icDesigner?.pct.toFixed(1)}% among IC designers`,
-        ]}
-        callout="The defining headline of the release: nearly half of respondents already spend at least half of their output time on AI-generated code."
-      />
-    ),
-    kpis: (
-      <KPIStripChart
-        items={kpiItems}
-        callout="Three numbers frame the release: adoption, code generation, and tool building are all well beyond novelty."
-      />
+      <HeroStatChart value="43.8%" label="of designers spend more than half their building time vibe coding" />
     ),
     tools: (
-      <AccentHighlightBarChart
-        items={tools.data}
-        callout="Figma still anchors the workflow, but LLM-native tools now make up most of the rest of the top ten."
-      />
+      <AccentHighlightBarChart title="Top 10 Tools Used Every Week" items={tools.data} callout="Figma #1, Claude #2, ChatGPT #3." />
     ),
     'vibe-by-role': (
-      <AdoptionBySegmentChart
-        items={vibeByRole.data}
-        callout="Role is the clearest dividing line in the published cross-tabs, with design engineers far ahead of IC designers."
-      />
+      <AdoptionBySegmentChart title="% Spending 50%+ Time Vibe Coding — By Role" items={vibeByRole.data} callout="Design engineers lead at 80.9%." />
     ),
     'ic-vs-de': (
-      <ComparativeSideBySideChart
-        leftLabel="IC Designer"
-        leftValue={icDesigner?.pct ?? 35.0}
-        rightLabel="Design Engineer"
-        rightValue={designEngineer?.pct ?? 80.9}
-        callout="The gap between these two roles captures the broader split in how AI-generated code is entering design workflows."
-      />
+      <ComparativeSideBySideChart title="50%+ Vibe Coding — IC vs DE" leftLabel="IC Designer" leftValue={icDesigner?.pct ?? 35.0} rightLabel="Design Engineer" rightValue={designEngineer?.pct ?? 80.9} callout="46-point gap." />
     ),
     outlook: (
-      <GroupedComparisonChart
-        items={outlook.data}
-        callout="Confidence tracks with implementation exposure: the more code-touching the role, the more optimistic the outlook."
-      />
+      <GroupedComparisonChart title="Role Outlook — More Valuable vs. Less Secure" items={outlook.data} callout="Confidence tracks with implementation exposure." />
     ),
     distribution: (
-      <SegmentedDistributionChart
-        distribution={vibeDistribution}
-        callout="The market is split between a large zero-vibe block and a rapidly growing 50%+ block."
-      />
+      <SegmentedDistributionChart title="Vibe Coding Distribution — All Respondents" distribution={vibeDistribution} callout="38% do zero. 31% say most or all." />
     ),
-    'dual-axis': (
-      <DualAxisChart
-        distribution={vibeDistribution}
-        satisfaction={satisfaction}
-        callout="Adoption share and satisfaction rise together across the published vibe tiers."
-      />
+    satisfaction: (
+      <DualAxisChart title="Workflow Satisfaction by Vibe Coding Level (Mean / 10)" satisfaction={satisfaction} callout={`${satisfaction.overall_mean.toFixed(1)}/10 overall mean.`} />
     ),
     'satisfaction-delta': (
-      <SatisfactionHeroDeltaChart
-        overallMean={satisfaction.overall_mean}
-        delta={satisfaction.delta.value}
-        fromTier={satisfaction.delta.from_tier}
-        toTier={satisfaction.delta.to_tier}
-        callout="The satisfaction gap is one of the strongest directional signals in the release."
-      />
+      <SatisfactionHeroDeltaChart overallMean={satisfaction.overall_mean} delta={satisfaction.delta.value} fromTier={satisfaction.delta.from_tier} toTier={satisfaction.delta.to_tier} />
     ),
   }
 

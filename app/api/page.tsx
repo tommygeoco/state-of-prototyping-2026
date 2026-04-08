@@ -1,9 +1,7 @@
 import { CodeBlock } from '@/components/common/CodeBlock'
 import { PageSection } from '@/components/layout/PageSection'
 
-export const metadata = {
-  title: 'API Docs',
-}
+export const metadata = { title: 'API Docs' }
 
 const endpoints = [
   ['GET', '/api/v1/meta', 'Survey metadata (n, period, fields)'],
@@ -30,61 +28,60 @@ curl -X POST https://data.prototypingstate.com/api/v1/agent/query \\
 
 export default function ApiDocsPage() {
   return (
-    <PageSection
-      eyebrow="API"
-      title="Open Data API"
-      intro="The runtime API mirrors the static dataset and keeps every chart, download, and agent workflow aligned with the same published summary tables."
-    >
-      <div className="space-y-8">
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">
-              Endpoints
-            </h3>
-            <a href="/api/openapi.yaml" className="button-secondary">
-              View OpenAPI YAML
-            </a>
-          </div>
-          <div className="mt-5 overflow-x-auto">
-            <table className="min-w-full border-separate border-spacing-y-2 text-left text-sm text-text-body">
-              <thead>
-                <tr className="text-text-secondary">
-                  <th className="pr-6">Method</th>
-                  <th className="pr-6">Path</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {endpoints.map(([method, path, description]) => (
-                  <tr key={path}>
-                    <td className="pr-6 font-data text-text-primary">{method}</td>
-                    <td className="pr-6 font-data text-text-primary">{path}</td>
-                    <td>{description}</td>
-                  </tr>
+    <>
+      <section style={{ marginBottom: 64 }}>
+        <p className="page-eyebrow" style={{ marginBottom: 16 }}>API</p>
+        <h1 className="page-title" style={{ marginBottom: 24 }}>Open Data API</h1>
+        <p className="lead-text">
+          The runtime API mirrors the static dataset. Every chart, download, and agent workflow
+          reads from the same published summary tables.
+        </p>
+      </section>
+
+      <PageSection eyebrow="Reference" title="Endpoints">
+        <div className="chart-card">
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                {['Method', 'Path', 'Description'].map((header) => (
+                  <th
+                    key={header}
+                    style={{
+                      fontFamily: 'var(--font-data)',
+                      fontSize: 11,
+                      fontWeight: 400,
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      color: 'var(--text-secondary)',
+                      textAlign: 'left',
+                      paddingBottom: 16,
+                      paddingRight: 16,
+                    }}
+                  >
+                    {header}
+                  </th>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </tr>
+            </thead>
+            <tbody>
+              {endpoints.map(([method, path, description]) => (
+                <tr key={path} style={{ borderTop: '1px solid var(--border-grid)' }}>
+                  <td style={{ fontFamily: 'var(--font-data)', fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', paddingBlock: 12, paddingRight: 16 }}>{method}</td>
+                  <td style={{ fontFamily: 'var(--font-data)', fontSize: 13, color: 'var(--text-body)', paddingBlock: 12, paddingRight: 16 }}>{path}</td>
+                  <td style={{ fontSize: 14, color: 'var(--text-body)', paddingBlock: 12 }}>{description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+        <div style={{ marginTop: 16 }}>
+          <a href="/api/openapi.yaml" className="button-secondary">View OpenAPI YAML</a>
+        </div>
+      </PageSection>
 
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <h3 className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">cURL quickstart</h3>
-          <div className="mt-5">
-            <CodeBlock code={curlExamples} />
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-border bg-card px-6 py-6">
-          <h3 className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">
-            Notes for builders
-          </h3>
-          <ul className="mt-5 space-y-3 text-sm leading-7 text-text-body">
-            <li>All API payloads are sourced from the same files exposed in `/public/data`.</li>
-            <li>The v1 agent route uses keyword matching rather than an LLM so its output shape stays deterministic.</li>
-            <li>The `question/:id/crosstab` endpoint only publishes the Q7 by role cross-tab in v1.</li>
-          </ul>
-        </div>
-      </div>
-    </PageSection>
+      <PageSection eyebrow="Quickstart" title="cURL examples">
+        <CodeBlock code={curlExamples} />
+      </PageSection>
+    </>
   )
 }
