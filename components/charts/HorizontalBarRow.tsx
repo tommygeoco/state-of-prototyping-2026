@@ -7,15 +7,13 @@ interface HorizontalBarRowProps {
   accentWinner?: boolean
 }
 
-const ACCENT = 'var(--accent, #C9624D)'
-
-const grayRamp = [
-  '#6B6560',
-  'rgba(107, 101, 96, 0.75)',
-  'rgba(107, 101, 96, 0.58)',
-  'rgba(107, 101, 96, 0.42)',
-  'rgba(107, 101, 96, 0.28)',
-  'rgba(107, 101, 96, 0.18)',
+const barVars = [
+  'var(--bar-2)',
+  'var(--bar-3)',
+  'var(--bar-4)',
+  'var(--bar-5)',
+  'var(--bar-6)',
+  'var(--bar-7)',
 ]
 
 export function HorizontalBarRow({
@@ -27,7 +25,7 @@ export function HorizontalBarRow({
   accentWinner = false,
 }: HorizontalBarRowProps) {
   const isWinner = accentWinner && rank === 1
-  const barColor = isWinner ? ACCENT : grayRamp[Math.min(rank - 2, grayRamp.length - 1)] ?? grayRamp[0]
+  const barColor = isWinner ? 'var(--bar-1)' : barVars[Math.min(rank - 2, barVars.length - 1)] ?? barVars[0]
   const widthPct = Math.min((pct / maxPct) * 100, 100)
 
   return (
@@ -57,7 +55,7 @@ export function HorizontalBarRow({
             fontFamily: 'var(--font-data)',
             fontSize: 13,
             fontWeight: 700,
-            color: isWinner ? ACCENT : 'var(--text-body)',
+            color: isWinner ? 'var(--bar-1)' : 'var(--text-body)',
             flexShrink: 0,
           }}
         >
