@@ -43,7 +43,7 @@ export function Footer() {
         <p
           style={{
             fontFamily: 'var(--font-data)',
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 700,
             letterSpacing: '0.08em',
             textTransform: 'uppercase',

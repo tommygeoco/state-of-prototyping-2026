@@ -16,7 +16,7 @@ export function ChartCard({ title, subtitle, callout, children, bare = false }: 
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 13,
+            fontSize: 14,
             lineHeight: '18px',
             color: 'var(--text-secondary)',
             marginTop: 4,
@@ -40,7 +40,7 @@ export function ChartCard({ title, subtitle, callout, children, bare = false }: 
               padding: '8px 12px',
               background: 'var(--bg-callout)',
               fontFamily: 'var(--font-body)',
-              fontSize: 11,
+              fontSize: 14,
               lineHeight: 1.5,
               color: 'var(--text-body)',
               marginTop: 10,

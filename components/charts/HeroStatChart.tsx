@@ -21,7 +21,7 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 11,
+          fontSize: 14,
           fontWeight: 700,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
@@ -88,7 +88,7 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         <div
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 11,
+            fontSize: 14,
             fontWeight: 400,
             color: 'var(--text-muted)',
             lineHeight: '14px',

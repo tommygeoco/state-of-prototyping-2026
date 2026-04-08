@@ -26,7 +26,7 @@ export function SatisfactionHeroDeltaChart({
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 11,
+          fontSize: 14,
           fontWeight: 700,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
@@ -84,7 +84,7 @@ export function SatisfactionHeroDeltaChart({
         >
           ▲ +{delta.toFixed(2)}
         </span>
-        <span style={{ fontSize: 13, color: 'var(--text-body)' }}>
+        <span style={{ fontSize: 14, color: 'var(--text-body)' }}>
           heavy vibers vs. non-vibers
         </span>
       </div>
@@ -92,7 +92,7 @@ export function SatisfactionHeroDeltaChart({
       <div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 13,
+          fontSize: 14,
           color: 'var(--text-muted)',
           lineHeight: '18px',
         }}
@@ -103,7 +103,7 @@ export function SatisfactionHeroDeltaChart({
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 10,
+          fontSize: 14,
           fontWeight: 400,
           color: 'var(--text-secondary)',
           marginTop: 12,

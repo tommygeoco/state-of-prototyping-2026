@@ -42,7 +42,7 @@ export function HorizontalBarRow({
         <span
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: isWinner ? 600 : 500,
             color: isWinner ? 'var(--text-primary)' : 'var(--text-body)',
             lineHeight: '18px',
@@ -53,7 +53,7 @@ export function HorizontalBarRow({
         <span
           style={{
             fontFamily: 'var(--font-data)',
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: 700,
             color: isWinner ? 'var(--bar-1)' : 'var(--text-body)',
             flexShrink: 0,

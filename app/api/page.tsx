@@ -50,7 +50,7 @@ export default function ApiDocsPage() {
             <span
               style={{
                 fontFamily: 'var(--font-data)',
-                fontSize: 10,
+                fontSize: 14,
                 fontWeight: 700,
                 color: ep.method === 'POST' ? 'var(--bar-1)' : 'var(--text-secondary)',
                 width: 32,
@@ -59,10 +59,10 @@ export default function ApiDocsPage() {
             >
               {ep.method}
             </span>
-            <span style={{ fontFamily: 'var(--font-data)', fontSize: 12, color: 'var(--text-primary)', flex: 1, minWidth: 0 }}>
+            <span style={{ fontFamily: 'var(--font-data)', fontSize: 14, color: 'var(--text-primary)', flex: 1, minWidth: 0 }}>
               {ep.path}
             </span>
-            <span style={{ fontSize: 12, color: 'var(--text-muted)', flexShrink: 0 }}>{ep.desc}</span>
+            <span style={{ fontSize: 14, color: 'var(--text-muted)', flexShrink: 0 }}>{ep.desc}</span>
           </div>
         ))}
       </div>

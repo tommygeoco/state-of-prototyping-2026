@@ -37,7 +37,7 @@ export function SimpleBarChart({ title, subtitle, items, callout, source, bare =
             paddingTop: 8,
             borderTop: '1px solid var(--border-grid)',
             fontFamily: 'var(--font-data)',
-            fontSize: 10,
+            fontSize: 14,
             color: 'var(--text-secondary)',
             letterSpacing: '0.02em',
           }}

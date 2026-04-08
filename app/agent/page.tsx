@@ -27,7 +27,7 @@ export default async function AgentPage() {
             borderRadius: 6,
             background: 'var(--bg-callout)',
             fontFamily: 'var(--font-data)',
-            fontSize: 11,
+            fontSize: 14,
             color: 'var(--text-body)',
           }}
         >
@@ -41,14 +41,14 @@ export default async function AgentPage() {
       <hr className="section-divider" />
 
       <section style={{ marginBottom: 48 }}>
-        <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-muted)', marginBottom: 12 }}>Try it</p>
+        <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-muted)', marginBottom: 12 }}>Try it</p>
         <AgentQueryPlayground />
       </section>
 
       <hr className="section-divider" />
 
       <section style={{ marginBottom: 48 }}>
-        <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--text-muted)', marginBottom: 12 }}>Integrate</p>
+        <p style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-muted)', marginBottom: 12 }}>Integrate</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <Disclosure title="LangChain tool" defaultOpen>
             <CodeBlock code={`from langchain.tools import StructuredTool

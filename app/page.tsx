@@ -81,7 +81,7 @@ export default function HomePage() {
             >
               {item.value}
             </div>
-            <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 6 }}>
+            <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginTop: 6 }}>
               {item.label}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function HomePage() {
             href={link.href}
             style={{
               fontFamily: 'var(--font-data)',
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 400,
               letterSpacing: '0.04em',
               textTransform: 'uppercase',

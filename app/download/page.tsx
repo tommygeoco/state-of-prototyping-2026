@@ -39,12 +39,12 @@ export default async function DownloadPage() {
                   borderBottom: '1px solid var(--border-grid)',
                 }}
               >
-                <span style={{ fontFamily: 'var(--font-data)', fontSize: 12, fontWeight: 700, color: 'var(--text-primary)', width: 28, flexShrink: 0 }}>
+                <span style={{ fontFamily: 'var(--font-data)', fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', width: 28, flexShrink: 0 }}>
                   {q.id}
                 </span>
-                <span style={{ fontSize: 13, color: 'var(--text-body)', flex: 1 }}>{q.field}</span>
-                <span style={{ fontFamily: 'var(--font-data)', fontSize: 11, color: 'var(--text-secondary)' }}>{q.type}</span>
-                <span style={{ fontSize: 12, color: 'var(--text-muted)', width: 72, textAlign: 'right', flexShrink: 0 }}>{q.options}</span>
+                <span style={{ fontSize: 14, color: 'var(--text-body)', flex: 1 }}>{q.field}</span>
+                <span style={{ fontFamily: 'var(--font-data)', fontSize: 14, color: 'var(--text-secondary)' }}>{q.type}</span>
+                <span style={{ fontSize: 14, color: 'var(--text-muted)', width: 72, textAlign: 'right', flexShrink: 0 }}>{q.options}</span>
               </div>
             ))}
           </div>
@@ -58,7 +58,7 @@ export default async function DownloadPage() {
         </Disclosure>
 
         <Disclosure title="Citation">
-          <p style={{ fontFamily: 'var(--font-data)', fontSize: 12, lineHeight: '18px', color: 'var(--text-body)' }}>
+          <p style={{ fontFamily: 'var(--font-data)', fontSize: 14, lineHeight: '18px', color: 'var(--text-body)' }}>
             UX Tools. (2026). State of Prototyping Spring 2026. https://survey.uxtools.co. CC BY 4.0.
           </p>
         </Disclosure>
@@ -83,7 +83,7 @@ export default async function DownloadPage() {
             }}
           >
             <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--text-primary)' }}>{item.label}</span>
-            <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{item.desc} →</span>
+            <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>{item.desc} →</span>
           </Link>
         ))}
       </div>

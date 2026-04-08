@@ -39,7 +39,7 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
         <span
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: 600,
             color: 'var(--text-primary)',
           }}
@@ -49,7 +49,7 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
         <span
           style={{
             fontFamily: 'var(--font-data)',
-            fontSize: 11,
+            fontSize: 14,
             color: 'var(--text-secondary)',
             transition: 'transform 150ms',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',

@@ -69,7 +69,7 @@ export function AgentQueryPlayground() {
           <span
             style={{
               fontFamily: 'var(--font-data)',
-              fontSize: 11,
+              fontSize: 14,
               color: 'var(--text-secondary)',
             }}
           >
@@ -86,7 +86,7 @@ export function AgentQueryPlayground() {
             padding: '16px 20px',
             margin: 0,
             fontFamily: 'var(--font-data)',
-            fontSize: 12,
+            fontSize: 14,
             lineHeight: '18px',
             color: 'var(--text-body)',
             overflow: 'auto',

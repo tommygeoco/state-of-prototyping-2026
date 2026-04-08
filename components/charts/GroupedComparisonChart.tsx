@@ -19,7 +19,7 @@ export function GroupedComparisonChart({ title, subtitle, items, callout, bare =
             <th
               style={{
                 fontFamily: 'var(--font-data)',
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: 400,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -33,7 +33,7 @@ export function GroupedComparisonChart({ title, subtitle, items, callout, bare =
             <th
               style={{
                 fontFamily: 'var(--font-data)',
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: 400,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -47,7 +47,7 @@ export function GroupedComparisonChart({ title, subtitle, items, callout, bare =
             <th
               style={{
                 fontFamily: 'var(--font-data)',
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: 400,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
@@ -61,7 +61,7 @@ export function GroupedComparisonChart({ title, subtitle, items, callout, bare =
             <th
               style={{
                 fontFamily: 'var(--font-data)',
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: 400,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
