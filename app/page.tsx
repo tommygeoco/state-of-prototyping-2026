@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { KPIStripChart } from '@/components/charts/KPIStripChart'
+import { Button } from '@/components/ui/button'
 
 export default function HomePage() {
   return (
@@ -17,8 +18,12 @@ export default function HomePage() {
           in the age of AI-generated code.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          <Link href="/explore" className="button-primary">Explore the data →</Link>
-          <Link href="/api/v1/download/csv" className="button-secondary">Download CSV</Link>
+          <Button asChild>
+            <Link href="/explore">Explore the data →</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/api/v1/download/csv">Download CSV</Link>
+          </Button>
         </div>
       </header>
 
@@ -148,7 +153,9 @@ export default function HomePage() {
           ))}
         </ol>
         <div style={{ marginTop: 32 }}>
-          <Link href="/explore" className="button-primary">Read the full report →</Link>
+          <Button asChild>
+            <Link href="/explore">Read the full report →</Link>
+          </Button>
         </div>
       </section>
 
@@ -161,10 +168,10 @@ export default function HomePage() {
           or feed the context file directly into an LLM.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          <Link href="/api/v1/download/csv" className="button-secondary">Download CSV</Link>
-          <Link href="/api/v1/download/json" className="button-secondary">Download JSON</Link>
-          <Link href="/api" className="button-secondary">API Docs</Link>
-          <Link href="/agent" className="button-secondary">For Agents</Link>
+          <Button asChild variant="outline"><Link href="/api/v1/download/csv">Download CSV</Link></Button>
+          <Button asChild variant="outline"><Link href="/api/v1/download/json">Download JSON</Link></Button>
+          <Button asChild variant="outline"><Link href="/api">API Docs</Link></Button>
+          <Button asChild variant="outline"><Link href="/agent">For Agents</Link></Button>
         </div>
       </section>
     </>

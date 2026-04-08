@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    PP Fraktion Mono — self-hosted webfonts
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -140,6 +149,31 @@
   --card-padding: 40px;
   --card-margin-block: 32px;
   --card-radius: 8px;
+
+  /* ── shadcn/ui HSL bridge ──
+     Maps our design tokens to the HSL variables shadcn components expect.
+     Our custom .chart-card, .chart-title, .body-text etc. still use the
+     original hex variables above. These are only for shadcn primitives. */
+  --background: 30 50% 98%;        /* #FFFBF7 → warm off-white canvas */
+  --foreground: 30 5% 12%;         /* #1A1A1A → near-black text */
+  --card: 0 0% 100%;               /* #FFFFFF */
+  --card-foreground: 30 5% 12%;    /* #1A1A1A */
+  --popover: 0 0% 100%;
+  --popover-foreground: 30 5% 12%;
+  --primary: 12 48% 55%;           /* #C9624D → warm terracotta accent */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 6% 95%;          /* #F5F4F0 → callout bg */
+  --secondary-foreground: 30 5% 12%;
+  --muted: 30 6% 95%;
+  --muted-foreground: 30 5% 53%;   /* #8A8680 → secondary text */
+  --accent: 12 48% 55%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 36 11% 90%;            /* #E8E6E1 */
+  --input: 36 11% 90%;
+  --ring: 12 48% 55%;              /* accent for focus rings */
+  --radius: 8px;
 }
 
 /* ── Reset ── */
