@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-type Theme = 'system' | 'light' | 'dark'
+type Theme = 'light' | 'system' | 'dark'
 
 function getSystemTheme(): 'light' | 'dark' {
   if (typeof window === 'undefined') return 'light'
@@ -13,6 +13,14 @@ function applyTheme(theme: Theme) {
   const resolved = theme === 'system' ? getSystemTheme() : theme
   document.documentElement.classList.toggle('dark', resolved === 'dark')
 }
+
+const icons: Record<Theme, string> = {
+  dark: '☽',
+  system: '◻',
+  light: '☀',
+}
+
+const order: Theme[] = ['dark', 'system', 'light']
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>('system')
@@ -33,39 +41,39 @@ export function ThemeToggle() {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
-  function cycle() {
-    const order: Theme[] = ['system', 'light', 'dark']
-    const next = order[(order.indexOf(theme) + 1) % order.length]
-    setTheme(next)
-    localStorage.setItem('theme', next)
-    applyTheme(next)
-  }
-
-  const labels: Record<Theme, string> = {
-    system: '◐',
-    light: '○',
-    dark: '●',
+  function select(t: Theme) {
+    setTheme(t)
+    localStorage.setItem('theme', t)
+    applyTheme(t)
   }
 
   return (
-    <button
-      type="button"
-      onClick={cycle}
-      aria-label={`Theme: ${theme}`}
-      title={`Theme: ${theme}`}
-      style={{
-        fontFamily: 'var(--font-data)',
-        fontSize: 14,
-        color: 'var(--text-secondary)',
-        background: 'none',
-        border: 'none',
-        cursor: 'pointer',
-        padding: '4px 8px',
-        borderRadius: 4,
-        lineHeight: 1,
-      }}
-    >
-      {labels[theme]}
-    </button>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      {order.map((t) => (
+        <button
+          key={t}
+          type="button"
+          onClick={() => select(t)}
+          aria-label={`${t} mode${theme === t ? ' (active)' : ''}`}
+          style={{
+            fontSize: 15,
+            lineHeight: 1,
+            width: 32,
+            height: 32,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 6,
+            border: 'none',
+            cursor: 'pointer',
+            background: theme === t ? 'var(--bg-callout)' : 'transparent',
+            color: theme === t ? 'var(--text-primary)' : 'var(--text-secondary)',
+            transition: 'background 150ms, color 150ms',
+          }}
+        >
+          {icons[t]}
+        </button>
+      ))}
+    </div>
   )
 }
