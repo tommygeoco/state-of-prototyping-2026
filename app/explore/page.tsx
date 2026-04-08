@@ -43,10 +43,29 @@ export default async function ExplorePage() {
         </p>
       </header>
 
-      {/* ── 1. The stack right now ── */}
+      {/* ── 1. Who took this survey ── */}
       <hr className="section-divider" />
       <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">1. The stack right now</h2>
+        <h2 className="section-title">1. Who took this survey</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          This is the first edition of our quarterly State of Prototyping — a recurring snapshot
+          built specifically for designers and builders who work across the design-to-code spectrum.
+        </p>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          63% of respondents are outside North America. Western Europe (18.1%), South Asia (10.2%),
+          and Southeast Asia (7.3%) are the largest non-US regions. This is a global read on how
+          design practitioners work.
+        </p>
+        <div className="pull-quote">
+          Startup-heavy, indie-strong. Nearly half the sample is at a startup or working
+          independently — the cohort most likely to move fast on new tools.
+        </div>
+      </section>
+
+      {/* ── 2. The stack right now ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">2. The stack right now</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Five of the ten most-used weekly tools are now AI tools. That sentence didn&apos;t make
           sense two years ago.
@@ -70,10 +89,10 @@ export default async function ExplorePage() {
         </div>
       </section>
 
-      {/* ── 2. The vibe coding split ── */}
+      {/* ── 3. The vibe coding split ── */}
       <hr className="section-divider" />
       <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">2. The vibe coding split</h2>
+        <h2 className="section-title">3. The vibe coding split</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           This was the centerpiece question: how much of your building is actually vibe coding —
           using AI to generate code you may not fully understand, but that works?
@@ -108,10 +127,10 @@ export default async function ExplorePage() {
         </div>
       </section>
 
-      {/* ── 3. Vibe coding by role ── */}
+      {/* ── 4. Vibe coding by role ── */}
       <hr className="section-divider" />
       <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">3. Vibe coding by role</h2>
+        <h2 className="section-title">4. Vibe coding by role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Same profession. Different reality. The vibe coding split isn&apos;t random — it maps
           almost perfectly to role type.
@@ -128,17 +147,6 @@ export default async function ExplorePage() {
           The managers-at-47% number is telling. Vibe coding didn&apos;t just serve engineers — it
           gave managers and non-designers an exit from prototyping constraints they&apos;ve always had.
         </p>
-      </section>
-
-      {/* ── 4. IC Designer vs Design Engineer ── */}
-      <hr className="section-divider" />
-      <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">4. IC Designer vs Design Engineer</h2>
-        <p className="body-text" style={{ marginBottom: 16 }}>
-          The two largest practitioner roles sit on opposite sides of the vibe coding divide.
-          Design engineers at {designEngineer?.pct.toFixed(1)}% vs. IC designers
-          at {icDesigner?.pct.toFixed(1)}%. Same profession, different reality.
-        </p>
         <SocialCardContainer sponsor="MagicPatterns">
           <ComparativeSideBySideChart
             title="50%+ Vibe Coding — IC Designer vs Design Engineer"
@@ -152,10 +160,94 @@ export default async function ExplorePage() {
         </SocialCardContainer>
       </section>
 
-      {/* ── 5. How designers feel about their role ── */}
+      {/* ── 5. Who's building their own tools ── */}
       <hr className="section-divider" />
       <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">5. How designers feel about their role</h2>
+        <h2 className="section-title">5. Who&apos;s building their own tools</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          59% of designers have built their own tool, app, or utility with AI in the last 6 months.
+          One in four does it regularly.
+        </p>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          That number would have been in the low single digits two years ago. The ability to build
+          something for yourself — not a product, just a thing that solves your own problem — has
+          unlocked a new kind of creative leverage.
+        </p>
+        <SocialCardContainer sponsor="Framer">
+          <HeroStatChart
+            value="59%"
+            accentLabel="Built Their Own Tool"
+            label="of designers have built their own tool, app, or utility with AI-generated code in the last 6 months"
+            meta="1,478 respondents · Spring 2026"
+          />
+        </SocialCardContainer>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          59% have built something. 30% want to but haven&apos;t yet. Only 10.5% have no plans to.
+          The intent-to-try cohort is bigger than the never-will cohort by 3x.
+        </p>
+      </section>
+
+      {/* ── 6. The trust line ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">6. The trust line</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          Only 1.4% trust AI output without oversight. But 34% trust it for production — with
+          review. That&apos;s a bigger number than most people would have guessed.
+        </p>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          We&apos;re in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line isn&apos;t whether AI
+          works. It&apos;s how much cleanup it takes before it&apos;s usable.
+        </p>
+        <div className="pull-quote">
+          34.1% trust AI for production work — review before shipping + minor tweaks +
+          full trust combined. Independents lead at 42.0%. Enterprise is lowest at 30.9%.
+        </div>
+      </section>
+
+      {/* ── 7. What's blocking everyone ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">7. What&apos;s blocking everyone</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          The top 3 blockers are within 3 percentage points of each other. That&apos;s not noise —
+          that&apos;s signal. Three simultaneous problems, nearly identical in size.
+        </p>
+        <div className="pull-quote">
+          A 3-point cluster at the top: time to learn tools (55.6%), too many tools (53.1%),
+          AI output quality (52.2%). The problem isn&apos;t that AI doesn&apos;t work. It&apos;s that no one
+          has time to learn it properly, there are too many options, and the output still
+          isn&apos;t reliable enough.
+        </div>
+      </section>
+
+      {/* ── 8. How workflows changed in 6 months ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">8. How workflows changed in 6 months</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          71% have added AI or gone AI-central in the last 6 months. Only 10% say
+          &ldquo;mostly the same.&rdquo; The shift already happened. The question is how far
+          you&apos;ve gone.
+        </p>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap
+          that maps directly to policy and procurement friction.
+        </p>
+        <SocialCardContainer sponsor="Dazl">
+          <HeroStatChart
+            value="71%"
+            accentLabel="Added AI to Workflow"
+            label="of designers have added AI tools or gone AI-central in the last 6 months"
+            meta="1,478 respondents · Spring 2026"
+          />
+        </SocialCardContainer>
+      </section>
+
+      {/* ── 9. How designers feel about their role ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">9. How designers feel about their role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           Your confidence tracks with your seat. Design engineers are the most optimistic.
           Researchers are the most anxious. The gap between those two groups is the sharpest
@@ -176,10 +268,34 @@ export default async function ExplorePage() {
         </div>
       </section>
 
-      {/* ── 6. The satisfaction gap ── */}
+      {/* ── 10. Where designers are investing next ── */}
       <hr className="section-divider" />
       <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">6. The satisfaction gap</h2>
+        <h2 className="section-title">10. Where designers are investing next</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          Two of the top 3 are AI. Design systems are the only holdout in the top tier — and
+          that&apos;s not an accident. Systems work is how you stay relevant when the output layer
+          gets automated.
+        </p>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          64% say AI-generated coding is their top investment. Agent workflows at 46% is about
+          automating repetitive work. Design systems at 40% shows the systems layer isn&apos;t dead —
+          it&apos;s getting more important as implementation gets easier.
+        </p>
+        <SocialCardContainer sponsor="MagicPath">
+          <HeroStatChart
+            value="64%"
+            accentLabel="AI-Generated Coding"
+            label="of designers say AI-generated coding is their top investment area for the next 12 months"
+            meta="1,478 respondents · Spring 2026"
+          />
+        </SocialCardContainer>
+      </section>
+
+      {/* ── 11. The satisfaction gap ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">11. The satisfaction gap</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
           1.5 points separates the floor from the ceiling. Both are people with the same job
           title. The difference is how much of their workflow runs on AI.
@@ -206,10 +322,10 @@ export default async function ExplorePage() {
         </SocialCardContainer>
       </section>
 
-      {/* ── Summary ── */}
+      {/* ── 12. The story in summary ── */}
       <hr className="section-divider" />
       <section style={{ marginBottom: 48 }}>
-        <h2 className="section-title">The story in summary</h2>
+        <h2 className="section-title">12. The story in summary</h2>
         <p className="body-text" style={{ marginBottom: 24 }}>
           Six findings that capture what this data actually says.
         </p>
@@ -248,6 +364,27 @@ export default async function ExplorePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* ── Methodology note ── */}
+      <hr className="section-divider" />
+      <section style={{ marginBottom: 48 }}>
+        <h2 className="section-title">Methodology</h2>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          The State of Prototyping Spring 2026 survey ran from March 14 to April 6, 2026 and
+          collected 1,478 responses from designers and builders across 18 world regions. Distribution
+          was via UX Tools newsletter, social channels, and sponsor networks.
+        </p>
+        <p className="body-text" style={{ marginBottom: 16 }}>
+          All published data is aggregated — no individual microdata is released. The
+          &ldquo;Researcher&rdquo; role (n=23) should be treated as directional only due to small sample
+          size. Multi-select questions sum to more than 100%. Cross-tab percentages are calculated
+          within each role&apos;s n.
+        </p>
+        <p className="body-text">
+          The full dataset is available under CC BY 4.0. Citation: UX Tools. (2026). State of
+          Prototyping Spring 2026. https://data.prototypingstate.com.
+        </p>
       </section>
     </article>
   )
