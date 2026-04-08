@@ -83,8 +83,10 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="MagicPath">
           <HeroStatChart
-            value="44%"
-            label="of designers spend more than half their building time vibe coding"
+            value="43.8%"
+            accentLabel="Vibe Coding 50%+"
+            label="of designers spend more than half their building time on AI-generated code"
+            meta="1,478 respondents · Spring 2026"
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>

@@ -55,7 +55,9 @@ export default async function HomePage() {
         </p>
         <HeroStatChart
           value="43.8%"
-          label="of designers spend more than half their building time vibe coding"
+          accentLabel="Vibe Coding 50%+"
+          label="of designers spend more than half their building time on AI-generated code"
+          meta="1,478 respondents · Spring 2026"
         />
       </section>
 
