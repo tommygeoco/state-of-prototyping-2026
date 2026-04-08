@@ -10,26 +10,26 @@ interface ChartCardProps {
 export function ChartCard({ title, callout, children, bare = false }: ChartCardProps) {
   if (bare) {
     return (
-      <>
-        <div className="chart-title">{title}</div>
-        {children}
+      <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0%' }}>
+        <div className="chart-title" style={{ marginBottom: 16 }}>{title}</div>
+        <div style={{ flex: '1 1 0%' }}>{children}</div>
         {callout ? (
           <div
             style={{
               borderRadius: 6,
-              padding: '14px 18px',
+              padding: '10px 14px',
               background: 'var(--bg-callout)',
               fontFamily: 'var(--font-body)',
-              fontSize: 14,
-              lineHeight: 1.6,
+              fontSize: 12,
+              lineHeight: 1.5,
               color: 'var(--text-body)',
-              marginTop: 24,
+              marginTop: 12,
             }}
           >
             {callout}
           </div>
         ) : null}
-      </>
+      </div>
     )
   }
 

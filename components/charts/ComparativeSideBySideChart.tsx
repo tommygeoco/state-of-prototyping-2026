@@ -24,8 +24,23 @@ export function ComparativeSideBySideChart({
 
   return (
     <ChartCard title={title} callout={callout} bare={bare}>
-      <HorizontalBarRow label={leftLabel} pct={leftValue} rank={2} maxPct={maxPct} displayValue={`${leftValue.toFixed(1)}%`} />
-      <HorizontalBarRow label={rightLabel} pct={rightValue} rank={1} maxPct={maxPct} displayValue={`${rightValue.toFixed(1)}%`} accentWinner />
+      <div>
+        <HorizontalBarRow label={rightLabel} pct={rightValue} rank={1} maxPct={maxPct} displayValue={`${rightValue.toFixed(1)}%`} accentWinner />
+        <HorizontalBarRow label={leftLabel} pct={leftValue} rank={2} maxPct={maxPct} displayValue={`${leftValue.toFixed(1)}%`} />
+      </div>
+      <div
+        style={{
+          marginTop: 12,
+          paddingTop: 8,
+          borderTop: '1px solid var(--border-grid)',
+          fontFamily: 'var(--font-data)',
+          fontSize: 10,
+          color: 'var(--text-secondary)',
+          letterSpacing: '0.02em',
+        }}
+      >
+        n=1,478 · % spending 50%+ time vibe coding
+      </div>
     </ChartCard>
   )
 }
