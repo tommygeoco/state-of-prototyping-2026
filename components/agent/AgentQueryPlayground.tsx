@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+
 export function AgentQueryPlayground() {
   const [question, setQuestion] = useState('Which role has the highest vibe coding adoption?')
   const [result, setResult] = useState<string>('')
@@ -14,12 +16,9 @@ export function AgentQueryPlayground() {
     try {
       const response = await fetch('/api/v1/agent/query', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question }),
       })
-
       const data = await response.json()
       setResult(JSON.stringify(data, null, 2))
     } catch (error) {
@@ -30,28 +29,74 @@ export function AgentQueryPlayground() {
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card px-6 py-6">
-      <div className="font-display text-sm uppercase tracking-[0.12em] text-text-primary">
-        Natural Language Query
-      </div>
-      <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+    <div
+      style={{
+        border: '1px solid var(--border-card)',
+        borderRadius: 8,
+        background: 'var(--bg-card)',
+        overflow: 'hidden',
+      }}
+    >
+      <form onSubmit={handleSubmit}>
         <textarea
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
-          className="min-h-[120px] w-full rounded-md border border-border bg-[var(--bg-card-inner)] px-4 py-3 text-sm leading-6 text-text-body outline-none focus:border-text-secondary"
+          rows={2}
+          style={{
+            width: '100%',
+            display: 'block',
+            padding: '16px 20px',
+            border: 'none',
+            borderBottom: '1px solid var(--border-grid)',
+            background: 'transparent',
+            fontFamily: 'var(--font-body)',
+            fontSize: 14,
+            lineHeight: '22px',
+            color: 'var(--text-primary)',
+            resize: 'vertical',
+            outline: 'none',
+          }}
         />
-        <div className="flex flex-wrap items-center gap-3">
-          <button type="submit" className="button-primary" disabled={loading}>
-            {loading ? 'Querying…' : 'Run query'}
-          </button>
-          <div className="text-sm text-text-secondary">POST /api/v1/agent/query</div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 20px',
+            borderBottom: '1px solid var(--border-grid)',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-data)',
+              fontSize: 11,
+              color: 'var(--text-secondary)',
+            }}
+          >
+            POST /api/v1/agent/query
+          </span>
+          <Button type="submit" size="sm" disabled={loading}>
+            {loading ? 'Querying…' : 'Run'}
+          </Button>
         </div>
       </form>
-      <div className="mt-5">
-        <pre className="code-block">
-          <code>{result || '{ "question": "Which role vibes the most?" }'}</code>
+      {result ? (
+        <pre
+          style={{
+            padding: '16px 20px',
+            margin: 0,
+            fontFamily: 'var(--font-data)',
+            fontSize: 12,
+            lineHeight: '18px',
+            color: 'var(--text-body)',
+            overflow: 'auto',
+            maxHeight: 300,
+            background: 'var(--bg-callout)',
+          }}
+        >
+          <code>{result}</code>
         </pre>
-      </div>
+      ) : null}
     </div>
   )
 }

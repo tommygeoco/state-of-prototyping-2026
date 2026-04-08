@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import { PageSection } from '@/components/layout/PageSection'
+import { Button } from '@/components/ui/button'
+import { Disclosure } from '@/components/ui/disclosure'
 import { loadQuestions } from '@/lib/data/loaders'
-import { sponsors } from '@/lib/site'
 
 export const metadata = { title: 'Download' }
 
@@ -11,91 +11,165 @@ export default async function DownloadPage() {
 
   return (
     <>
-      <section style={{ marginBottom: 64 }}>
-        <p className="page-eyebrow" style={{ marginBottom: 16 }}>Download</p>
-        <h1 className="page-title" style={{ marginBottom: 24 }}>Download the Data</h1>
-        <p className="lead-text" style={{ marginBottom: 40 }}>
+      <header style={{ marginBottom: 40 }}>
+        <p className="page-eyebrow">Download</p>
+        <h1 className="page-title" style={{ marginBottom: 12 }}>Get the data</h1>
+        <p className="lead-text" style={{ marginBottom: 24 }}>
           The complete State of Prototyping Spring 2026 dataset.
           Released under CC BY 4.0 — use it, cite it, build with it.
         </p>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <Link href="/api/v1/download/csv" className="button-primary">Download CSV</Link>
-          <Link href="/api/v1/download/json" className="button-secondary">Download JSON</Link>
-          <Link href="/api/openapi.yaml" className="button-secondary">View OpenAPI YAML</Link>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <Button asChild>
+            <Link href="/api/v1/download/csv">Download CSV</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/api/v1/download/json">Download JSON</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <a href="/api/openapi.yaml">OpenAPI YAML</a>
+          </Button>
+        </div>
+      </header>
+
+      {/* ── Data dictionary ── */}
+      <section style={{ marginBottom: 40 }}>
+        <h2 className="section-title" style={{ marginBottom: 16 }}>Data dictionary</h2>
+        <div
+          style={{
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            background: 'var(--bg-card)',
+            overflow: 'hidden',
+          }}
+        >
+          {questions.data.map((q, i) => (
+            <div
+              key={q.id}
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: 16,
+                padding: '10px 20px',
+                borderTop: i > 0 ? '1px solid var(--border-grid)' : 'none',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-data)',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: 'var(--text-primary)',
+                  width: 32,
+                  flexShrink: 0,
+                }}
+              >
+                {q.id}
+              </span>
+              <span style={{ fontSize: 14, color: 'var(--text-body)', flex: 1, minWidth: 0 }}>
+                {q.field}
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-data)',
+                  fontSize: 12,
+                  color: 'var(--text-secondary)',
+                  flexShrink: 0,
+                }}
+              >
+                {q.type}
+              </span>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: 'var(--text-secondary)',
+                  flexShrink: 0,
+                  width: 80,
+                  textAlign: 'right',
+                }}
+              >
+                {q.options}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
-      <PageSection eyebrow="Reference" title="Data dictionary">
-        <div className="chart-card">
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr>
-                {['ID', 'Field', 'Type', 'Values'].map((header) => (
-                  <th
-                    key={header}
-                    style={{
-                      fontFamily: 'var(--font-data)',
-                      fontSize: 11,
-                      fontWeight: 400,
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: 'var(--text-secondary)',
-                      textAlign: 'left',
-                      paddingBottom: 16,
-                      paddingRight: 16,
-                    }}
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {questions.data.map((question) => (
-                <tr key={question.id} style={{ borderTop: '1px solid var(--border-grid)' }}>
-                  <td style={{ fontFamily: 'var(--font-data)', fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', paddingBlock: 12, paddingRight: 16 }}>
-                    {question.id}
-                  </td>
-                  <td style={{ fontSize: 14, color: 'var(--text-body)', paddingBlock: 12, paddingRight: 16 }}>{question.field}</td>
-                  <td style={{ fontSize: 14, color: 'var(--text-body)', paddingBlock: 12, paddingRight: 16 }}>{question.type}</td>
-                  <td style={{ fontSize: 14, color: 'var(--text-secondary)', paddingBlock: 12 }}>{question.options}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </PageSection>
-
-      <PageSection eyebrow="Citation" title="How to cite">
-        <div className="chart-callout">
+      {/* ── Citation + license ── */}
+      <section style={{ marginBottom: 40 }}>
+        <h2 className="section-title" style={{ marginBottom: 16 }}>Citation</h2>
+        <div
+          style={{
+            padding: '16px 20px',
+            borderRadius: 8,
+            background: 'var(--bg-callout)',
+            fontFamily: 'var(--font-data)',
+            fontSize: 13,
+            lineHeight: '20px',
+            color: 'var(--text-body)',
+          }}
+        >
           UX Tools. (2026). State of Prototyping Spring 2026. https://data.prototypingstate.com. CC BY 4.0.
         </div>
-      </PageSection>
+      </section>
 
-      <PageSection eyebrow="Sponsors" title="This research was made possible by">
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          {sponsors.map((sponsor) => (
-            <a
-              key={sponsor.slug}
-              href={sponsor.url}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                fontFamily: 'var(--font-data)',
-                fontSize: 14,
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-card)',
-                borderRadius: 8,
-                padding: '10px 20px',
-              }}
-            >
-              {sponsor.name}
-            </a>
-          ))}
+      {/* ── What's included (collapsed) ── */}
+      <section style={{ marginBottom: 40 }}>
+        <Disclosure title="What's in the CSV?">
+          <p className="body-text" style={{ marginBottom: 8 }}>
+            Summary-level aggregated tables — not individual response microdata. Each row
+            represents a dimension (role, vibe tier, tool, etc.) with its count and percentage.
+          </p>
+          <p className="body-text">
+            Multi-select questions sum to more than 100%. Cross-tab percentages are calculated
+            within each role&apos;s n. The Researcher role (n=23) is directional only.
+          </p>
+        </Disclosure>
+      </section>
+
+      {/* ── Other ways to access ── */}
+      <section style={{ marginBottom: 40 }}>
+        <h2 className="section-title" style={{ marginBottom: 16 }}>Other ways to access</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Link
+            href="/api"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '14px 20px',
+              borderRadius: 8,
+              border: '1px solid var(--border-card)',
+              background: 'var(--bg-card)',
+              textDecoration: 'none',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>REST API</div>
+              <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>Query endpoints directly, no auth required</div>
+            </div>
+            <span style={{ color: 'var(--text-secondary)' }}>→</span>
+          </Link>
+          <Link
+            href="/agent"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '14px 20px',
+              borderRadius: 8,
+              border: '1px solid var(--border-card)',
+              background: 'var(--bg-card)',
+              textDecoration: 'none',
+            }}
+          >
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>Agent integration</div>
+              <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 2 }}>Natural language queries, LLM tool definitions</div>
+            </div>
+            <span style={{ color: 'var(--text-secondary)' }}>→</span>
+          </Link>
         </div>
-      </PageSection>
+      </section>
     </>
   )
 }
