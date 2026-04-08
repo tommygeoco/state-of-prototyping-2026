@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { ThemeToggle } from '@/components/ui/theme-toggle'
+
 const navLinks = [
   { href: '/explore', label: 'Explore' },
   { href: '/download', label: 'Download' },
@@ -14,7 +16,7 @@ export function Nav() {
       style={{
         height: 'var(--nav-height)',
         borderBottom: '1px solid var(--border-nav)',
-        background: 'rgba(255,251,247,0.95)',
+        background: 'var(--bg-canvas)',
         backdropFilter: 'blur(8px)',
       }}
     >
@@ -43,7 +45,7 @@ export function Nav() {
             State of Prototyping
           </Link>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -60,6 +62,7 @@ export function Nav() {
               {link.label}
             </Link>
           ))}
+          <ThemeToggle />
         </div>
       </div>
     </header>

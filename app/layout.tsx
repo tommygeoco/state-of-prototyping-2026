@@ -6,6 +6,16 @@ import { inter, spaceMono } from '@/lib/fonts'
 
 import './globals.css'
 
+const themeScript = `
+(function(){
+  var t = localStorage.getItem('theme') || 'system';
+  var d = t === 'system'
+    ? window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    : t;
+  if (d === 'dark') document.documentElement.classList.add('dark');
+})();
+`
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://data.prototypingstate.com'),
   title: {
@@ -21,8 +31,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceMono.variable}`} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="ai-context" href="/agent/SURVEY_CONTEXT.md" />
       </head>
       <body>

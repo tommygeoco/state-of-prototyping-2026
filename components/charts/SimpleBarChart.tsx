@@ -35,7 +35,7 @@ export function SimpleBarChart({ title, subtitle, items, callout, source, bare =
           style={{
             marginTop: 12,
             paddingTop: 8,
-            borderTop: '1px solid #EDEBE7',
+            borderTop: '1px solid var(--border-grid)',
             fontFamily: 'var(--font-data)',
             fontSize: 10,
             color: 'var(--text-secondary)',

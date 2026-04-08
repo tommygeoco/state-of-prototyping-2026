@@ -79,7 +79,7 @@ export function SatisfactionHeroDeltaChart({
             fontFamily: 'var(--font-data)',
             fontSize: 15,
             fontWeight: 700,
-            color: '#C9624D',
+            color: 'var(--accent)',
           }}
         >
           ▲ +{delta.toFixed(2)}

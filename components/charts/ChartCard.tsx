@@ -38,7 +38,7 @@ export function ChartCard({ title, subtitle, callout, children, bare = false }: 
             style={{
               borderRadius: 6,
               padding: '8px 12px',
-              background: '#F5F4F0',
+              background: 'var(--bg-callout)',
               fontFamily: 'var(--font-body)',
               fontSize: 11,
               lineHeight: 1.5,

@@ -7,7 +7,7 @@ interface HorizontalBarRowProps {
   accentWinner?: boolean
 }
 
-const ACCENT = '#C9624D'
+const ACCENT = 'var(--accent, #C9624D)'
 
 const grayRamp = [
   '#6B6560',
@@ -46,7 +46,7 @@ export function HorizontalBarRow({
             fontFamily: 'var(--font-body)',
             fontSize: 13,
             fontWeight: isWinner ? 600 : 500,
-            color: isWinner ? '#1A1A1A' : 'var(--text-body)',
+            color: isWinner ? 'var(--text-primary)' : 'var(--text-body)',
             lineHeight: '18px',
           }}
         >
@@ -68,7 +68,7 @@ export function HorizontalBarRow({
         style={{
           width: '100%',
           height: 16,
-          background: '#EDEBE7',
+          background: 'var(--bg-callout)',
           borderRadius: 3,
           overflow: 'hidden',
         }}

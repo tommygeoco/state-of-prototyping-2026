@@ -54,7 +54,7 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
             fontWeight: 700,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#C9624D',
+            color: 'var(--accent)',
             lineHeight: '18px',
             marginBottom: 20,
           }}
@@ -67,7 +67,7 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         style={{
           width: 60,
           height: 2,
-          background: '#C9624D',
+          background: 'var(--accent)',
           marginBottom: 20,
         }}
       />

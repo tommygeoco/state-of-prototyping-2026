@@ -177,6 +177,61 @@
   --radius: 8px;
 }
 
+/* ── Dark mode — from Paper "Social D Dark — Grouped Comparison" (3XQ-1)
+   Canvas: #0C0C0C, Card: #141414, Border: #2A2A2A, Text: #FFF/#555 ── */
+
+.dark {
+  --bg-canvas: #0c0c0c;
+  --bg-card: #141414;
+  --bg-card-inner: #1a1a1a;
+  --bg-callout: #1f1f1f;
+  --border-card: #2a2a2a;
+  --border-grid: #222222;
+  --border-nav: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #ffffff;
+  --text-body: #a1a1a1;
+  --text-list: #d4d4d4;
+  --text-secondary: #666666;
+  --text-muted: #888888;
+  --text-accent: #d4785f;
+
+  --accent: #d4785f;
+
+  --bar-1: #d4785f;
+  --bar-2: #8a8580;
+  --bar-3: rgba(138, 133, 128, 0.7);
+  --bar-4: rgba(138, 133, 128, 0.5);
+  --bar-5: rgba(138, 133, 128, 0.35);
+  --bar-6: rgba(138, 133, 128, 0.22);
+  --bar-7: rgba(138, 133, 128, 0.12);
+
+  --delta-bg: rgba(212, 120, 95, 0.12);
+  --delta-border: rgba(212, 120, 95, 0.2);
+  --delta-text: #a1a1a1;
+  --delta-arrow: #d4785f;
+
+  --background: 0 0% 5%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 12 48% 60%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 90%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 40%;
+  --accent: 12 48% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 16%;
+  --input: 0 0% 16%;
+  --ring: 12 48% 60%;
+}
+
 /* ── Reset ── */
 
 * {
@@ -388,7 +443,7 @@ code {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: #F7F6F3;
+  background: var(--bg-callout);
   border-radius: 12px;
   overflow: hidden;
   margin: 32px 0;
@@ -401,8 +456,8 @@ code {
   flex-direction: column;
   border-radius: 8px;
   padding: 24px;
-  background: #FFFFFF;
-  border: 1px solid #E8E6E1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
 }
 
 .social-card-content {
@@ -419,7 +474,7 @@ code {
   align-items: center;
   justify-content: space-between;
   padding-inline: 8px;
-  border-top: 1px solid #E8E6E1;
+  border-top: 1px solid var(--border-card);
 }
 
 .social-card-footer-left {
@@ -435,14 +490,14 @@ code {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 14px;
-  color: #8A8680;
+  color: var(--text-secondary);
 }
 
 .social-card-footer-sponsor {
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 
 .social-card-footer-brand {
@@ -451,7 +506,7 @@ code {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #1A1A1A;
+  color: var(--text-primary);
 }
 
 @media (max-width: 600px) {
