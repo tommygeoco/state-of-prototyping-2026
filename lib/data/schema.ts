@@ -23,6 +23,17 @@ export interface QuestionsResponse {
   data: QuestionDefinition[]
 }
 
+export interface SimpleBarDatum {
+  label: string
+  pct: number
+}
+
+export interface SimpleBarResponse {
+  question: string
+  n: number
+  data: SimpleBarDatum[]
+}
+
 export interface RoleDistributionDatum {
   role: string
   n: number
@@ -62,6 +73,22 @@ export interface HeadlineResponse {
   question: string
   n_total: number
   data: HeadlineDatum[]
+}
+
+export interface RegionDistributionDatum {
+  region: string
+  n: number
+  pct: number
+}
+
+export interface RegionDistributionResponse {
+  question: string
+  n: number
+  data: RegionDistributionDatum[]
+  pct_outside_na: {
+    n: number
+    pct: number
+  }
 }
 
 export interface ToolDatum {
@@ -120,6 +147,20 @@ export interface OutlookResponse {
   data: OutlookDatum[]
 }
 
+export interface WorkflowChangeByCompanyDatum {
+  context: string
+  n: number
+  pct: number
+  note: string
+}
+
+export interface WorkflowChangeByCompanyResponse {
+  question: string
+  n_total: number
+  metric: string
+  data: WorkflowChangeByCompanyDatum[]
+}
+
 export interface AgentContext {
   survey_name: string
   base_url: string
@@ -136,9 +177,17 @@ export interface FullSummaryResponse {
   questions: QuestionsResponse
   headline: HeadlineResponse
   role_distribution: RoleDistributionResponse
+  region_distribution: RegionDistributionResponse
   vibe_distribution: VibeDistributionResponse
   vibe_by_role: VibeByRoleResponse
   satisfaction: SatisfactionResponse
   outlook: OutlookResponse
   tools: ToolsResponse
+  company_context: SimpleBarResponse
+  built_tool: SimpleBarResponse
+  trust_level: SimpleBarResponse
+  blockers: SimpleBarResponse
+  workflow_change: SimpleBarResponse
+  workflow_change_by_company: WorkflowChangeByCompanyResponse
+  investing_next: SimpleBarResponse
 }

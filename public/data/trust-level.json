@@ -1,12 +1,30 @@
 {
   "question": "Q9 — How far do you trust AI output?",
-  "n": 1478,
+  "n": 1477,
   "data": [
-    { "label": "First drafts, edit heavily", "pct": 34.2 },
-    { "label": "Exploration only", "pct": 29.2 },
-    { "label": "Review before shipping", "pct": 24.7 },
-    { "label": "Ships with minor tweaks", "pct": 8.0 },
-    { "label": "Don't use AI output", "pct": 2.4 },
-    { "label": "Full trust, no oversight", "pct": 1.4 }
+    {
+      "label": "First drafts, edit heavily",
+      "pct": 34.2
+    },
+    {
+      "label": "Exploration only",
+      "pct": 29.2
+    },
+    {
+      "label": "Review before shipping",
+      "pct": 24.7
+    },
+    {
+      "label": "Ships with minor tweaks",
+      "pct": 8.1
+    },
+    {
+      "label": "Don't use AI output",
+      "pct": 2.4
+    },
+    {
+      "label": "Full trust, no oversight",
+      "pct": 1.4
+    }
   ]
 }

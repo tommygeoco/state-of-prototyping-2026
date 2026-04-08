@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { toPng } from 'html-to-image'
 
 type ActionState = 'idle' | 'copied' | 'failed'
 
@@ -24,69 +23,22 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
     setTimeout(() => setUrlState('idle'), 2000)
   }, [anchorId])
 
-  const captureImage = useCallback(() => {
-    const node = document.getElementById(anchorId)
-    if (!node) return
-
-    const SIZE = 1080
-
-    async function render(): Promise<Blob> {
-      const clone = node!.cloneNode(true) as HTMLElement
-      clone.removeAttribute('id')
-      clone.style.cssText = [
-        `position:fixed; left:-9999px; top:0`,
-        `width:${SIZE}px; height:${SIZE}px`,
-        `margin:0; border-radius:24px`,
-        `pointer-events:none; z-index:-1`,
-        `overflow:hidden`,
-      ].join(';')
-      clone.querySelectorAll('[data-chart-actions]').forEach((el) => el.remove())
-      document.body.appendChild(clone)
-
-      try {
-        const dataUrl = await toPng(clone, {
-          width: SIZE,
-          height: SIZE,
-          pixelRatio: 2,
-          cacheBust: true,
-        })
-        const res = await fetch(dataUrl)
-        return await res.blob()
-      } finally {
-        clone.remove()
+  const openPng = useCallback(() => {
+    try {
+      const node = document.getElementById(anchorId)
+      const rect = node?.getBoundingClientRect()
+      const params = new URLSearchParams()
+      if (rect) {
+        params.set('w', Math.round(rect.width).toString())
+        params.set('h', Math.round(rect.height).toString())
       }
+      const pngUrl = `${window.location.origin}/social/png/${anchorId}${params.size ? `?${params.toString()}` : ''}`
+      window.open(pngUrl, '_blank')
+      setImgState('copied')
+    } catch {
+      setImgState('failed')
     }
-
-    const blobPromise = render()
-
-    if (typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
-      navigator.clipboard
-        .write([new ClipboardItem({ 'image/png': blobPromise })])
-        .then(() => setImgState('copied'))
-        .catch((err) => {
-          console.error('[ChartActions] clipboard.write failed:', err)
-          blobPromise.then(downloadFallback).catch(() => setImgState('failed'))
-        })
-        .finally(() => setTimeout(() => setImgState('idle'), 2000))
-    } else {
-      blobPromise
-        .then(downloadFallback)
-        .then(() => setImgState('copied'))
-        .catch((err) => {
-          console.error('[ChartActions] capture failed:', err)
-          setImgState('failed')
-        })
-        .finally(() => setTimeout(() => setImgState('idle'), 2000))
-    }
-
-    function downloadFallback(blob: Blob) {
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `${anchorId}.png`
-      a.click()
-      URL.revokeObjectURL(url)
-    }
+    setTimeout(() => setImgState('idle'), 2000)
   }, [anchorId])
 
   return (
@@ -105,12 +57,12 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
       <button
         type="button"
         className="chart-action-btn"
-        onClick={captureImage}
-        aria-label={imgState === 'copied' ? 'Copied!' : 'Copy chart image to clipboard'}
+        onClick={openPng}
+        aria-label={imgState === 'copied' ? 'Opened PNG!' : 'Open chart PNG in a new tab'}
       >
         {imgState === 'copied' ? <CheckIcon /> : <CameraIcon />}
         <span className="chart-action-tooltip">
-          {imgState === 'copied' ? 'Copied!' : 'Copy image'}
+          {imgState === 'copied' ? 'Opened PNG!' : 'Copy PNG'}
         </span>
       </button>
     </div>

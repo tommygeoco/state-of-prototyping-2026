@@ -1,0 +1,294 @@
+[
+  {
+    "id": "report-region-summary",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "responses.csv.region"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/63% of respondents are outside North America\\.[\\s\\S]*?Western Europe \\(18\\.1%\\), South Asia \\(10\\.2%\\),\\s*and Southeast Asia \\(7\\.3%\\)/",
+    "expected_text": "61.4% of respondents are outside North America. Western Europe (16.2%), South Asia (8.1%), and Southeast Asia (3.8%) are the largest non-North America regions."
+  },
+  {
+    "id": "report-vibe-split-body",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "vibe-distribution.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/43\\.8% spend 50%\\+ time vibe coding\\.\\s*31\\.2% say most or nearly all\\.\\s*The 38% doing zero/",
+    "expected_text": "43.8% spend 50%+ time vibe coding. 31.1% say most or nearly all. The 37.7% doing zero is the more surprising number."
+  },
+  {
+    "id": "report-vibe-split-quote",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "vibe-distribution.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/38% of designers do zero vibe coding\\.\\s*31% say it&apos;s most or all of how they build\\./",
+    "expected_text": "37.7% of designers do zero vibe coding. 31.1% say it&apos;s most or all of how they build."
+  },
+  {
+    "id": "report-vibe-role-title",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "vibe-by-role.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/title=\"An 81% vs 35% Split in the Same Design Org\"/",
+    "expected_text": "An 80.9% vs 35.0% Split in the Same Design Org"
+  },
+  {
+    "id": "report-vibe-role-manager",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "vibe-by-role.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/The managers-at-47% number is telling\\./",
+    "expected_text": "The managers-at-46.6% number is telling."
+  },
+  {
+    "id": "report-built-tool-body",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "built-tool.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/59% of designers have built their own tool, app, or utility with AI in the last 6 months\\./",
+    "expected_text": "59.1% of designers have built their own tool, app, or utility with AI in the last 6 months."
+  },
+  {
+    "id": "report-built-tool-detail",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "built-tool.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/59% have built something\\.\\s*30% want to but haven&apos;t yet\\.\\s*Only 10\\.5% have no plans to\\./",
+    "expected_text": "59.1% have built something. 30.5% want to but haven&apos;t yet. Only 10.4% have no plans to."
+  },
+  {
+    "id": "report-trust-line",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "trust-level.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/Only 1\\.4% trust AI output without oversight\\.\\s*But 34% trust it for production — with review\\./",
+    "expected_text": "Only 1.4% trust AI output without oversight. But 32.8% trust it for production — with review."
+  },
+  {
+    "id": "report-blockers-body",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "blockers.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/The top 3 blockers are within 3 percentage points of each other\\./",
+    "expected_text": "The top 3 blockers are within 3.5 percentage points of each other."
+  },
+  {
+    "id": "report-blockers-title",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "blockers.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/title=\"The Top 3 Blockers Are Within 3 Points of Each Other\"/",
+    "expected_text": "The Top 3 Blockers Are Within 3.5 Points of Each Other"
+  },
+  {
+    "id": "report-workflow-body",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "workflow-change.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/71% have added AI or gone AI-central in the last 6 months\\.\\s*Only 10% say/",
+    "expected_text": "71.1% have added AI or gone AI-central in the last 6 months. Only 9.9% say"
+  },
+  {
+    "id": "report-workflow-crosstab",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "workflow-change-by-company.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/Startups lead the AI-central shift at 39\\.1%\\.\\s*Enterprise lags at 25\\.0% — a 14-point gap/",
+    "expected_text": "Startups lead the AI-central shift at 38.8%. Enterprise is close behind at 34.7% — a much narrower 4.1-point gap."
+  },
+  {
+    "id": "report-investment-body",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "investing-next.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/64% say AI-generated coding is their top investment\\.\\s*Agent workflows at 46% is about[\\s\\S]*?Design systems at 40%/",
+    "expected_text": "64.0% say AI-generated coding is their top investment. Agent workflows at 46.3% is about automating repetitive work. Design systems at 40.2% shows the systems layer isn&apos;t dead"
+  },
+  {
+    "id": "report-summary-built-tool",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "built-tool.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/title: '59% of designers have built their own tool with AI in the last 6 months\\.'/",
+    "expected_text": "59.1% of designers have built their own tool with AI in the last 6 months."
+  },
+  {
+    "id": "report-summary-blockers",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "blockers.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/Time to learn \\(55\\.6%\\), too many tools \\(53\\.1%\\), output quality \\(52\\.2%\\) — within 3 points of each other\\./",
+    "expected_text": "Time to learn (55.7%), too many tools (53.0%), output quality (52.2%) — within 3.5 points of each other."
+  },
+  {
+    "id": "report-summary-outlook",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "outlook.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/Researchers: 17% more valuable, 39% less secure\\./",
+    "expected_text": "Researchers: 17.4% more valuable, 39.1% less secure."
+  },
+  {
+    "id": "report-summary-satisfaction",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "satisfaction.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/No vibe coding: 5\\.9\\/10\\.\\s*Heavy vibe coders: 7\\.4\\/10\\./",
+    "expected_text": "No vibe coding: 5.93/10. Heavy vibe coders: 7.39/10."
+  },
+  {
+    "id": "report-methodology-microdata",
+    "surface": "app/explore/page.tsx",
+    "source": [
+      "responses.csv",
+      "responses.json",
+      "README.md"
+    ],
+    "status": "verified",
+    "actual_pattern": "/All published data is aggregated — no individual microdata is released\\./",
+    "expected_text": "Published charts use aggregated data, and the full de-identified microdata is also available for download."
+  },
+  {
+    "id": "readme-built-tool",
+    "surface": "README.md",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/\\*\\*59% have built their own tool with AI\\*\\* in the last 6 months\\./",
+    "expected_text": "**59.1% have built their own tool with AI** in the last 6 months."
+  },
+  {
+    "id": "readme-satisfaction",
+    "surface": "README.md",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/5\\.9 → 7\\.4 out of 10/",
+    "expected_text": "5.93 → 7.39 out of 10"
+  },
+  {
+    "id": "readme-gap",
+    "surface": "README.md",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/A 46-point gap in the same org\\./",
+    "expected_text": "A 45.9-point gap in the same org."
+  },
+  {
+    "id": "agent-json-built-tool",
+    "surface": "public/agent/context.json",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/59\\.0% have built a custom tool with AI-generated code/",
+    "expected_text": "59.1% have built a custom tool with AI-generated code"
+  },
+  {
+    "id": "agent-md-built-tool",
+    "surface": "public/agent/SURVEY_CONTEXT.md",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/59\\.0% have built a custom tool with AI-generated code/",
+    "expected_text": "59.1% have built a custom tool with AI-generated code"
+  },
+  {
+    "id": "data-md-built-tool",
+    "surface": "public/data/SURVEY_CONTEXT.md",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "verified",
+    "actual_pattern": "/59\\.0% have built a custom tool with AI-generated code/",
+    "expected_text": "59.1% have built a custom tool with AI-generated code"
+  },
+  {
+    "id": "social-vibe-by-role-title",
+    "surface": "app/social/png/[slug]/route.tsx",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/title=\"An 81% vs 35% Split in the Same Design Org\"/",
+    "expected_text": "title={`An 80.9% vs 35.0% Split in the Same Design Org`}"
+  },
+  {
+    "id": "social-built-tool-title",
+    "surface": "app/social/png/[slug]/route.tsx",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/title=\"59% of Designers Have Built Their Own AI Tool\"/",
+    "expected_text": "title={`59.1% of Designers Have Built Their Own AI Tool`}"
+  },
+  {
+    "id": "social-blockers-title",
+    "surface": "app/social/png/[slug]/route.tsx",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/title=\"The Top 3 Blockers Are Within 3 Points of Each Other\"/",
+    "expected_text": "title={`The Top 3 Blockers Are Within 3.5 Points of Each Other`}"
+  },
+  {
+    "id": "social-workflow-title",
+    "surface": "app/social/png/[slug]/route.tsx",
+    "source": [
+      "responses.csv",
+      "public/data/*.json"
+    ],
+    "status": "needs_manual_review",
+    "actual_pattern": "/title=\"71% Have Added AI or Gone AI-Central in 6 Months\"/",
+    "expected_text": "title={`71.1% Have Added AI or Gone AI-Central in 6 Months`}"
+  }
+]

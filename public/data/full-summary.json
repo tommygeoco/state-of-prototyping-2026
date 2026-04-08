@@ -7,111 +7,729 @@
     "publisher": "UX Tools",
     "publisher_url": "https://survey.uxtools.co",
     "license": "CC BY 4.0",
-    "fields": ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11"]
+    "fields": [
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4",
+      "Q5",
+      "Q6",
+      "Q7",
+      "Q8",
+      "Q9",
+      "Q10",
+      "Q11"
+    ]
   },
   "questions": {
     "survey": "State of Prototyping Spring 2026",
     "data": [
-      { "id": "Q1", "field": "work_context", "question": "Work context (company size/type)", "type": "single_select", "options": "6 options", "published": false },
-      { "id": "Q2", "field": "role", "question": "Role", "type": "single_select", "options": "6 options", "published": true },
-      { "id": "Q3", "field": "region", "question": "Region", "type": "single_select", "options": "18 regions", "published": false },
-      { "id": "Q4", "field": "weekly_tools", "question": "Top tools used weekly", "type": "multi_select", "options": "20+ tools", "published": true },
-      { "id": "Q5", "field": "code_in_workflow", "question": "Code in workflow", "type": "multi_select", "options": "5 options", "published": false },
-      { "id": "Q6", "field": "investment_12mo", "question": "Anticipated investment next 12 months", "type": "multi_select", "options": "10 options", "published": false },
-      { "id": "Q7", "field": "vibe_coding_ratio", "question": "Vibe coding ratio (% AI-generated output)", "type": "single_select", "options": "5 tiers", "published": true },
-      { "id": "Q8", "field": "built_ai_tool", "question": "Built own tool with AI-generated code", "type": "single_select", "options": "4 options", "published": false },
-      { "id": "Q9", "field": "ai_trust_level", "question": "AI trust level", "type": "single_select", "options": "6 levels", "published": false },
-      { "id": "Q10", "field": "workflow_satisfaction", "question": "Satisfaction with current workflow", "type": "continuous_scale", "options": "1-10 scale", "published": true },
-      { "id": "Q11", "field": "role_outlook", "question": "Design role outlook (AI impact)", "type": "single_select", "options": "5 options", "published": true }
+      {
+        "id": "Q1",
+        "field": "work_context",
+        "question": "Work context (company size/type)",
+        "type": "single_select",
+        "options": "6 options",
+        "published": true
+      },
+      {
+        "id": "Q2",
+        "field": "role",
+        "question": "Role",
+        "type": "single_select",
+        "options": "6 options",
+        "published": true
+      },
+      {
+        "id": "Q3",
+        "field": "region",
+        "question": "Region",
+        "type": "single_select",
+        "options": "18 regions",
+        "published": true
+      },
+      {
+        "id": "Q4",
+        "field": "weekly_tools",
+        "question": "Top tools used weekly",
+        "type": "multi_select",
+        "options": "20+ tools",
+        "published": true
+      },
+      {
+        "id": "Q5",
+        "field": "code_in_workflow",
+        "question": "Code in workflow",
+        "type": "multi_select",
+        "options": "5 options",
+        "published": false
+      },
+      {
+        "id": "Q6",
+        "field": "investment_12mo",
+        "question": "Anticipated investment next 12 months",
+        "type": "multi_select",
+        "options": "10 options",
+        "published": true
+      },
+      {
+        "id": "Q7",
+        "field": "vibe_coding_ratio",
+        "question": "Vibe coding ratio (% AI-generated output)",
+        "type": "single_select",
+        "options": "5 tiers",
+        "published": true
+      },
+      {
+        "id": "Q8",
+        "field": "built_ai_tool",
+        "question": "Built own tool with AI-generated code",
+        "type": "single_select",
+        "options": "4 options",
+        "published": true
+      },
+      {
+        "id": "Q9",
+        "field": "ai_trust_level",
+        "question": "AI trust level",
+        "type": "single_select",
+        "options": "6 levels",
+        "published": true
+      },
+      {
+        "id": "Q10",
+        "field": "workflow_satisfaction",
+        "question": "Satisfaction with current workflow",
+        "type": "continuous_scale",
+        "options": "1-10 scale",
+        "published": true
+      },
+      {
+        "id": "Q11",
+        "field": "role_outlook",
+        "question": "Design role outlook (AI impact)",
+        "type": "single_select",
+        "options": "5 options",
+        "published": true
+      }
     ]
   },
   "headline": {
     "question": "Key headline numbers from the State of Prototyping Spring 2026 survey",
     "n_total": 1478,
     "data": [
-      { "key": "total_responses", "label": "Total responses", "value": 1478, "unit": "count" },
-      { "key": "vibe_coding_50plus", "label": "Designers vibe coding 50%+ of their output", "value": 43.8, "unit": "pct" },
-      { "key": "built_tool_with_ai", "label": "Built a custom tool with AI-generated code", "value": 59.0, "unit": "pct" },
-      { "key": "generate_code_ai", "label": "Use AI or no-code to generate code in workflow", "value": 63.1, "unit": "pct" },
-      { "key": "non_na_respondents", "label": "Respondents outside North America", "value": 61.4, "unit": "pct" },
-      { "key": "ai_invest_next_12mo", "label": "Expect more AI investment in the next 12 months", "value": 64.0, "unit": "pct" },
-      { "key": "satisfaction_delta", "label": "Satisfaction gap between zero and nearly all vibe coding", "value": 1.46, "unit": "delta" }
+      {
+        "key": "total_responses",
+        "label": "Total responses",
+        "value": 1478,
+        "unit": "count"
+      },
+      {
+        "key": "vibe_coding_50plus",
+        "label": "Designers vibe coding 50%+ of their output",
+        "value": 43.8,
+        "unit": "pct"
+      },
+      {
+        "key": "built_tool_with_ai",
+        "label": "Built a custom tool with AI-generated code",
+        "value": 59.1,
+        "unit": "pct"
+      },
+      {
+        "key": "generate_code_ai",
+        "label": "Use AI or no-code to generate code in workflow",
+        "value": 63.1,
+        "unit": "pct"
+      },
+      {
+        "key": "non_na_respondents",
+        "label": "Respondents outside North America",
+        "value": 61.4,
+        "unit": "pct"
+      },
+      {
+        "key": "ai_invest_next_12mo",
+        "label": "Expect more AI investment in the next 12 months",
+        "value": 64,
+        "unit": "pct"
+      },
+      {
+        "key": "satisfaction_delta",
+        "label": "Satisfaction gap between zero and nearly all vibe coding",
+        "value": 1.46,
+        "unit": "delta"
+      }
     ]
   },
   "role_distribution": {
     "question": "Q2 — Role distribution",
     "n": 1478,
     "data": [
-      { "role": "IC Designer", "n": 862, "pct": 58.3 },
-      { "role": "Lead / Principal", "n": 280, "pct": 18.9 },
-      { "role": "Manager / Director", "n": 161, "pct": 10.9 },
-      { "role": "Design Engineer", "n": 94, "pct": 6.4 },
-      { "role": "Non-designer", "n": 57, "pct": 3.9 },
-      { "role": "Researcher", "n": 23, "pct": 1.6 }
+      {
+        "role": "IC Designer",
+        "n": 862,
+        "pct": 58.3
+      },
+      {
+        "role": "Lead / Principal",
+        "n": 280,
+        "pct": 18.9
+      },
+      {
+        "role": "Manager / Director",
+        "n": 161,
+        "pct": 10.9
+      },
+      {
+        "role": "Design Engineer",
+        "n": 94,
+        "pct": 6.4
+      },
+      {
+        "role": "Non-designer",
+        "n": 57,
+        "pct": 3.9
+      },
+      {
+        "role": "Researcher",
+        "n": 23,
+        "pct": 1.6
+      }
     ]
+  },
+  "region_distribution": {
+    "question": "Q3 — Region distribution",
+    "n": 1476,
+    "data": [
+      {
+        "region": "North America",
+        "n": 569,
+        "pct": 38.6
+      },
+      {
+        "region": "Western Europe",
+        "n": 239,
+        "pct": 16.2
+      },
+      {
+        "region": "South Asia",
+        "n": 119,
+        "pct": 8.1
+      },
+      {
+        "region": "Eastern Europe",
+        "n": 104,
+        "pct": 7
+      },
+      {
+        "region": "Northern Europe",
+        "n": 103,
+        "pct": 7
+      },
+      {
+        "region": "Southeast Asia",
+        "n": 56,
+        "pct": 3.8
+      },
+      {
+        "region": "Southern Europe",
+        "n": 50,
+        "pct": 3.4
+      },
+      {
+        "region": "South America",
+        "n": 49,
+        "pct": 3.3
+      },
+      {
+        "region": "Australia & New Zealand",
+        "n": 47,
+        "pct": 3.2
+      },
+      {
+        "region": "Western Asia (Middle East)",
+        "n": 29,
+        "pct": 2
+      },
+      {
+        "region": "West Africa",
+        "n": 28,
+        "pct": 1.9
+      },
+      {
+        "region": "Northern Africa",
+        "n": 18,
+        "pct": 1.2
+      },
+      {
+        "region": "Central Asia",
+        "n": 15,
+        "pct": 1
+      },
+      {
+        "region": "East Asia",
+        "n": 13,
+        "pct": 0.9
+      },
+      {
+        "region": "East Africa",
+        "n": 12,
+        "pct": 0.8
+      },
+      {
+        "region": "Southern Africa",
+        "n": 12,
+        "pct": 0.8
+      },
+      {
+        "region": "Central America & Caribbean",
+        "n": 9,
+        "pct": 0.6
+      },
+      {
+        "region": "Central Africa",
+        "n": 4,
+        "pct": 0.3
+      }
+    ],
+    "pct_outside_na": {
+      "n": 907,
+      "pct": 61.4
+    }
   },
   "vibe_distribution": {
     "question": "Q7 — Vibe coding ratio (% AI-generated output)",
     "n": 1478,
     "data": [
-      { "tier": "None (0%)", "n": 557, "pct": 37.7 },
-      { "tier": "Occasionally", "n": 274, "pct": 18.5 },
-      { "tier": "About half", "n": 188, "pct": 12.7 },
-      { "tier": "Most of it", "n": 258, "pct": 17.5 },
-      { "tier": "Nearly all", "n": 201, "pct": 13.6 }
+      {
+        "tier": "None (0%)",
+        "n": 557,
+        "pct": 37.7
+      },
+      {
+        "tier": "Occasionally",
+        "n": 274,
+        "pct": 18.5
+      },
+      {
+        "tier": "About half",
+        "n": 188,
+        "pct": 12.7
+      },
+      {
+        "tier": "Most of it",
+        "n": 258,
+        "pct": 17.5
+      },
+      {
+        "tier": "Nearly all",
+        "n": 201,
+        "pct": 13.6
+      }
     ],
-    "pct_50plus": { "n": 647, "pct": 43.8 }
+    "pct_50plus": {
+      "n": 647,
+      "pct": 43.8
+    }
   },
   "vibe_by_role": {
     "question": "Q7 × Q2 cross-tab — Vibe coding 50%+ by role",
     "n_total": 1478,
     "metric": "pct_spending_50pct_plus_on_vibe_coding",
     "data": [
-      { "role": "Design Engineer", "n": 94, "pct": 80.9 },
-      { "role": "Lead / Principal", "n": 280, "pct": 56.8 },
-      { "role": "Non-designer", "n": 57, "pct": 50.9 },
-      { "role": "Manager/Director", "n": 161, "pct": 46.6 },
-      { "role": "IC Designer", "n": 862, "pct": 35.0 },
-      { "role": "Researcher", "n": 23, "pct": 26.1, "note": "directional — small n" }
+      {
+        "role": "Design Engineer",
+        "n": 94,
+        "pct": 80.9
+      },
+      {
+        "role": "Lead / Principal",
+        "n": 280,
+        "pct": 56.8
+      },
+      {
+        "role": "Non-designer",
+        "n": 57,
+        "pct": 50.9
+      },
+      {
+        "role": "Manager / Director",
+        "n": 161,
+        "pct": 46.6
+      },
+      {
+        "role": "IC Designer",
+        "n": 862,
+        "pct": 35
+      },
+      {
+        "role": "Researcher",
+        "n": 23,
+        "pct": 26.1,
+        "note": "directional — small n"
+      }
     ]
   },
   "satisfaction": {
     "question": "Q10 — Mean workflow satisfaction (1–10) by Q7 vibe coding tier",
     "n": 1477,
     "data": [
-      { "tier": "None (0%)", "mean": 5.93 },
-      { "tier": "Occasionally", "mean": 6.12 },
-      { "tier": "About half", "mean": 6.83 },
-      { "tier": "Most of it", "mean": 7.16 },
-      { "tier": "Nearly all", "mean": 7.39 }
+      {
+        "tier": "None (0%)",
+        "mean": 5.93
+      },
+      {
+        "tier": "Occasionally",
+        "mean": 6.12
+      },
+      {
+        "tier": "About half",
+        "mean": 6.83
+      },
+      {
+        "tier": "Most of it",
+        "mean": 7.16
+      },
+      {
+        "tier": "Nearly all",
+        "mean": 7.39
+      }
     ],
     "overall_mean": 6.49,
-    "delta": { "value": 1.46, "from_tier": "None", "to_tier": "Nearly all" }
+    "delta": {
+      "value": 1.46,
+      "from_tier": "None",
+      "to_tier": "Nearly all"
+    }
   },
   "outlook": {
     "question": "Q11 — Role outlook by role",
-    "metric_labels": ["more_valuable", "less_secure", "about_same"],
+    "metric_labels": [
+      "more_valuable",
+      "less_secure",
+      "about_same"
+    ],
     "data": [
-      { "role": "Design Engineer", "more_valuable": 50.0, "less_secure": 10.6, "about_same": 10.6 },
-      { "role": "Lead / Principal", "more_valuable": 43.2, "less_secure": 20.0, "about_same": 24.6 },
-      { "role": "Manager/Director", "more_valuable": 35.4, "less_secure": 23.6, "about_same": 22.4 },
-      { "role": "IC Designer", "more_valuable": 24.8, "less_secure": 32.4, "about_same": 21.7 }
+      {
+        "role": "Design Engineer",
+        "more_valuable": 50,
+        "less_secure": 10.6,
+        "about_same": 10.6
+      },
+      {
+        "role": "Lead / Principal",
+        "more_valuable": 43.2,
+        "less_secure": 20,
+        "about_same": 24.6
+      },
+      {
+        "role": "Manager / Director",
+        "more_valuable": 35.4,
+        "less_secure": 23.6,
+        "about_same": 22.4
+      },
+      {
+        "role": "Non-designer",
+        "more_valuable": 31.6,
+        "less_secure": 24.6,
+        "about_same": 24.6
+      },
+      {
+        "role": "IC Designer",
+        "more_valuable": 24.8,
+        "less_secure": 32.4,
+        "about_same": 21.7
+      },
+      {
+        "role": "Researcher",
+        "more_valuable": 17.4,
+        "less_secure": 39.1,
+        "about_same": 21.7
+      }
     ]
   },
   "tools": {
     "question": "Q4 — Top tools used weekly",
     "n_total": 1478,
     "data": [
-      { "tool": "Figma", "n": 1221, "pct": 82.6 },
-      { "tool": "Claude", "n": 751, "pct": 50.8 },
-      { "tool": "ChatGPT", "n": 712, "pct": 48.2 },
-      { "tool": "Claude Code", "n": 568, "pct": 38.4 },
-      { "tool": "Figma Make", "n": 514, "pct": 34.8 },
-      { "tool": "FigJam", "n": 502, "pct": 34.0 },
-      { "tool": "Slack", "n": 483, "pct": 32.7 },
-      { "tool": "Gemini", "n": 478, "pct": 32.3 },
-      { "tool": "Google Meet", "n": 366, "pct": 24.8 },
-      { "tool": "Notion", "n": 362, "pct": 24.5 }
+      {
+        "tool": "Figma",
+        "n": 1221,
+        "pct": 82.6
+      },
+      {
+        "tool": "Claude",
+        "n": 751,
+        "pct": 50.8
+      },
+      {
+        "tool": "ChatGPT",
+        "n": 712,
+        "pct": 48.2
+      },
+      {
+        "tool": "Claude Code",
+        "n": 568,
+        "pct": 38.4
+      },
+      {
+        "tool": "Figma Make",
+        "n": 514,
+        "pct": 34.8
+      },
+      {
+        "tool": "FigJam",
+        "n": 502,
+        "pct": 34
+      },
+      {
+        "tool": "Slack",
+        "n": 483,
+        "pct": 32.7
+      },
+      {
+        "tool": "Gemini",
+        "n": 478,
+        "pct": 32.3
+      },
+      {
+        "tool": "Google Meet",
+        "n": 366,
+        "pct": 24.8
+      },
+      {
+        "tool": "Notion",
+        "n": 362,
+        "pct": 24.5
+      }
+    ]
+  },
+  "company_context": {
+    "question": "Q1 — Company context (work setting)",
+    "n": 1478,
+    "data": [
+      {
+        "label": "Startup (2–100)",
+        "pct": 29.3
+      },
+      {
+        "label": "Independent / Freelance",
+        "pct": 17.9
+      },
+      {
+        "label": "Enterprise (1,000+)",
+        "pct": 17.7
+      },
+      {
+        "label": "Mid-size (101–999)",
+        "pct": 15.4
+      },
+      {
+        "label": "Agency / Consulting",
+        "pct": 13.5
+      },
+      {
+        "label": "Student / Between",
+        "pct": 6.2
+      }
+    ]
+  },
+  "built_tool": {
+    "question": "Q8 — Have you built your own tool with AI in the last 6 months?",
+    "n": 1476,
+    "data": [
+      {
+        "label": "Yes, once or twice",
+        "pct": 33.7
+      },
+      {
+        "label": "No, but I want to",
+        "pct": 30.5
+      },
+      {
+        "label": "Yes, I do it regularly",
+        "pct": 25.3
+      },
+      {
+        "label": "No, don't plan to",
+        "pct": 10.4
+      }
+    ]
+  },
+  "trust_level": {
+    "question": "Q9 — How far do you trust AI output?",
+    "n": 1477,
+    "data": [
+      {
+        "label": "First drafts, edit heavily",
+        "pct": 34.2
+      },
+      {
+        "label": "Exploration only",
+        "pct": 29.2
+      },
+      {
+        "label": "Review before shipping",
+        "pct": 24.7
+      },
+      {
+        "label": "Ships with minor tweaks",
+        "pct": 8.1
+      },
+      {
+        "label": "Don't use AI output",
+        "pct": 2.4
+      },
+      {
+        "label": "Full trust, no oversight",
+        "pct": 1.4
+      }
+    ]
+  },
+  "blockers": {
+    "question": "Top workflow blockers",
+    "n": 1478,
+    "data": [
+      {
+        "label": "Time to learn tools",
+        "pct": 55.7
+      },
+      {
+        "label": "Too many tools",
+        "pct": 53
+      },
+      {
+        "label": "AI output quality",
+        "pct": 52.2
+      },
+      {
+        "label": "Budget / procurement",
+        "pct": 34.2
+      },
+      {
+        "label": "Security / compliance",
+        "pct": 28.9
+      },
+      {
+        "label": "Engineering constraints",
+        "pct": 19.4
+      }
+    ]
+  },
+  "workflow_change": {
+    "question": "How has your workflow changed in the last 6 months?",
+    "n": 1478,
+    "data": [
+      {
+        "label": "Added AI tools",
+        "pct": 36.5
+      },
+      {
+        "label": "AI is now central",
+        "pct": 34.6
+      },
+      {
+        "label": "Still in flux",
+        "pct": 15.2
+      },
+      {
+        "label": "Mostly the same",
+        "pct": 9.9
+      },
+      {
+        "label": "Consolidated tools",
+        "pct": 3.8
+      }
+    ]
+  },
+  "workflow_change_by_company": {
+    "question": "Q10 × Q1 cross-tab — AI is now central by company context",
+    "n_total": 1478,
+    "metric": "pct_ai_central_by_company_context",
+    "data": [
+      {
+        "context": "Startup (2–100)",
+        "n": 433,
+        "pct": 38.8,
+        "note": "AI is now central — major shift"
+      },
+      {
+        "context": "Independent / Freelance",
+        "n": 265,
+        "pct": 36.2,
+        "note": "AI is now central — major shift"
+      },
+      {
+        "context": "Mid-size (101–999)",
+        "n": 227,
+        "pct": 34.8,
+        "note": "AI is now central — major shift"
+      },
+      {
+        "context": "Enterprise (1,000+)",
+        "n": 262,
+        "pct": 34.7,
+        "note": "AI is now central — major shift"
+      },
+      {
+        "context": "Agency / Consulting",
+        "n": 199,
+        "pct": 28.6,
+        "note": "AI is now central — major shift"
+      },
+      {
+        "context": "Student / Between",
+        "n": 92,
+        "pct": 21.7,
+        "note": "AI is now central — major shift"
+      }
+    ]
+  },
+  "investing_next": {
+    "question": "Q6 — Where are you investing your time next? (Pick 3)",
+    "n": 1478,
+    "data": [
+      {
+        "label": "AI-generated coding",
+        "pct": 64
+      },
+      {
+        "label": "Agent workflows",
+        "pct": 46.3
+      },
+      {
+        "label": "Design systems & tokens",
+        "pct": 40.2
+      },
+      {
+        "label": "Canvas design tools",
+        "pct": 21.3
+      },
+      {
+        "label": "Video, motion & 3D",
+        "pct": 20.4
+      },
+      {
+        "label": "Simplifying my stack",
+        "pct": 17.5
+      },
+      {
+        "label": "Image generation",
+        "pct": 14.7
+      },
+      {
+        "label": "No-code (not AI)",
+        "pct": 13.7
+      },
+      {
+        "label": "Manual coding",
+        "pct": 9.5
+      },
+      {
+        "label": "No major changes",
+        "pct": 6.1
+      }
     ]
   }
 }

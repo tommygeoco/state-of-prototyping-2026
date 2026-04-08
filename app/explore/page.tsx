@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { AccentHighlightBarChart } from '@/components/charts/AccentHighlightBarChart'
 import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
-import { loadBlockers, loadBuiltTool, loadCompanyContext, loadInvestingNext, loadOutlook, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange } from '@/lib/data/loaders'
+import { loadBlockers, loadBuiltTool, loadCompanyContext, loadHeadline, loadInvestingNext, loadOutlook, loadRegionDistribution, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange, loadWorkflowChangeByCompany } from '@/lib/data/loaders'
 
 const AdoptionBySegmentChart = dynamic(() =>
   import('@/components/charts/AdoptionBySegmentChart').then((m) => m.AdoptionBySegmentChart),
@@ -34,24 +34,61 @@ export const metadata = {
 
 export default async function ExplorePage() {
   const [
-    blockers, builtTool, companyContext, investingNext, outlook,
-    satisfaction, tools, trustLevel, vibeByRole, vibeDistribution, workflowChange,
+    blockers, builtTool, companyContext, headline, investingNext, outlook,
+    regionDistribution, satisfaction, tools, trustLevel, vibeByRole, vibeDistribution,
+    workflowChange, workflowChangeByCompany,
   ] = await Promise.all([
     loadBlockers(),
     loadBuiltTool(),
     loadCompanyContext(),
+    loadHeadline(),
     loadInvestingNext(),
     loadOutlook(),
+    loadRegionDistribution(),
     loadSatisfaction(),
     loadTools(),
     loadTrustLevel(),
     loadVibeByRole(),
     loadVibeDistribution(),
     loadWorkflowChange(),
+    loadWorkflowChangeByCompany(),
   ])
 
   const icDesigner = vibeByRole.data.find((item) => item.role === 'IC Designer')
   const designEngineer = vibeByRole.data.find((item) => item.role === 'Design Engineer')
+  const managerDirector = vibeByRole.data.find((item) => item.role === 'Manager / Director')
+  const westernEurope = regionDistribution.data.find((item) => item.region === 'Western Europe')
+  const southAsia = regionDistribution.data.find((item) => item.region === 'South Asia')
+  const southeastAsia = regionDistribution.data.find((item) => item.region === 'Southeast Asia')
+  const noneVibe = vibeDistribution.data.find((item) => item.tier === 'None (0%)')
+  const mostVibe = vibeDistribution.data.find((item) => item.tier === 'Most of it')
+  const nearlyAllVibe = vibeDistribution.data.find((item) => item.tier === 'Nearly all')
+  const builtSomething = headline.data.find((item) => item.key === 'built_tool_with_ai')
+  const wantToBuild = builtTool.data.find((item) => item.label === 'No, but I want to')
+  const noBuildPlans = builtTool.data.find((item) => item.label === "No, don't plan to")
+  const reviewBeforeShipping = trustLevel.data.find((item) => item.label === 'Review before shipping')
+  const shipsWithMinorTweaks = trustLevel.data.find((item) => item.label === 'Ships with minor tweaks')
+  const fullTrust = trustLevel.data.find((item) => item.label === 'Full trust, no oversight')
+  const startupAiCentral = workflowChangeByCompany.data.find((item) => item.context === 'Startup (2–100)')
+  const enterpriseAiCentral = workflowChangeByCompany.data.find((item) => item.context === 'Enterprise (1,000+)')
+  const agentWorkflows = investingNext.data.find((item) => item.label === 'Agent workflows')
+  const designSystems = investingNext.data.find((item) => item.label === 'Design systems & tokens')
+  const researcherOutlook = outlook.data.find((item) => item.role === 'Researcher')
+  const noneSatisfaction = satisfaction.data.find((item) => item.tier === 'None (0%)')
+  const heavySatisfaction = satisfaction.data.find((item) => item.tier === 'Nearly all')
+
+  const mostOrNearlyAllPct = ((mostVibe?.pct ?? 0) + (nearlyAllVibe?.pct ?? 0)).toFixed(1)
+  const productionWithReviewPct = (
+    (reviewBeforeShipping?.pct ?? 0) + (shipsWithMinorTweaks?.pct ?? 0)
+  ).toFixed(1)
+  const blockerSpread = (blockers.data[0].pct - blockers.data[2].pct).toFixed(1)
+  const addedOrCentralPct = (
+    (workflowChange.data.find((item) => item.label === 'Added AI tools')?.pct ?? 0) +
+    (workflowChange.data.find((item) => item.label === 'AI is now central')?.pct ?? 0)
+  ).toFixed(1)
+  const startupEnterpriseGap = (
+    (startupAiCentral?.pct ?? 0) - (enterpriseAiCentral?.pct ?? 0)
+  ).toFixed(1)
 
   return (
     <article>
@@ -79,8 +116,10 @@ export default async function ExplorePage() {
           built specifically for designers and builders who work across the design-to-code spectrum.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          63% of respondents are outside North America. Western Europe (18.1%), South Asia (10.2%),
-          and Southeast Asia (7.3%) are the largest non-US regions. This is a global read on how
+          {regionDistribution.pct_outside_na.pct.toFixed(1)}% of respondents are outside North
+          America. Western Europe ({westernEurope?.pct.toFixed(1)}%), South Asia (
+          {southAsia?.pct.toFixed(1)}%), and Southeast Asia ({southeastAsia?.pct.toFixed(1)}%) are
+          the largest non-North America regions. This is a global read on how
           design practitioners work.
         </p>
         <SocialCardContainer sponsor="MagicPatterns" anchorId="where-designers-work">
@@ -137,10 +176,10 @@ export default async function ExplorePage() {
             accentLabel="Vibe Coding 50%+"
             label="of designers now spend more than half their building time on AI-generated code"
           />
+
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          43.8% spend 50%+ time vibe coding. 31.2% say most or nearly all. The 38% doing zero
-          is the more surprising number — the hype has outpaced adoption at the tail.
+          {vibeDistribution.pct_50plus.pct.toFixed(1)}% spend 50%+ time vibe coding. {mostOrNearlyAllPct}% say most or nearly all. The {noneVibe?.pct.toFixed(1)}% doing zero is the more surprising number — the hype has outpaced adoption at the tail.
         </p>
         <SocialCardContainer sponsor="Framer" anchorId="vibe-coding-distribution">
           <SegmentedDistributionChart
@@ -151,7 +190,7 @@ export default async function ExplorePage() {
           />
         </SocialCardContainer>
         <div className="pull-quote">
-          &ldquo;38% of designers do zero vibe coding. 31% say it&apos;s most or all of how they
+          &ldquo;{noneVibe?.pct.toFixed(1)}% of designers do zero vibe coding. {mostOrNearlyAllPct}% say it&apos;s most or all of how they
           build. These aren&apos;t different generations — they&apos;re working in the same orgs,
           on the same products.&rdquo;
         </div>
@@ -167,14 +206,14 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="dscout" anchorId="vibe-by-role">
           <AdoptionBySegmentChart
-            title="An 81% vs 35% Split in the Same Design Org"
+            title={`An ${designEngineer?.pct.toFixed(1) ?? '80.9'}% vs ${icDesigner?.pct.toFixed(1) ?? '35.0'}% Split in the Same Design Org`}
             subtitle="% spending 50%+ of building time on AI-generated code, by role"
             items={vibeByRole.data}
             bare
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          The managers-at-47% number is telling. Vibe coding didn&apos;t just serve engineers — it
+          The managers-at-{managerDirector?.pct.toFixed(1)}% number is telling. Vibe coding didn&apos;t just serve engineers — it
           gave managers and non-designers an exit from prototyping constraints they&apos;ve always had.
         </p>
         <SocialCardContainer sponsor="MagicPatterns" anchorId="ic-vs-design-engineer">
@@ -195,8 +234,7 @@ export default async function ExplorePage() {
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">5. Who&apos;s building their own tools</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          59% of designers have built their own tool, app, or utility with AI in the last 6 months.
-          One in four does it regularly.
+          {builtSomething?.value.toFixed(1)}% of designers have built their own tool, app, or utility with AI in the last 6 months. One in four does it regularly.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
           That number would have been in the low single digits two years ago. The ability to build
@@ -205,14 +243,14 @@ export default async function ExplorePage() {
         </p>
         <SocialCardContainer sponsor="Framer" anchorId="built-own-tool">
           <SimpleBarChart
-            title="59% of Designers Have Built Their Own AI Tool"
+            title={`${builtSomething?.value.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
             subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
             items={builtTool.data}
             bare
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          59% have built something. 30% want to but haven&apos;t yet. Only 10.5% have no plans to.
+          {builtSomething?.value.toFixed(1)}% have built something. {wantToBuild?.pct.toFixed(1)}% want to but haven&apos;t yet. Only {noBuildPlans?.pct.toFixed(1)}% have no plans to.
           The intent-to-try cohort is bigger than the never-will cohort by 3x.
         </p>
       </section>
@@ -222,8 +260,7 @@ export default async function ExplorePage() {
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">6. The trust line</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Only 1.4% trust AI output without oversight. But 34% trust it for production — with
-          review. That&apos;s a bigger number than most people would have guessed.
+          Only {fullTrust?.pct.toFixed(1)}% trust AI output without oversight. But {productionWithReviewPct}% trust it for production — with review. That&apos;s a bigger number than most people would have guessed.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
           We&apos;re in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line isn&apos;t whether AI
@@ -244,12 +281,12 @@ export default async function ExplorePage() {
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">7. What&apos;s blocking everyone</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          The top 3 blockers are within 3 percentage points of each other. That&apos;s not noise —
+          The top 3 blockers are within {blockerSpread} percentage points of each other. That&apos;s not noise —
           that&apos;s signal. Three simultaneous problems, nearly identical in size.
         </p>
         <SocialCardContainer sponsor="dscout" anchorId="top-blockers">
           <SimpleBarChart
-            title="The Top 3 Blockers Are Within 3 Points of Each Other"
+            title={`The Top 3 Blockers Are Within ${blockerSpread} Points of Each Other`}
             subtitle="What's slowing down your workflow the most?"
             items={blockers.data}
             bare
@@ -262,13 +299,12 @@ export default async function ExplorePage() {
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">8. How workflows changed in 6 months</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          71% have added AI or gone AI-central in the last 6 months. Only 10% say
+          {addedOrCentralPct}% have added AI or gone AI-central in the last 6 months. Only {(workflowChange.data.find((item) => item.label === 'Mostly the same')?.pct ?? 0).toFixed(1)}% say
           &ldquo;mostly the same.&rdquo; The shift already happened. The question is how far
           you&apos;ve gone.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Startups lead the AI-central shift at 39.1%. Enterprise lags at 25.0% — a 14-point gap
-          that maps directly to policy and procurement friction.
+          Startups lead the AI-central shift at {startupAiCentral?.pct.toFixed(1)}%. Enterprise is close behind at {enterpriseAiCentral?.pct.toFixed(1)}% — a much narrower {startupEnterpriseGap}-point gap.
         </p>
         <SocialCardContainer sponsor="Dazl" anchorId="workflow-change">
           <SimpleBarChart
@@ -314,8 +350,7 @@ export default async function ExplorePage() {
           gets automated.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          64% say AI-generated coding is their top investment. Agent workflows at 46% is about
-          automating repetitive work. Design systems at 40% shows the systems layer isn&apos;t dead —
+          {investingNext.data[0].pct.toFixed(1)}% say AI-generated coding is their top investment. Agent workflows at {agentWorkflows?.pct.toFixed(1)}% is about automating repetitive work. Design systems at {designSystems?.pct.toFixed(1)}% shows the systems layer isn&apos;t dead —
           it&apos;s getting more important as implementation gets easier.
         </p>
         <SocialCardContainer sponsor="MagicPath" anchorId="investing-next">
@@ -372,24 +407,24 @@ export default async function ExplorePage() {
               body: '50.8% of designers use it every week. Claude Code sits at #4 — ahead of every collaboration tool. An AI coding terminal now ranks above FigJam in the designer\'s everyday stack.',
             },
             {
-              title: '44% of designers spend more than half their building time vibe coding.',
-              body: 'The profession has split into thirds: no vibe coding (38%), some (18%), and majority AI-generated code (44%). Design engineers at 80.9% vs. IC designers at 35%. Same profession, different reality.',
+              title: '43.8% of designers spend more than half their building time vibe coding.',
+              body: 'The profession has split into thirds: no vibe coding (37.7%), some (18.5%), and majority AI-generated code (43.8%). Design engineers at 80.9% vs. IC designers at 35.0%. Same profession, different reality.',
             },
             {
-              title: '59% of designers have built their own tool with AI in the last 6 months.',
-              body: 'One in four does it regularly. Only 10.5% have no plans to. The builder instinct is spreading across the design org — no longer limited to engineers.',
+              title: '59.1% of designers have built their own tool with AI in the last 6 months.',
+              body: 'One in four does it regularly. Only 10.4% have no plans to. The builder instinct is spreading across the design org — no longer limited to engineers.',
             },
             {
               title: 'The top 3 blockers are nearly tied — and none of them are \'AI doesn\'t work.\'',
-              body: 'Time to learn (55.6%), too many tools (53.1%), output quality (52.2%) — within 3 points of each other. The barrier isn\'t belief in AI. It\'s time, clarity, and consistency.',
+              body: 'Time to learn (55.7%), too many tools (53.0%), output quality (52.2%) — within 3.5 points of each other. The barrier isn\'t belief in AI. It\'s time, clarity, and consistency.',
             },
             {
               title: 'Design engineers feel more valuable. Researchers feel most at risk.',
-              body: 'Design engineers: 50% more valuable, 11% less secure. Researchers: 17% more valuable, 39% less secure. The confidence gap tracks directly with proximity to code.',
+              body: 'Design engineers: 50.0% more valuable, 10.6% less secure. Researchers: 17.4% more valuable, 39.1% less secure. The confidence gap tracks directly with proximity to code.',
             },
             {
               title: 'Vibe coders are 1.5 points more satisfied with their workflow.',
-              body: 'No vibe coding: 5.9/10. Heavy vibe coders: 7.4/10. The satisfaction gradient is nearly perfectly linear across adoption levels.',
+              body: 'No vibe coding: 5.93/10. Heavy vibe coders: 7.39/10. The satisfaction gradient is nearly perfectly linear across adoption levels.',
             },
           ].map((item, index) => (
             <li key={index} style={{ marginBottom: 24 }}>
@@ -412,10 +447,11 @@ export default async function ExplorePage() {
           was via UX Tools newsletter, social channels, and sponsor networks.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          All published data is aggregated — no individual microdata is released. The
-          &ldquo;Researcher&rdquo; role (n=23) should be treated as directional only due to small sample
-          size. Multi-select questions sum to more than 100%. Cross-tab percentages are calculated
-          within each role&apos;s n.
+          Published charts use aggregated data, and the full de-identified microdata is also
+          available for download. One malformed role response in the raw CSV is excluded from
+          role-based breakdown tables. The &ldquo;Researcher&rdquo; role (n=23) should be treated as
+          directional only due to small sample size. Multi-select questions sum to more than 100%.
+          Cross-tab percentages are calculated within each role&apos;s n.
         </p>
         <p className="body-text">
           The full dataset is available under CC BY 4.0. Citation: UX Tools. (2026). State of

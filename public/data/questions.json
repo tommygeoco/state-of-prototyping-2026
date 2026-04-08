@@ -7,7 +7,7 @@
       "question": "Work context (company size/type)",
       "type": "single_select",
       "options": "6 options",
-      "published": false
+      "published": true
     },
     {
       "id": "Q2",
@@ -23,7 +23,7 @@
       "question": "Region",
       "type": "single_select",
       "options": "18 regions",
-      "published": false
+      "published": true
     },
     {
       "id": "Q4",
@@ -47,7 +47,7 @@
       "question": "Anticipated investment next 12 months",
       "type": "multi_select",
       "options": "10 options",
-      "published": false
+      "published": true
     },
     {
       "id": "Q7",
@@ -63,7 +63,7 @@
       "question": "Built own tool with AI-generated code",
       "type": "single_select",
       "options": "4 options",
-      "published": false
+      "published": true
     },
     {
       "id": "Q9",
@@ -71,7 +71,7 @@
       "question": "AI trust level",
       "type": "single_select",
       "options": "6 levels",
-      "published": false
+      "published": true
     },
     {
       "id": "Q10",

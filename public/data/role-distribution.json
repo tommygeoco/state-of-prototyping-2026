@@ -2,11 +2,35 @@
   "question": "Q2 — Role distribution",
   "n": 1478,
   "data": [
-    { "role": "IC Designer", "n": 862, "pct": 58.3 },
-    { "role": "Lead / Principal", "n": 280, "pct": 18.9 },
-    { "role": "Manager / Director", "n": 161, "pct": 10.9 },
-    { "role": "Design Engineer", "n": 94, "pct": 6.4 },
-    { "role": "Non-designer", "n": 57, "pct": 3.9 },
-    { "role": "Researcher", "n": 23, "pct": 1.6 }
+    {
+      "role": "IC Designer",
+      "n": 862,
+      "pct": 58.3
+    },
+    {
+      "role": "Lead / Principal",
+      "n": 280,
+      "pct": 18.9
+    },
+    {
+      "role": "Manager / Director",
+      "n": 161,
+      "pct": 10.9
+    },
+    {
+      "role": "Design Engineer",
+      "n": 94,
+      "pct": 6.4
+    },
+    {
+      "role": "Non-designer",
+      "n": 57,
+      "pct": 3.9
+    },
+    {
+      "role": "Researcher",
+      "n": 23,
+      "pct": 1.6
+    }
   ]
 }

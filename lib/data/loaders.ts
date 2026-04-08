@@ -8,12 +8,15 @@ import type {
   HeadlineResponse,
   OutlookResponse,
   QuestionsResponse,
+  RegionDistributionResponse,
   RoleDistributionResponse,
   SatisfactionResponse,
+  SimpleBarResponse,
   SurveyMeta,
   ToolsResponse,
   VibeByRoleResponse,
   VibeDistributionResponse,
+  WorkflowChangeByCompanyResponse,
 } from '@/lib/data/schema'
 
 const dataDir = path.join(process.cwd(), 'public', 'data')
@@ -34,6 +37,10 @@ export const loadRoleDistribution = cache(() =>
   readJson<RoleDistributionResponse>(dataDir, 'role-distribution.json'),
 )
 
+export const loadRegionDistribution = cache(() =>
+  readJson<RegionDistributionResponse>(dataDir, 'region-distribution.json'),
+)
+
 export const loadVibeDistribution = cache(() =>
   readJson<VibeDistributionResponse>(dataDir, 'vibe-distribution.json'),
 )
@@ -48,28 +55,26 @@ export const loadOutlook = cache(() => readJson<OutlookResponse>(dataDir, 'outlo
 
 export const loadTools = cache(() => readJson<ToolsResponse>(dataDir, 'tools.json'))
 
-interface SimpleBarData {
-  question: string
-  n: number
-  data: { label: string; pct: number }[]
-}
-
 export const loadCompanyContext = cache(() =>
-  readJson<SimpleBarData>(dataDir, 'company-context.json'),
+  readJson<SimpleBarResponse>(dataDir, 'company-context.json'),
 )
 
-export const loadBuiltTool = cache(() => readJson<SimpleBarData>(dataDir, 'built-tool.json'))
+export const loadBuiltTool = cache(() => readJson<SimpleBarResponse>(dataDir, 'built-tool.json'))
 
-export const loadTrustLevel = cache(() => readJson<SimpleBarData>(dataDir, 'trust-level.json'))
+export const loadTrustLevel = cache(() => readJson<SimpleBarResponse>(dataDir, 'trust-level.json'))
 
-export const loadBlockers = cache(() => readJson<SimpleBarData>(dataDir, 'blockers.json'))
+export const loadBlockers = cache(() => readJson<SimpleBarResponse>(dataDir, 'blockers.json'))
 
 export const loadWorkflowChange = cache(() =>
-  readJson<SimpleBarData>(dataDir, 'workflow-change.json'),
+  readJson<SimpleBarResponse>(dataDir, 'workflow-change.json'),
 )
 
 export const loadInvestingNext = cache(() =>
-  readJson<SimpleBarData>(dataDir, 'investing-next.json'),
+  readJson<SimpleBarResponse>(dataDir, 'investing-next.json'),
+)
+
+export const loadWorkflowChangeByCompany = cache(() =>
+  readJson<WorkflowChangeByCompanyResponse>(dataDir, 'workflow-change-by-company.json'),
 )
 
 export const loadFullSummary = cache(() =>
@@ -80,12 +85,22 @@ export const loadAgentContext = cache(() => readJson<AgentContext>(agentDir, 'co
 
 export async function loadQuestionById(id: string) {
   switch (id.toUpperCase()) {
+    case 'Q1':
+      return loadCompanyContext()
     case 'Q2':
       return loadRoleDistribution()
+    case 'Q3':
+      return loadRegionDistribution()
     case 'Q4':
       return loadTools()
+    case 'Q6':
+      return loadInvestingNext()
     case 'Q7':
       return loadVibeDistribution()
+    case 'Q8':
+      return loadBuiltTool()
+    case 'Q9':
+      return loadTrustLevel()
     case 'Q10':
       return loadSatisfaction()
     case 'Q11':

@@ -1,0 +1,100 @@
+{
+  "question": "Q3 — Region distribution",
+  "n": 1476,
+  "data": [
+    {
+      "region": "North America",
+      "n": 569,
+      "pct": 38.6
+    },
+    {
+      "region": "Western Europe",
+      "n": 239,
+      "pct": 16.2
+    },
+    {
+      "region": "South Asia",
+      "n": 119,
+      "pct": 8.1
+    },
+    {
+      "region": "Eastern Europe",
+      "n": 104,
+      "pct": 7
+    },
+    {
+      "region": "Northern Europe",
+      "n": 103,
+      "pct": 7
+    },
+    {
+      "region": "Southeast Asia",
+      "n": 56,
+      "pct": 3.8
+    },
+    {
+      "region": "Southern Europe",
+      "n": 50,
+      "pct": 3.4
+    },
+    {
+      "region": "South America",
+      "n": 49,
+      "pct": 3.3
+    },
+    {
+      "region": "Australia & New Zealand",
+      "n": 47,
+      "pct": 3.2
+    },
+    {
+      "region": "Western Asia (Middle East)",
+      "n": 29,
+      "pct": 2
+    },
+    {
+      "region": "West Africa",
+      "n": 28,
+      "pct": 1.9
+    },
+    {
+      "region": "Northern Africa",
+      "n": 18,
+      "pct": 1.2
+    },
+    {
+      "region": "Central Asia",
+      "n": 15,
+      "pct": 1
+    },
+    {
+      "region": "East Asia",
+      "n": 13,
+      "pct": 0.9
+    },
+    {
+      "region": "East Africa",
+      "n": 12,
+      "pct": 0.8
+    },
+    {
+      "region": "Southern Africa",
+      "n": 12,
+      "pct": 0.8
+    },
+    {
+      "region": "Central America & Caribbean",
+      "n": 9,
+      "pct": 0.6
+    },
+    {
+      "region": "Central Africa",
+      "n": 4,
+      "pct": 0.3
+    }
+  ],
+  "pct_outside_na": {
+    "n": 907,
+    "pct": 61.4
+  }
+}

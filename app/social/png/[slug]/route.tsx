@@ -1,0 +1,449 @@
+import type { ReactNode } from 'react'
+
+import { ImageResponse } from 'next/og'
+
+import { sponsorLogos, sponsorLogoScale, UxToolsLogo } from '@/components/logos/SponsorLogos'
+import {
+  loadBlockers,
+  loadBuiltTool,
+  loadCompanyContext,
+  loadInvestingNext,
+  loadOutlook,
+  loadSatisfaction,
+  loadTools,
+  loadTrustLevel,
+  loadVibeByRole,
+  loadVibeDistribution,
+  loadWorkflowChange,
+} from '@/lib/data/loaders'
+import type { OutlookDatum, SatisfactionDatum, VibeByRoleDatum, VibeDistributionDatum } from '@/lib/data/schema'
+
+export const runtime = 'nodejs'
+
+const DEFAULT_WIDTH = 720
+const DEFAULT_HEIGHT = 520
+
+const palette = {
+  bgCanvas: '#fffbf7',
+  bgCard: '#ffffff',
+  bgCallout: '#f5f4f0',
+  borderCard: '#e8e6e1',
+  borderGrid: '#edebe7',
+  textPrimary: '#1a1a1a',
+  textBody: '#4a4844',
+  textSecondary: '#8a8680',
+  textMuted: '#6b6560',
+  bar1: '#c9624d',
+  bar2: '#6b6560',
+  bar3: 'rgba(107, 101, 96, 0.75)',
+  bar4: 'rgba(107, 101, 96, 0.58)',
+  bar5: 'rgba(107, 101, 96, 0.42)',
+  bar6: 'rgba(107, 101, 96, 0.28)',
+  bar7: 'rgba(107, 101, 96, 0.18)',
+  deltaBg: 'rgba(44, 41, 36, 0.08)',
+  deltaBorder: 'rgba(44, 41, 36, 0.12)',
+}
+
+const sponsorBySlug: Record<string, string> = {
+  'where-designers-work': 'MagicPatterns',
+  'top-10-weekly-tools': 'Dazl',
+  'vibe-coding-hero': 'MagicPath',
+  'vibe-coding-distribution': 'Framer',
+  'vibe-by-role': 'dscout',
+  'ic-vs-design-engineer': 'MagicPatterns',
+  'built-own-tool': 'Framer',
+  'trust-level': 'Mobbin',
+  'top-blockers': 'dscout',
+  'workflow-change': 'Dazl',
+  'role-outlook': 'Mobbin',
+  'investing-next': 'MagicPath',
+  'satisfaction-by-vibe': 'dscout',
+  'satisfaction-delta': 'Framer',
+}
+
+const barRamp = [palette.bar2, palette.bar3, palette.bar4, palette.bar5, palette.bar6, palette.bar7]
+
+type SimpleBarItem = { label: string; pct: number }
+
+function ChartFrame({
+  sponsor,
+  children,
+}: {
+  sponsor: string
+  children: ReactNode
+}) {
+  const SponsorLogo = sponsorLogos[sponsor]
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: palette.bgCallout,
+        color: palette.textPrimary,
+        fontFamily: 'Arial, Helvetica, sans-serif',
+        borderRadius: 12,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          margin: 16,
+          marginBottom: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          background: palette.bgCard,
+          border: `1px solid ${palette.borderCard}`,
+          borderRadius: 8,
+          padding: 24,
+        }}
+      >
+        {children}
+      </div>
+      <div
+        style={{
+          height: 56,
+          margin: '0 16px',
+          padding: '0 8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderTop: `1px solid ${palette.borderCard}`,
+          fontSize: 14,
+          flexShrink: 0,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ color: palette.textSecondary, fontSize: 14, lineHeight: 1 }}>
+            Presented by
+          </span>
+          {SponsorLogo ? (
+            <SponsorLogo
+              style={{
+                height: 16 * (sponsorLogoScale[sponsor] ?? 1),
+                width: 'auto',
+                color: palette.textPrimary,
+                flexShrink: 0,
+              }}
+            />
+          ) : (
+            <span style={{ color: palette.textPrimary, fontWeight: 700 }}>{sponsor}</span>
+          )}
+        </div>
+        <UxToolsLogo style={{ height: 16, width: 'auto', color: palette.textPrimary, flexShrink: 0 }} />
+      </div>
+    </div>
+  )
+}
+
+function ChartHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 24 }}>
+      <div
+        style={{
+          display: 'flex',
+          fontSize: 16,
+          fontWeight: 700,
+          lineHeight: '22px',
+          color: palette.textPrimary,
+        }}
+      >
+        {title}
+      </div>
+      {subtitle ? (
+        <div
+          style={{
+            display: 'flex',
+            fontSize: 14,
+            lineHeight: '18px',
+            color: palette.textSecondary,
+            marginTop: 4,
+          }}
+        >
+          {subtitle}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function BarRow({
+  label,
+  value,
+  rank,
+  max = 100,
+  accentWinner = false,
+  suffix = '%',
+}: {
+  label: string
+  value: number
+  rank: number
+  max?: number
+  accentWinner?: boolean
+  suffix?: string
+}) {
+  const isWinner = accentWinner && rank === 1
+  const barColor = isWinner ? palette.bar1 : barRamp[Math.min(rank - 2, barRamp.length - 1)] ?? palette.bar2
+  const widthPct = Math.min((value / max) * 100, 100)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 10 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+        <span style={{ fontSize: 14, fontWeight: isWinner ? 600 : 500, color: isWinner ? palette.textPrimary : palette.textBody, lineHeight: '18px' }}>
+          {label}
+        </span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: isWinner ? palette.bar1 : palette.textBody }}>
+          {`${value.toFixed(1)}${suffix}`}
+        </span>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: 16,
+          borderRadius: 3,
+          background: palette.bgCallout,
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            width: `${widthPct}%`,
+            minWidth: 4,
+            height: '100%',
+            borderRadius: 3,
+            background: barColor,
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function SimpleBars({
+  title,
+  subtitle,
+  items,
+  accentWinner = false,
+  max = 100,
+  suffix = '%',
+}: {
+  title: string
+  subtitle?: string
+  items: SimpleBarItem[]
+  accentWinner?: boolean
+  max?: number
+  suffix?: string
+}) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <ChartHeader title={title} subtitle={subtitle} />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {items.map((item, index) => (
+          <BarRow
+            key={`${item.label}-${index}`}
+            label={item.label}
+            value={item.pct}
+            rank={index + 1}
+            max={max}
+            accentWinner={accentWinner}
+            suffix={suffix}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function HeroStat({ value, accentLabel, label }: { value: string; accentLabel?: string; label: string }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1, padding: '20px 0' }}>
+      {accentLabel ? (
+        <div style={{ display: 'flex', fontSize: 14, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: palette.bar1, marginBottom: 16 }}>
+          {accentLabel}
+        </div>
+      ) : null}
+      <div style={{ display: 'flex', fontSize: 80, fontWeight: 700, lineHeight: 1, color: palette.textPrimary, marginBottom: 16 }}>{value}</div>
+      <div style={{ display: 'flex', width: 60, height: 2, background: palette.bar1, marginBottom: 16 }} />
+      <div style={{ display: 'flex', fontSize: 14, lineHeight: '22px', color: palette.textBody, maxWidth: 448 }}>{label}</div>
+    </div>
+  )
+}
+
+function SatisfactionDelta({
+  overallMean,
+  delta,
+  fromTier,
+  toTier,
+}: {
+  overallMean: number
+  delta: number
+  fromTier: string
+  toTier: string
+}) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flex: 1 }}>
+      <div style={{ display: 'flex', fontSize: 14, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: palette.textMuted, marginBottom: 20 }}>
+        The Satisfaction Gap
+      </div>
+      <div style={{ display: 'flex', fontSize: 72, fontWeight: 700, lineHeight: 1, color: palette.textPrimary, marginBottom: 10 }}>
+        {`${overallMean.toFixed(1)}/10`}
+      </div>
+      <div style={{ display: 'flex', fontSize: 14, color: palette.textBody, marginBottom: 16 }}>overall mean workflow satisfaction</div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          padding: '8px 16px',
+          borderRadius: 24,
+          border: `1px solid ${palette.deltaBorder}`,
+          background: palette.deltaBg,
+          marginBottom: 18,
+        }}
+      >
+        <span style={{ fontSize: 15, fontWeight: 700, color: palette.bar1 }}>{`▲ +${delta.toFixed(2)}`}</span>
+        <span style={{ fontSize: 14, color: palette.textBody }}>heavy vibers vs. non-vibers</span>
+      </div>
+      <div style={{ display: 'flex', fontSize: 14, lineHeight: '18px', color: palette.textMuted }}>
+        {`${fromTier}: 5.93 → ${toTier}: 7.39`}
+      </div>
+    </div>
+  )
+}
+
+function OutlookTable({ title, subtitle, items }: { title: string; subtitle?: string; items: OutlookDatum[] }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <ChartHeader title={title} subtitle={subtitle} />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', padding: '0 0 16px 0', color: palette.textSecondary, fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+          <div style={{ display: 'flex', width: '34%' }}>Role</div>
+          <div style={{ display: 'flex', width: '22%' }}>More Valuable</div>
+          <div style={{ display: 'flex', width: '22%' }}>Less Secure</div>
+          <div style={{ display: 'flex', width: '22%' }}>About Same</div>
+        </div>
+        {items.map((item, index) => (
+          <div
+            key={`${item.role}-${index}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '14px 0',
+              borderTop: `1px solid ${palette.borderGrid}`,
+              fontSize: 14,
+            }}
+          >
+            <div style={{ display: 'flex', width: '34%', color: palette.textPrimary, fontWeight: 500, paddingRight: 16 }}>{item.role}</div>
+            <div style={{ display: 'flex', width: '22%', color: palette.bar1, fontWeight: 700 }}>{`${item.more_valuable.toFixed(1)}%`}</div>
+            <div style={{ display: 'flex', width: '22%', color: palette.bar1, fontWeight: 700 }}>{`${item.less_secure.toFixed(1)}%`}</div>
+            <div style={{ display: 'flex', width: '22%', color: palette.textSecondary, fontWeight: 400 }}>{`${item.about_same.toFixed(1)}%`}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+async function renderSlug(slug: string) {
+  switch (slug) {
+    case 'where-designers-work': {
+      const data = await loadCompanyContext()
+      return <SimpleBars title="Where Designers Work" subtitle="Company size and work setting — 1,478 respondents, Spring 2026" items={data.data} accentWinner />
+    }
+    case 'top-10-weekly-tools': {
+      const tools = await loadTools()
+      return <SimpleBars title="5 of the Top 10 Weekly Tools Are Now AI" subtitle="What designers use every week — % of respondents" items={tools.data.map((item) => ({ label: item.tool, pct: item.pct }))} accentWinner />
+    }
+    case 'vibe-coding-hero':
+      return <HeroStat value="43.8%" accentLabel="Vibe Coding 50%+" label="of designers now spend more than half their building time on AI-generated code" />
+    case 'vibe-coding-distribution': {
+      const distribution = await loadVibeDistribution()
+      return <SimpleBars title="The Profession Has Split Into Thirds" subtitle="How much of your building time is AI-generated code?" items={distribution.data.map((item: VibeDistributionDatum) => ({ label: item.tier, pct: item.pct }))} />
+    }
+    case 'vibe-by-role': {
+      const vibeByRole = await loadVibeByRole()
+      const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
+      const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
+      return <SimpleBars title={`An ${de?.pct.toFixed(1) ?? '80.9'}% vs ${ic?.pct.toFixed(1) ?? '35.0'}% Split in the Same Design Org`} subtitle="% spending 50%+ of building time on AI-generated code, by role" items={vibeByRole.data.map((item: VibeByRoleDatum) => ({ label: item.role, pct: item.pct }))} accentWinner />
+    }
+    case 'ic-vs-design-engineer': {
+      const vibeByRole = await loadVibeByRole()
+      const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
+      const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
+      return <SimpleBars title="Same Profession, Different Reality" subtitle="% spending 50%+ time on AI-generated code" items={[{ label: 'Design Engineer', pct: de?.pct ?? 80.9 }, { label: 'IC Designer', pct: ic?.pct ?? 35.0 }]} accentWinner />
+    }
+    case 'built-own-tool': {
+      const data = await loadBuiltTool()
+      const builtSomething = data.data
+        .filter((item) => item.label === 'Yes, once or twice' || item.label === 'Yes, I do it regularly')
+        .reduce((sum, item) => sum + item.pct, 0)
+      return <SimpleBars title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`} subtitle="Have you built your own tool, app, or utility with AI? — last 6 months" items={data.data} accentWinner />
+    }
+    case 'trust-level': {
+      const data = await loadTrustLevel()
+      return <SimpleBars title="Only 1.4% Trust AI Output Without Oversight" subtitle="How far do you trust AI-generated output in your workflow?" items={data.data} accentWinner />
+    }
+    case 'top-blockers': {
+      const data = await loadBlockers()
+      const spread = (data.data[0].pct - data.data[2].pct).toFixed(1)
+      return <SimpleBars title={`The Top 3 Blockers Are Within ${spread} Points of Each Other`} subtitle="What's slowing down your workflow the most?" items={data.data} accentWinner />
+    }
+    case 'workflow-change': {
+      const data = await loadWorkflowChange()
+      const combinedPct = (data.data[0].pct + data.data[1].pct).toFixed(1)
+      return <SimpleBars title={`${combinedPct}% Have Added AI or Gone AI-Central in 6 Months`} subtitle="How has your design workflow changed since late 2025?" items={data.data} accentWinner />
+    }
+    case 'role-outlook': {
+      const data = await loadOutlook()
+      return <OutlookTable title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk." subtitle="How do you think AI will affect your role in the next 2 years?" items={data.data} />
+    }
+    case 'investing-next': {
+      const data = await loadInvestingNext()
+      return <SimpleBars title="2 of the Top 3 Investment Areas Are AI" subtitle="Where are you investing your time in the next 12 months? (pick 3)" items={data.data} accentWinner />
+    }
+    case 'satisfaction-by-vibe': {
+      const data = await loadSatisfaction()
+      const items = [...data.data].reverse().map((item: SatisfactionDatum) => ({ label: item.tier, pct: item.mean }))
+      return <SimpleBars title="Heavier Vibe Coders Are More Satisfied" subtitle="Mean workflow satisfaction (1–10) by vibe coding level" items={items} accentWinner max={10} suffix=" / 10" />
+    }
+    case 'satisfaction-delta': {
+      const data = await loadSatisfaction()
+      return <SatisfactionDelta overallMean={data.overall_mean} delta={data.delta.value} fromTier={data.delta.from_tier} toTier={data.delta.to_tier} />
+    }
+    default:
+      return null
+  }
+}
+
+export async function GET(
+  request: Request,
+  { params }: { params: { slug: string } },
+) {
+  const sponsor = sponsorBySlug[params.slug]
+  if (!sponsor) {
+    return new Response('Not found', { status: 404 })
+  }
+
+  const url = new URL(request.url)
+  const width = Math.max(320, Number(url.searchParams.get('w') ?? DEFAULT_WIDTH) || DEFAULT_WIDTH)
+  const height = Math.max(240, Number(url.searchParams.get('h') ?? DEFAULT_HEIGHT) || DEFAULT_HEIGHT)
+  const chart = await renderSlug(params.slug)
+  if (!chart) {
+    return new Response('Not found', { status: 404 })
+  }
+
+  return new ImageResponse(
+    <ChartFrame sponsor={sponsor}>
+      {chart}
+    </ChartFrame>,
+    {
+      width,
+      height,
+    },
+  )
+}

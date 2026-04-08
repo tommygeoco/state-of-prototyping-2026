@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit:report": "node scripts/audit-report-accuracy.mjs",
+    "sync:report-data": "node scripts/audit-report-accuracy.mjs --write"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",

@@ -16,9 +16,9 @@ Open dataset from the State of Prototyping survey. 1,478 designers across 18 reg
 
 1. **5 of the top 10 weekly tools are now AI.** Claude is #2 after Figma at 50.8%.
 2. **43.8% spend 50%+ of building time vibe coding.** The profession has split into thirds.
-3. **80.9% of design engineers vs. 35% of IC designers.** A 46-point gap in the same org.
-4. **59% have built their own tool with AI** in the last 6 months.
-5. **Vibe coders are 1.5 points more satisfied** with their workflow (5.9 → 7.4 out of 10).
+3. **80.9% of design engineers vs. 35.0% of IC designers.** A 45.9-point gap in the same org.
+4. **59.1% have built their own tool with AI** in the last 6 months.
+5. **Vibe coders are 1.46 points more satisfied** with their workflow (5.93 → 7.39 out of 10).
 
 ## Quick start
 
@@ -66,11 +66,13 @@ All in `public/data/`. The primary dataset is `responses.csv` / `responses.json`
 | `satisfaction.json` | Satisfaction by vibe tier (Q10) |
 | `outlook.json` | Role outlook (Q11) |
 | `role-distribution.json` | Role breakdown (Q2) |
+| `region-distribution.json` | Region breakdown (Q3) |
 | `company-context.json` | Work setting (Q1) |
 | `built-tool.json` | Built own tool (Q8) |
 | `trust-level.json` | AI trust level (Q9) |
 | `blockers.json` | Workflow blockers |
 | `workflow-change.json` | Workflow changes in 6 months |
+| `workflow-change-by-company.json` | AI-central workflow shift by company context |
 | `investing-next.json` | Investment areas (Q6) |
 | `headline.json` | Key headline stats |
 | `full-summary.json` | All tables merged |

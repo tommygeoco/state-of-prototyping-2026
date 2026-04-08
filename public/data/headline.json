@@ -17,7 +17,7 @@
     {
       "key": "built_tool_with_ai",
       "label": "Built a custom tool with AI-generated code",
-      "value": 59.0,
+      "value": 59.1,
       "unit": "pct"
     },
     {
@@ -35,7 +35,7 @@
     {
       "key": "ai_invest_next_12mo",
       "label": "Expect more AI investment in the next 12 months",
-      "value": 64.0,
+      "value": 64,
       "unit": "pct"
     },
     {

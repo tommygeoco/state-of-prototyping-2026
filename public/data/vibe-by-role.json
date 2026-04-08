@@ -3,11 +3,36 @@
   "n_total": 1478,
   "metric": "pct_spending_50pct_plus_on_vibe_coding",
   "data": [
-    { "role": "Design Engineer", "n": 94, "pct": 80.9 },
-    { "role": "Lead / Principal", "n": 280, "pct": 56.8 },
-    { "role": "Non-designer", "n": 57, "pct": 50.9 },
-    { "role": "Manager/Director", "n": 161, "pct": 46.6 },
-    { "role": "IC Designer", "n": 862, "pct": 35.0 },
-    { "role": "Researcher", "n": 23, "pct": 26.1, "note": "directional — small n" }
+    {
+      "role": "Design Engineer",
+      "n": 94,
+      "pct": 80.9
+    },
+    {
+      "role": "Lead / Principal",
+      "n": 280,
+      "pct": 56.8
+    },
+    {
+      "role": "Non-designer",
+      "n": 57,
+      "pct": 50.9
+    },
+    {
+      "role": "Manager / Director",
+      "n": 161,
+      "pct": 46.6
+    },
+    {
+      "role": "IC Designer",
+      "n": 862,
+      "pct": 35
+    },
+    {
+      "role": "Researcher",
+      "n": 23,
+      "pct": 26.1,
+      "note": "directional — small n"
+    }
   ]
 }

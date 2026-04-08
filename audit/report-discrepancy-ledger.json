@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-04-08T21:28:59.456Z",
+  "aggregate_mismatch_count": 0,
+  "report_copy_mismatch_count": 0,
+  "raw_data_warning_count": 1,
+  "aggregate_mismatches": [],
+  "report_copy_mismatches": [],
+  "raw_data_warnings": [
+    {
+      "path": "responses.csv.role_seat",
+      "message": "Unexpected raw role values are excluded from role-based aggregate tables.",
+      "actual": [
+        {
+          "role": "Independent or freelance",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

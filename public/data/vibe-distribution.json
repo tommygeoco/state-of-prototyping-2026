@@ -2,11 +2,31 @@
   "question": "Q7 — Vibe coding ratio (% AI-generated output)",
   "n": 1478,
   "data": [
-    { "tier": "None (0%)", "n": 557, "pct": 37.7 },
-    { "tier": "Occasionally", "n": 274, "pct": 18.5 },
-    { "tier": "About half", "n": 188, "pct": 12.7 },
-    { "tier": "Most of it", "n": 258, "pct": 17.5 },
-    { "tier": "Nearly all", "n": 201, "pct": 13.6 }
+    {
+      "tier": "None (0%)",
+      "n": 557,
+      "pct": 37.7
+    },
+    {
+      "tier": "Occasionally",
+      "n": 274,
+      "pct": 18.5
+    },
+    {
+      "tier": "About half",
+      "n": 188,
+      "pct": 12.7
+    },
+    {
+      "tier": "Most of it",
+      "n": 258,
+      "pct": 17.5
+    },
+    {
+      "tier": "Nearly all",
+      "n": 201,
+      "pct": 13.6
+    }
   ],
   "pct_50plus": {
     "n": 647,

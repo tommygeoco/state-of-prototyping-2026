@@ -14,33 +14,20 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
         justifyContent: 'center',
         textAlign: 'center',
         flex: '1 1 0%',
-        padding: '24px 16px',
+        padding: '40px 24px',
       }}
     >
-      <div
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(48px, 10vw, 80px)',
-          fontWeight: 700,
-          lineHeight: 1,
-          color: 'var(--text-primary)',
-          marginBottom: 16,
-        }}
-      >
-        {value}
-      </div>
-
       {accentLabel ? (
         <div
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 14,
+            fontSize: 11,
             fontWeight: 700,
-            letterSpacing: '0.1em',
+            letterSpacing: '0.14em',
             textTransform: 'uppercase',
             color: 'var(--bar-1)',
-            lineHeight: '18px',
-            marginBottom: 16,
+            lineHeight: '16px',
+            marginBottom: 12,
           }}
         >
           {accentLabel}
@@ -49,25 +36,37 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
 
       <div
         style={{
-          width: 60,
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(56px, 12vw, 96px)',
+          fontWeight: 700,
+          lineHeight: 0.9,
+          color: 'var(--text-primary)',
+          letterSpacing: '-0.02em',
+        }}
+      >
+        {value}
+      </div>
+
+      <div
+        style={{
+          width: 40,
           height: 2,
           background: 'var(--bar-1)',
-          marginBottom: 16,
+          margin: '20px 0',
         }}
       />
 
       <div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 14,
-          lineHeight: '22px',
+          fontSize: 16,
+          lineHeight: '24px',
           color: 'var(--text-body)',
-          maxWidth: '32ch',
+          maxWidth: '30ch',
         }}
       >
         {label}
       </div>
-
     </div>
   )
 }

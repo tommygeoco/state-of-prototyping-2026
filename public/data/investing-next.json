@@ -2,15 +2,45 @@
   "question": "Q6 — Where are you investing your time next? (Pick 3)",
   "n": 1478,
   "data": [
-    { "label": "AI-generated coding", "pct": 63.8 },
-    { "label": "Agent workflows", "pct": 46.2 },
-    { "label": "Design systems & tokens", "pct": 40.2 },
-    { "label": "Canvas design tools", "pct": 21.3 },
-    { "label": "Video, motion & 3D", "pct": 20.5 },
-    { "label": "Simplifying my stack", "pct": 17.5 },
-    { "label": "Image generation", "pct": 14.8 },
-    { "label": "No-code (not AI)", "pct": 13.7 },
-    { "label": "Manual coding", "pct": 9.6 },
-    { "label": "No major changes", "pct": 6.1 }
+    {
+      "label": "AI-generated coding",
+      "pct": 64
+    },
+    {
+      "label": "Agent workflows",
+      "pct": 46.3
+    },
+    {
+      "label": "Design systems & tokens",
+      "pct": 40.2
+    },
+    {
+      "label": "Canvas design tools",
+      "pct": 21.3
+    },
+    {
+      "label": "Video, motion & 3D",
+      "pct": 20.4
+    },
+    {
+      "label": "Simplifying my stack",
+      "pct": 17.5
+    },
+    {
+      "label": "Image generation",
+      "pct": 14.7
+    },
+    {
+      "label": "No-code (not AI)",
+      "pct": 13.7
+    },
+    {
+      "label": "Manual coding",
+      "pct": 9.5
+    },
+    {
+      "label": "No major changes",
+      "pct": 6.1
+    }
   ]
 }

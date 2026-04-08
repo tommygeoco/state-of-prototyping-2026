@@ -1,4 +1,4 @@
-import { loadQuestions, loadVibeByRole } from '@/lib/data/loaders'
+import { loadQuestions, loadVibeByRole, loadWorkflowChangeByCompany } from '@/lib/data/loaders'
 import { cacheHeaders } from '@/lib/api/headers'
 
 interface RouteContext {
@@ -16,6 +16,10 @@ export async function GET(request: Request, { params }: RouteContext) {
     return Response.json(await loadVibeByRole(), { headers: cacheHeaders })
   }
 
+  if (id === 'Q10' && ['company', 'context', 'work-context'].includes(by ?? '')) {
+    return Response.json(await loadWorkflowChangeByCompany(), { headers: cacheHeaders })
+  }
+
   const questions = await loadQuestions()
   const definition = questions.data.find((question) => question.id === id)
 
@@ -26,7 +30,7 @@ export async function GET(request: Request, { params }: RouteContext) {
   return Response.json(
     {
       error: `No published cross-tab for ${id}${by ? ` by ${by}` : ''}.`,
-      available_cross_tabs: ['Q7 by role'],
+      available_cross_tabs: ['Q7 by role', 'Q10 by company'],
     },
     { status: 404 },
   )

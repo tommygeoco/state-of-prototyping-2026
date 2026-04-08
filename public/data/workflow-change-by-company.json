@@ -1,0 +1,43 @@
+{
+  "question": "Q10 × Q1 cross-tab — AI is now central by company context",
+  "n_total": 1478,
+  "metric": "pct_ai_central_by_company_context",
+  "data": [
+    {
+      "context": "Startup (2–100)",
+      "n": 433,
+      "pct": 38.8,
+      "note": "AI is now central — major shift"
+    },
+    {
+      "context": "Independent / Freelance",
+      "n": 265,
+      "pct": 36.2,
+      "note": "AI is now central — major shift"
+    },
+    {
+      "context": "Mid-size (101–999)",
+      "n": 227,
+      "pct": 34.8,
+      "note": "AI is now central — major shift"
+    },
+    {
+      "context": "Enterprise (1,000+)",
+      "n": 262,
+      "pct": 34.7,
+      "note": "AI is now central — major shift"
+    },
+    {
+      "context": "Agency / Consulting",
+      "n": 199,
+      "pct": 28.6,
+      "note": "AI is now central — major shift"
+    },
+    {
+      "context": "Student / Between",
+      "n": 92,
+      "pct": 21.7,
+      "note": "AI is now central — major shift"
+    }
+  ]
+}
