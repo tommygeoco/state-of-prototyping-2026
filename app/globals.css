@@ -407,6 +407,94 @@ code {
   margin: 0;
 }
 
+/* ── Sponsor Strip ──
+   Top-of-report sponsor section with logo cards + descriptions */
+
+.sponsor-strip {
+  background: var(--bg-callout);
+  border-radius: var(--card-radius);
+  padding: 28px 32px 32px;
+  margin-bottom: 48px;
+}
+
+.sponsor-strip-header {
+  margin-bottom: 20px;
+}
+
+.sponsor-strip-eyebrow {
+  font-family: var(--font-data);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
+}
+
+.sponsor-strip-intro {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.sponsor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.sponsor-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.sponsor-card:hover {
+  border-color: var(--text-secondary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.sponsor-card-logo {
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+}
+
+.sponsor-card-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .sponsor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sponsor-strip {
+    padding: 20px 20px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sponsor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Hero stat callout block: #F5F4F0, 8px radius, 32px padding */
 .hero-stat-block {
   background: var(--bg-callout);

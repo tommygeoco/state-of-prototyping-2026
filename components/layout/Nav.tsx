@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 const navLinks = [
-  { href: '/explore', label: 'Explore' },
+  { href: '/explore', label: 'Report' },
   { href: '/download', label: 'Download' },
   { href: '/api', label: 'API' },
   { href: '/agent', label: 'Agents' },
@@ -33,7 +33,7 @@ export function Nav() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
           <Link
-            href="/"
+            href="/explore"
             style={{
               fontFamily: 'var(--font-body)',
               fontSize: 16,

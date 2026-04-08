@@ -3,7 +3,9 @@ import dynamic from 'next/dynamic'
 import { AccentHighlightBarChart } from '@/components/charts/AccentHighlightBarChart'
 import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
+import { sponsorLogos, sponsorLogoScale } from '@/components/logos/SponsorLogos'
 import { loadBlockers, loadBuiltTool, loadCompanyContext, loadHeadline, loadInvestingNext, loadOutlook, loadRegionDistribution, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange, loadWorkflowChangeByCompany } from '@/lib/data/loaders'
+import { sponsors } from '@/lib/site'
 
 const AdoptionBySegmentChart = dynamic(() =>
   import('@/components/charts/AdoptionBySegmentChart').then((m) => m.AdoptionBySegmentChart),
@@ -147,12 +149,55 @@ export default async function ExplorePage() {
         </p>
       </header>
 
+      {/* ── Sponsors ── */}
+      <section className="sponsor-strip">
+        <div className="sponsor-strip-header">
+          <p className="sponsor-strip-eyebrow">Spring 2026 Sponsors</p>
+          <p className="sponsor-strip-intro">
+            This survey was independently run by{' '}
+            <a href="https://linkedin.com/in/tommygeoco" target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--border-card)' }}>
+              Tommy Geoco
+            </a>
+            {' '}and{' '}
+            <a href="https://uxtools.co" target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--border-card)' }}>
+              UX Tools
+            </a>. Production and distribution was supported by these sponsors.
+          </p>
+        </div>
+        <div className="sponsor-grid">
+          {sponsors.map((sponsor) => {
+            const Logo = sponsorLogos[sponsor.name]
+            return (
+              <a
+                key={sponsor.slug}
+                href={sponsor.url}
+                target="_blank"
+                rel="noreferrer"
+                className="sponsor-card"
+              >
+                <div className="sponsor-card-logo">
+                  {Logo ? (
+                    <Logo style={{ height: 16 * (sponsorLogoScale[sponsor.name] ?? 1), width: 'auto' }} />
+                  ) : (
+                    <span style={{ fontFamily: 'var(--font-data)', fontSize: 13, fontWeight: 700 }}>
+                      {sponsor.name}
+                    </span>
+                  )}
+                </div>
+                <p className="sponsor-card-desc">{sponsor.description}</p>
+              </a>
+            )
+          })}
+        </div>
+      </section>
+
       {/* ── 1. Who took this survey ── */}
       <hr className="section-divider" />
       <section id="who-took-this-survey" style={{ marginBottom: 48 }}>
         <h2 className="section-title">1. Who took this survey</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          This is the first edition of our quarterly State of Prototyping, a recurring snapshot
+          State of Prototyping is part of our ongoing survey initiative to understand how
+          design and software are changing. This Spring 2026 edition is the first snapshot,
           built for designers and builders who work across the design-to-code spectrum.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
