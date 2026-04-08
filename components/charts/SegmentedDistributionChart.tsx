@@ -21,6 +21,7 @@ export function SegmentedDistributionChart({ title, subtitle, distribution, bare
             pct={item.pct}
             rank={index + 1}
             displayValue={`${item.pct.toFixed(1)}%`}
+            accentWinner
           />
         ))}
       </div>

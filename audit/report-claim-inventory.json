@@ -135,7 +135,7 @@
     "source": [
       "built-tool.json"
     ],
-    "status": "verified",
+    "status": "needs_manual_review",
     "actual_pattern": "/title: '59% of designers have built their own tool with AI in the last 6 months\\.'/",
     "expected_text": "59.1% of designers have built their own tool with AI in the last 6 months."
   },
@@ -145,7 +145,7 @@
     "source": [
       "blockers.json"
     ],
-    "status": "verified",
+    "status": "needs_manual_review",
     "actual_pattern": "/Time to learn \\(55\\.6%\\), too many tools \\(53\\.1%\\), output quality \\(52\\.2%\\) — within 3 points of each other\\./",
     "expected_text": "Time to learn (55.7%), too many tools (53.0%), output quality (52.2%) — within 3.5 points of each other."
   },
@@ -155,7 +155,7 @@
     "source": [
       "outlook.json"
     ],
-    "status": "verified",
+    "status": "needs_manual_review",
     "actual_pattern": "/Researchers: 17% more valuable, 39% less secure\\./",
     "expected_text": "Researchers: 17.4% more valuable, 39.1% less secure."
   },
@@ -165,7 +165,7 @@
     "source": [
       "satisfaction.json"
     ],
-    "status": "verified",
+    "status": "needs_manual_review",
     "actual_pattern": "/No vibe coding: 5\\.9\\/10\\.\\s*Heavy vibe coders: 7\\.4\\/10\\./",
     "expected_text": "No vibe coding: 5.93/10. Heavy vibe coders: 7.39/10."
   },
@@ -228,17 +228,6 @@
   {
     "id": "agent-md-built-tool",
     "surface": "public/agent/SURVEY_CONTEXT.md",
-    "source": [
-      "responses.csv",
-      "public/data/*.json"
-    ],
-    "status": "verified",
-    "actual_pattern": "/59\\.0% have built a custom tool with AI-generated code/",
-    "expected_text": "59.1% have built a custom tool with AI-generated code"
-  },
-  {
-    "id": "data-md-built-tool",
-    "surface": "public/data/SURVEY_CONTEXT.md",
     "source": [
       "responses.csv",
       "public/data/*.json"

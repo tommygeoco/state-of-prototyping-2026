@@ -62,7 +62,7 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
       >
         {imgState === 'copied' ? <CheckIcon /> : <CameraIcon />}
         <span className="chart-action-tooltip">
-          {imgState === 'copied' ? 'Opened PNG!' : 'Copy PNG'}
+          {imgState === 'copied' ? 'Opened PNG!' : 'Open PNG'}
         </span>
       </button>
     </div>

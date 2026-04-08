@@ -391,7 +391,7 @@ async function renderSlug(slug: string) {
       return (
         <SimpleBars
           title="A Global Sample, Not a North America-Only Read"
-          subtitle={`Top regions in the sample — ${data.pct_outside_na.pct.toFixed(1)}% of respondents are outside North America`}
+          subtitle={`Top regions in the sample · ${data.pct_outside_na.pct.toFixed(1)}% of respondents are outside North America`}
           items={data.data.slice(0, 6).map((item) => ({ label: item.region, pct: item.pct }))}
           accentWinner
         />
@@ -399,11 +399,11 @@ async function renderSlug(slug: string) {
     }
     case 'where-designers-work': {
       const data = await loadCompanyContext()
-      return <SimpleBars title="Where Designers Work" subtitle="Company size and work setting — 1,478 respondents, Spring 2026" items={data.data} accentWinner />
+      return <SimpleBars title="Where Designers Work" subtitle="Company size and work setting · 1,478 respondents, Spring 2026" items={data.data} accentWinner />
     }
     case 'top-10-weekly-tools': {
       const tools = await loadTools()
-      return <SimpleBars title="5 of the Top 10 Weekly Tools Are Now AI" subtitle="What designers use every week — % of respondents" items={tools.data.map((item) => ({ label: item.tool, pct: item.pct }))} accentWinner />
+      return <SimpleBars title="5 of the Top 10 Weekly Tools Are Now AI" subtitle="What designers use every week · % of respondents" items={tools.data.map((item) => ({ label: item.tool, pct: item.pct }))} accentWinner />
     }
     case 'vibe-coding-hero': {
       const headline = await loadHeadline()
@@ -431,7 +431,7 @@ async function renderSlug(slug: string) {
       const builtSomething = data.data
         .filter((item) => item.label === 'Yes, once or twice' || item.label === 'Yes, I do it regularly')
         .reduce((sum, item) => sum + item.pct, 0)
-      return <SimpleBars title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`} subtitle="Have you built your own tool, app, or utility with AI? — last 6 months" items={data.data} accentWinner />
+      return <SimpleBars title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`} subtitle="Have you built your own tool, app, or utility with AI? · last 6 months" items={data.data} accentWinner />
     }
     case 'trust-level': {
       const data = await loadTrustLevel()

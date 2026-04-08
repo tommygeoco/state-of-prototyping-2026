@@ -2,6 +2,8 @@
 
 Open dataset from the State of Prototyping survey. 1,478 designers across 18 regions. Published by [UX Tools](https://uxtools.co).
 
+This project has three jobs: publish the canonical report, expose the underlying data and API, and package the strongest findings as shareable chart bites.
+
 **[Read the report →](https://survey.uxtools.co/explore)**
 
 ## What's here
@@ -9,13 +11,14 @@ Open dataset from the State of Prototyping survey. 1,478 designers across 18 reg
 - **Full microdata** — 1,478 individual responses, de-identified (emails/timestamps removed, rows shuffled)
 - **Report** — 12-section editorial article with live charts at `/explore`
 - **Summary tables** — pre-aggregated percentages and cross-tabs
+- **Shareable bites** — chart anchors and PNG exports for the findings that travel
 - **REST API** — query endpoints at `/api/v1/*`, no auth required
 - **Agent tools** — natural language query endpoint, LLM context file, tool definitions
 
 ## Key findings
 
 1. **5 of the top 10 weekly tools are now AI.** Claude is #2 after Figma at 50.8%.
-2. **43.8% spend 50%+ of building time vibe coding.** The profession has split into thirds.
+2. **43.8% spend 50%+ of their building time vibe coding.** The profession has split into thirds.
 3. **80.9% of design engineers vs. 35.0% of IC designers.** A 45.9-point gap in the same org.
 4. **59.1% have built their own tool with AI** in the last 6 months.
 5. **Vibe coders are 1.46 points more satisfied** with their workflow (5.93 → 7.39 out of 10).

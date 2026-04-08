@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic'
 
 import { AccentHighlightBarChart } from '@/components/charts/AccentHighlightBarChart'
-import { KPIStripChart } from '@/components/charts/KPIStripChart'
 import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
 import { loadBlockers, loadBuiltTool, loadCompanyContext, loadHeadline, loadInvestingNext, loadOutlook, loadRegionDistribution, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange, loadWorkflowChangeByCompany } from '@/lib/data/loaders'
@@ -104,14 +103,6 @@ export default async function ExplorePage() {
   const startupEnterpriseGap = (
     (startupAiCentral?.pct ?? 0) - (enterpriseAiCentral?.pct ?? 0)
   ).toFixed(1)
-  const keyBites = [
-    { value: `${topAiTools} / 10`, label: 'top weekly tools are AI', href: '#top-10-weekly-tools' },
-    { value: `${vibeDistribution.pct_50plus.pct.toFixed(1)}%`, label: 'spend 50%+ of their building time vibe coding', href: '#vibe-coding-hero' },
-    { value: `${designEngineer?.pct.toFixed(1) ?? '80.9'}% vs ${icDesigner?.pct.toFixed(1) ?? '35.0'}%`, label: 'design engineers vs IC designers', href: '#ic-vs-design-engineer' },
-    { value: `${builtSomething?.value.toFixed(1) ?? '59.1'}%`, label: 'have built their own AI tool', href: '#built-own-tool' },
-    { value: `${productionWithReviewPct}% / ${fullTrust?.pct.toFixed(1) ?? '1.4'}%`, label: 'trust AI for production with review vs without oversight', href: '#trust-level' },
-    { value: `+${satisfaction.delta.value.toFixed(2)}`, label: 'workflow satisfaction gap for heavy vibe coders', href: '#satisfaction-delta' },
-  ]
   const summaryFindings = [
     {
       title: `${secondTool?.tool ?? 'Claude'} is the #2 weekly tool in design, after ${topTool?.tool ?? 'Figma'}.`,
@@ -150,40 +141,30 @@ export default async function ExplorePage() {
           Spring 2026
         </h1>
         <p className="lead-text">
-          We asked 1,478 designers and builders how they actually work right now — what they
-          use every week, how much they&apos;re vibe coding, whether they trust AI to ship, and
+          We asked 1,478 designers and builders how they actually work right now. What they
+          use every week. How much they&apos;re vibe coding. Whether they trust AI to ship. And
           what they&apos;re investing in next.
         </p>
       </header>
-
-      <section id="key-bites" style={{ marginBottom: 48 }}>
-        <p className="page-eyebrow" style={{ marginBottom: 12 }}>Key bites</p>
-        <p className="body-text" style={{ marginBottom: 20 }}>
-          If you only need the findings that travel, start here. These six charts do the best
-          job of explaining the current state of prototyping at a glance.
-        </p>
-        <KPIStripChart items={keyBites} />
-      </section>
 
       {/* ── 1. Who took this survey ── */}
       <hr className="section-divider" />
       <section id="who-took-this-survey" style={{ marginBottom: 48 }}>
         <h2 className="section-title">1. Who took this survey</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          This is the first edition of our quarterly State of Prototyping — a recurring snapshot
-          built specifically for designers and builders who work across the design-to-code spectrum.
+          This is the first edition of our quarterly State of Prototyping, a recurring snapshot
+          built for designers and builders who work across the design-to-code spectrum.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
           {regionDistribution.pct_outside_na.pct.toFixed(1)}% of respondents are outside North
           America. Western Europe ({westernEurope?.pct.toFixed(1)}%), South Asia (
           {southAsia?.pct.toFixed(1)}%), and Southeast Asia ({southeastAsia?.pct.toFixed(1)}%) are
-          the largest non-North America regions. This is a global read on how
-          design practitioners work.
+          the largest non-NA regions. This is a global sample.
         </p>
         <SocialCardContainer sponsor="Mobbin" anchorId="global-respondent-mix">
           <SimpleBarChart
             title="A Global Sample, Not a North America-Only Read"
-            subtitle={`Top regions in the sample — ${regionDistribution.pct_outside_na.pct.toFixed(1)}% of respondents are outside North America`}
+            subtitle={`Top regions in the sample · ${regionDistribution.pct_outside_na.pct.toFixed(1)}% of respondents are outside North America`}
             items={regionChartItems}
             bare
           />
@@ -191,7 +172,7 @@ export default async function ExplorePage() {
         <SocialCardContainer sponsor="MagicPatterns" anchorId="where-designers-work">
           <SimpleBarChart
             title="Where Designers Work"
-            subtitle="Company size and work setting — 1,478 respondents, Spring 2026"
+            subtitle="Company size and work setting · 1,478 respondents, Spring 2026"
             items={companyContext.data}
             bare
           />
@@ -203,7 +184,7 @@ export default async function ExplorePage() {
       <section id="the-stack-right-now" style={{ marginBottom: 48 }}>
         <h2 className="section-title">2. The stack right now</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Five of the ten most-used weekly tools are now AI tools. That sentence didn&apos;t make
+          Five of the ten most-used weekly tools are now AI. That sentence did not make
           sense two years ago.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -214,14 +195,17 @@ export default async function ExplorePage() {
         <SocialCardContainer sponsor="Dazl" anchorId="top-10-weekly-tools">
           <AccentHighlightBarChart
             title="5 of the Top 10 Weekly Tools Are Now AI"
-            subtitle="What designers use every week — % of respondents"
+            subtitle="What designers use every week · % of respondents"
             items={tools.data}
             bare
           />
         </SocialCardContainer>
-        <div className="pull-quote">
-          &ldquo;An AI coding terminal is more embedded in designer workflows than any
-          whiteboarding tool. That shift happened quietly, and it happened fast.&rdquo;
+        <div className="editor-note">
+          <p className="editor-note-label">Editor&apos;s note</p>
+          <p className="editor-note-text">
+            An AI coding terminal is more embedded in designer workflows than any
+            whiteboarding tool. That shift happened quietly, and it happened fast.
+          </p>
         </div>
       </section>
 
@@ -230,8 +214,8 @@ export default async function ExplorePage() {
       <section id="the-vibe-coding-split" style={{ marginBottom: 48 }}>
         <h2 className="section-title">3. The vibe coding split</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          This was the centerpiece question: how much of your building is actually vibe coding —
-          using AI to generate code you may not fully understand, but that works?
+          This was the centerpiece question: how much of your building time is actually vibe
+          coding, meaning using AI to generate code you may not fully understand, but that works?
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
           The answer landed in three roughly equal camps. The profession has split into thirds.
@@ -245,7 +229,7 @@ export default async function ExplorePage() {
 
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          {vibeDistribution.pct_50plus.pct.toFixed(1)}% spend 50%+ time vibe coding. {mostOrNearlyAllPct}% say most or nearly all. The {noneVibe?.pct.toFixed(1)}% doing zero is the more surprising number — the hype has outpaced adoption at the tail.
+          {vibeDistribution.pct_50plus.pct.toFixed(1)}% spend 50%+ time vibe coding. {mostOrNearlyAllPct}% say most or nearly all. The {noneVibe?.pct.toFixed(1)}% doing zero is the more surprising number. The hype has outpaced adoption at the tail.
         </p>
         <SocialCardContainer sponsor="Framer" anchorId="vibe-coding-distribution">
           <SegmentedDistributionChart
@@ -255,10 +239,12 @@ export default async function ExplorePage() {
             bare
           />
         </SocialCardContainer>
-        <div className="pull-quote">
-          &ldquo;{noneVibe?.pct.toFixed(1)}% of designers do zero vibe coding. {mostOrNearlyAllPct}% say it&apos;s most or all of how they
-          build. These aren&apos;t different generations — they&apos;re working in the same orgs,
-          on the same products.&rdquo;
+        <div className="editor-note">
+          <p className="editor-note-label">Editor&apos;s note</p>
+          <p className="editor-note-text">
+            {noneVibe?.pct.toFixed(1)}% of designers do zero vibe coding. {mostOrNearlyAllPct}% say it&apos;s most or all of how they
+            build. These are not different generations. They work in the same orgs, on the same products.
+          </p>
         </div>
       </section>
 
@@ -267,7 +253,7 @@ export default async function ExplorePage() {
       <section id="vibe-coding-by-role" style={{ marginBottom: 48 }}>
         <h2 className="section-title">4. Vibe coding by role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Same profession. Different reality. The vibe coding split isn&apos;t random — it maps
+          Same profession. Different reality. The vibe coding split is not random. It maps
           almost perfectly to role type.
         </p>
         <SocialCardContainer sponsor="dscout" anchorId="vibe-by-role">
@@ -279,8 +265,8 @@ export default async function ExplorePage() {
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          The managers-at-{managerDirector?.pct.toFixed(1)}% number is telling. Vibe coding didn&apos;t just serve engineers — it
-          gave managers and non-designers an exit from prototyping constraints they&apos;ve always had.
+          The managers-at-{managerDirector?.pct.toFixed(1)}% number is telling. Vibe coding did not just serve engineers. It
+          gave managers and non-designers an exit from prototyping constraints they have always had.
         </p>
         <SocialCardContainer sponsor="MagicPatterns" anchorId="ic-vs-design-engineer">
           <ComparativeSideBySideChart
@@ -304,13 +290,13 @@ export default async function ExplorePage() {
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
           That number would have been in the low single digits two years ago. The ability to build
-          something for yourself — not a product, just a thing that solves your own problem — has
+          something for yourself, not a product, just a thing that solves your own problem, has
           unlocked a new kind of creative leverage.
         </p>
         <SocialCardContainer sponsor="Framer" anchorId="built-own-tool">
           <SimpleBarChart
             title={`${builtSomething?.value.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
-            subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
+            subtitle="Have you built your own tool, app, or utility with AI? · last 6 months"
             items={builtTool.data}
             bare
           />
@@ -326,11 +312,11 @@ export default async function ExplorePage() {
       <section id="the-trust-line" style={{ marginBottom: 48 }}>
         <h2 className="section-title">6. The trust line</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Only {fullTrust?.pct.toFixed(1)}% trust AI output without oversight. But {productionWithReviewPct}% trust it for production — with review. That&apos;s a bigger number than most people would have guessed.
+          Only {fullTrust?.pct.toFixed(1)}% trust AI output without oversight. But {productionWithReviewPct}% trust it for production with review. That is a bigger number than most people would have guessed.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          We&apos;re in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line isn&apos;t whether AI
-          works. It&apos;s how much cleanup it takes before it&apos;s usable.
+          We are in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line is not whether AI
+          works. It is how much cleanup it takes before it is usable.
         </p>
         <SocialCardContainer sponsor="Mobbin" anchorId="trust-level">
           <SimpleBarChart
@@ -347,8 +333,8 @@ export default async function ExplorePage() {
       <section id="what-is-blocking-everyone" style={{ marginBottom: 48 }}>
         <h2 className="section-title">7. What&apos;s blocking everyone</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          The top 3 blockers are within {blockerSpread} percentage points of each other. That&apos;s not noise —
-          that&apos;s signal. Three simultaneous problems, nearly identical in size.
+          The top 3 blockers are within {blockerSpread} percentage points of each other. That is not noise.
+          That is signal. Three simultaneous problems, nearly identical in size.
         </p>
         <SocialCardContainer sponsor="dscout" anchorId="top-blockers">
           <SimpleBarChart
@@ -367,14 +353,14 @@ export default async function ExplorePage() {
         <p className="body-text" style={{ marginBottom: 16 }}>
           {addedOrCentralPct}% have added AI or gone AI-central in the last 6 months. Only {(workflowChange.data.find((item) => item.label === 'Mostly the same')?.pct ?? 0).toFixed(1)}% say
           &ldquo;mostly the same.&rdquo; The shift already happened. The question is how far
-          you&apos;ve gone.
+          you have gone.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Startups lead the AI-central shift at {startupAiCentral?.pct.toFixed(1)}%. Enterprise is close behind at {enterpriseAiCentral?.pct.toFixed(1)}% — a much narrower {startupEnterpriseGap}-point gap.
+          Startups lead the AI-central shift at {startupAiCentral?.pct.toFixed(1)}%. Enterprise is close behind at {enterpriseAiCentral?.pct.toFixed(1)}%, a much narrower {startupEnterpriseGap}-point gap than most people expect.
         </p>
         <SocialCardContainer sponsor="Dazl" anchorId="workflow-change">
           <SimpleBarChart
-            title="71% Have Added AI or Gone AI-Central in 6 Months"
+            title={`${addedOrCentralPct}% Have Added AI or Gone AI-Central in 6 Months`}
             subtitle="How has your design workflow changed since late 2025?"
             items={workflowChange.data}
             bare
@@ -407,10 +393,13 @@ export default async function ExplorePage() {
             bare
           />
         </SocialCardContainer>
-        <div className="pull-quote">
-          &ldquo;IC designers and researchers are the most exposed. They&apos;re also the largest
-          groups in most design orgs. This is the conversation that&apos;s not happening loudly
-          enough.&rdquo;
+        <div className="editor-note">
+          <p className="editor-note-label">Editor&apos;s note</p>
+          <p className="editor-note-text">
+            IC designers and researchers are the most exposed. They are also the largest
+            groups in most design orgs. This is the conversation that is not happening loudly
+            enough.
+          </p>
         </div>
       </section>
 
@@ -419,13 +408,13 @@ export default async function ExplorePage() {
       <section id="where-designers-are-investing-next" style={{ marginBottom: 48 }}>
         <h2 className="section-title">10. Where designers are investing next</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          Two of the top 3 are AI. Design systems are the only holdout in the top tier — and
-          that&apos;s not an accident. Systems work is how you stay relevant when the output layer
-          gets automated.
+          Two of the top 3 investment areas are AI. Design systems are the only holdout in the
+          top tier, and that is not an accident. Systems work is how you stay relevant when the
+          output layer gets automated.
         </p>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          {investingNext.data[0].pct.toFixed(1)}% say AI-generated coding is their top investment. Agent workflows at {agentWorkflows?.pct.toFixed(1)}% is about automating repetitive work. Design systems at {designSystems?.pct.toFixed(1)}% shows the systems layer isn&apos;t dead —
-          it&apos;s getting more important as implementation gets easier.
+          {investingNext.data[0].pct.toFixed(1)}% say AI-generated coding is their top investment. Agent workflows at {agentWorkflows?.pct.toFixed(1)}% is about automating repetitive work. Design systems at {designSystems?.pct.toFixed(1)}% shows the systems layer is not dead. It
+          is getting more important as implementation gets easier.
         </p>
         <SocialCardContainer sponsor="MagicPath" anchorId="investing-next">
           <SimpleBarChart
@@ -454,7 +443,7 @@ export default async function ExplorePage() {
           />
         </SocialCardContainer>
         <p className="body-text" style={{ marginBottom: 16 }}>
-          This isn&apos;t proof that vibe coding causes satisfaction. The causality likely runs both
+          This is not proof that vibe coding causes satisfaction. The causality likely runs both
           ways. But the correlation is strong enough to take seriously.
         </p>
         <SocialCardContainer sponsor="Framer" centered anchorId="satisfaction-delta">

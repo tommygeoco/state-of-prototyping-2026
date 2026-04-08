@@ -14,7 +14,7 @@ Publisher: UX Tools. License: CC BY 4.0.
 work_context, role_seat, region, design_tools, code_in_workflow, anticipated_investment, vibe_coding_ratio, built_own_tool, ai_trust, blockers, workflow_shift, role_outlook, workflow_satisfaction
 
 ## Headlines
-- 43.8% of designers spend 50%+ of output time on AI-generated code (vibe coding)
+- 43.8% of designers spend 50%+ of their building time on AI-generated code (vibe coding)
 - Design engineers: 80.9% vibe code 50%+ · IC designers: 35.0%
 - 45.9-point gap between those two roles
 - Satisfaction gap: 5.93/10 (zero vibe) → 7.39/10 (heavy vibe) = +1.46

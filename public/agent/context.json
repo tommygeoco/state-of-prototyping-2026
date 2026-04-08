@@ -19,11 +19,12 @@
     "6 work context categories"
   ],
   "headlines": [
-    "43.8% of designers spend 50%+ of output time on AI-generated code (vibe coding)",
+    "43.8% of designers spend 50%+ of their building time on AI-generated code (vibe coding)",
     "Design engineers: 80.9% vibe code 50%+ while IC designers are at 35.0%",
     "Satisfaction rises from 5.93/10 among zero-vibe respondents to 7.39/10 among heavy vibe coders",
     "59.1% have built a custom tool with AI-generated code",
-    "63.1% use AI or no-code to generate code in their workflow"
+    "63.1% use AI or no-code to generate code in their workflow",
+    "Top weekly tools: Figma (82.6%), Claude (50.8%), ChatGPT (48.2%)"
   ],
   "data_caveats": [
     "Full individual microdata is published (de-identified)",

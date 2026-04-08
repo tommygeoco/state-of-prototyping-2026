@@ -8,7 +8,6 @@ const explorePagePath = path.join(rootDir, 'app', 'explore', 'page.tsx')
 const readmePath = path.join(rootDir, 'README.md')
 const agentContextJsonPath = path.join(rootDir, 'public', 'agent', 'context.json')
 const agentContextMdPath = path.join(rootDir, 'public', 'agent', 'SURVEY_CONTEXT.md')
-const dataContextMdPath = path.join(rootDir, 'public', 'data', 'SURVEY_CONTEXT.md')
 const socialPngRoutePath = path.join(rootDir, 'app', 'social', 'png', '[slug]', 'route.tsx')
 
 const roleOrder = [
@@ -319,12 +318,6 @@ const duplicateCopyClaimDefinitions = [
     id: 'agent-md-built-tool',
     surface: 'public/agent/SURVEY_CONTEXT.md',
     targetPath: agentContextMdPath,
-    actualPattern: /59\.0% have built a custom tool with AI-generated code/,
-  },
-  {
-    id: 'data-md-built-tool',
-    surface: 'public/data/SURVEY_CONTEXT.md',
-    targetPath: dataContextMdPath,
     actualPattern: /59\.0% have built a custom tool with AI-generated code/,
   },
   {
@@ -1057,7 +1050,6 @@ function buildDuplicateCopyInventory(fileContents, derived) {
     'readme-gap': `A ${roleGap}-point gap in the same org.`,
     'agent-json-built-tool': `${builtToolPct}% have built a custom tool with AI-generated code`,
     'agent-md-built-tool': `${builtToolPct}% have built a custom tool with AI-generated code`,
-    'data-md-built-tool': `${builtToolPct}% have built a custom tool with AI-generated code`,
     'social-vibe-by-role-title': `title={\`An ${derived.vibeByRole.data.find((item) => item.role === 'Design Engineer').pct.toFixed(1)}% vs ${derived.vibeByRole.data.find((item) => item.role === 'IC Designer').pct.toFixed(1)}% Split in the Same Design Org\`}`,
     'social-built-tool-title': `title={\`${builtToolPct}% of Designers Have Built Their Own AI Tool\`}`,
     'social-blockers-title': `title={\`The Top 3 Blockers Are Within ${blockerSpread} Points of Each Other\`}`,
@@ -1212,7 +1204,6 @@ async function main() {
     [readmePath]: await readFile(readmePath, 'utf8'),
     [agentContextJsonPath]: await readFile(agentContextJsonPath, 'utf8'),
     [agentContextMdPath]: await readFile(agentContextMdPath, 'utf8'),
-    [dataContextMdPath]: await readFile(dataContextMdPath, 'utf8'),
     [socialPngRoutePath]: await readFile(socialPngRoutePath, 'utf8'),
   }
   const rows = parseCsv(csvText)
