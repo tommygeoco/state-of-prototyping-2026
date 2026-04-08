@@ -557,6 +557,56 @@ code {
   }
 }
 
+/* Theme toggle — hover-expand pattern matching audit.uxtools.co.
+   Only the active icon shows by default. On hover, all three appear. */
+.theme-toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+.theme-toggle-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: color 150ms, opacity 150ms, width 150ms, background 150ms;
+}
+
+.theme-toggle-btn:hover {
+  color: var(--text-primary);
+}
+
+.theme-toggle-active {
+  color: var(--text-primary);
+  opacity: 1;
+  width: 32px;
+}
+
+.theme-toggle-inactive {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.theme-toggle-group:hover .theme-toggle-inactive {
+  opacity: 0.6;
+  width: 32px;
+  pointer-events: auto;
+}
+
+.theme-toggle-group:hover .theme-toggle-inactive:hover {
+  opacity: 1;
+}
+
 .disclosure-content {
   padding: 0 16px 12px 16px;
   border-top: 1px solid var(--border-grid);
