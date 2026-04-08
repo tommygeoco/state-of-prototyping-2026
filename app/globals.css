@@ -167,8 +167,8 @@
   --secondary-foreground: 30 5% 12%;
   --muted: 30 6% 95%;
   --muted-foreground: 30 5% 53%;   /* #8A8680 → secondary text */
-  --accent: 12 48% 55%;
-  --accent-foreground: 0 0% 100%;
+  --ui-accent: 12 48% 55%;
+  --ui-accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --border: 36 11% 90%;            /* #E8E6E1 */
@@ -223,8 +223,8 @@
   --secondary-foreground: 0 0% 90%;
   --muted: 0 0% 12%;
   --muted-foreground: 0 0% 40%;
-  --accent: 12 48% 60%;
-  --accent-foreground: 0 0% 100%;
+  --ui-accent: 12 48% 60%;
+  --ui-accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --border: 0 0% 16%;
