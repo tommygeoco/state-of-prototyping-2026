@@ -1,9 +1,3 @@
-/*
-  Hero Metric Card — modeled after Paper "C Light — Hero Stat Card" (QZ-0)
-  Centered layout with: category label → big number → accent label → accent rule → metadata
-  Gap: 32px between elements (from computed styles on 36C-1)
-*/
-
 interface HeroStatChartProps {
   value: string
   label: string
@@ -20,19 +14,20 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '48px 32px',
+        flex: '1 1 0%',
+        padding: '24px 16px',
       }}
     >
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: 700,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
-          color: 'var(--text-primary)',
-          lineHeight: '18px',
-          marginBottom: 32,
+          color: 'var(--text-secondary)',
+          lineHeight: '16px',
+          marginBottom: 24,
         }}
       >
         State of Prototyping · Spring 2026
@@ -41,11 +36,11 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
       <div
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(56px, 12vw, 96px)',
+          fontSize: 'clamp(48px, 10vw, 80px)',
           fontWeight: 700,
           lineHeight: 1,
           color: 'var(--text-primary)',
-          marginBottom: 32,
+          marginBottom: 20,
         }}
       >
         {value}
@@ -55,13 +50,13 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         <div
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 18,
+            fontSize: 14,
             fontWeight: 700,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#A34B3A',
-            lineHeight: '22px',
-            marginBottom: 32,
+            color: '#C9624D',
+            lineHeight: '18px',
+            marginBottom: 20,
           }}
         >
           {accentLabel}
@@ -70,20 +65,20 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
 
       <div
         style={{
-          width: 80,
+          width: 60,
           height: 2,
-          background: 'var(--accent)',
-          marginBottom: 32,
+          background: '#C9624D',
+          marginBottom: 20,
         }}
       />
 
       <div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 15,
-          lineHeight: '24px',
+          fontSize: 14,
+          lineHeight: '22px',
           color: 'var(--text-secondary)',
-          maxWidth: '36ch',
+          maxWidth: '32ch',
         }}
       >
         {label}
@@ -93,11 +88,11 @@ export function HeroStatChart({ value, label, accentLabel, meta }: HeroStatChart
         <div
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: 400,
             color: 'var(--text-secondary)',
-            lineHeight: '18px',
-            marginTop: 16,
+            lineHeight: '16px',
+            marginTop: 12,
           }}
         >
           {meta}

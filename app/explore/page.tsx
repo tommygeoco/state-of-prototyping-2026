@@ -115,7 +115,7 @@ export default async function ExplorePage() {
         <p className="body-text" style={{ marginBottom: 16 }}>
           The answer landed in three roughly equal camps. The profession has split into thirds.
         </p>
-        <SocialCardContainer sponsor="MagicPath">
+        <SocialCardContainer sponsor="MagicPath" centered>
           <HeroStatChart
             value="43.8%"
             accentLabel="Vibe Coding 50%+"
@@ -338,7 +338,7 @@ export default async function ExplorePage() {
           This isn&apos;t proof that vibe coding causes satisfaction. The causality likely runs both
           ways. But the correlation is strong enough to take seriously.
         </p>
-        <SocialCardContainer sponsor="Framer">
+        <SocialCardContainer sponsor="Framer" centered>
           <SatisfactionHeroDeltaChart
             overallMean={satisfaction.overall_mean}
             delta={satisfaction.delta.value}

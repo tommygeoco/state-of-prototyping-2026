@@ -3,13 +3,17 @@ import type { ReactNode } from 'react'
 interface SocialCardContainerProps {
   children: ReactNode
   sponsor?: string
+  centered?: boolean
 }
 
-export function SocialCardContainer({ children, sponsor = 'MagicPath' }: SocialCardContainerProps) {
+export function SocialCardContainer({ children, sponsor = 'MagicPath', centered = false }: SocialCardContainerProps) {
   return (
-    <div className="social-card-outer">
+    <div className="social-card-outer" style={centered ? { aspectRatio: '1 / 1' } : undefined}>
       <div className="social-card-body">
-        <div className="social-card-content">
+        <div
+          className="social-card-content"
+          style={centered ? { justifyContent: 'center' } : undefined}
+        >
           {children}
         </div>
       </div>
