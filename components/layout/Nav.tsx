@@ -19,8 +19,6 @@ export function Nav() {
         height: 'var(--nav-height)',
         borderBottom: '1px solid var(--border-nav)',
         background: 'var(--bg-canvas)',
-        backdropFilter: 'blur(8px)',
-        position: 'sticky',
       }}
     >
       <div
