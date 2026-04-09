@@ -147,7 +147,7 @@ export default function DownloadPage() {
         {[
           { href: '/api', label: 'REST API', desc: 'Query summary tables, published crosstabs, and respondent data' },
           { href: '/agent', label: 'Agent tools', desc: 'LLM integrations, natural language queries' },
-          { href: '/explore', label: 'Full report', desc: '12 sections, all charts' },
+          { href: '/spring-2026', label: 'Full report', desc: '12 sections, all charts' },
         ].map((item) => (
           <Link
             key={item.href}

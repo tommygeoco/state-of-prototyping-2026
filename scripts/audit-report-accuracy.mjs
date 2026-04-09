@@ -150,7 +150,7 @@ const workflowLabelMap = {
 const reportClaimDefinitions = [
   {
     id: 'report-region-summary',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern:
       /63% of respondents are outside North America\.[\s\S]*?Western Europe \(18\.1%\), South Asia \(10\.2%\),\s*and Southeast Asia \(7\.3%\)/,
     expectedText:
@@ -159,7 +159,7 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-vibe-split-body',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern:
       /43\.8% spend 50%\+ time vibe coding\.\s*31\.2% say most or nearly all\.\s*The 38% doing zero/,
     expectedText:
@@ -168,7 +168,7 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-vibe-split-quote',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /38% of designers do zero vibe coding\.\s*31% say it&apos;s most or all of how they build\./,
     expectedText:
       '37.7% of designers do zero vibe coding. 31.1% say it&apos;s most or all of how they build.',
@@ -176,21 +176,21 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-vibe-role-title',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /title="An 81% vs 35% Split in the Same Design Org"/,
     expectedText: 'An 80.9% vs 35.0% Split in the Same Design Org',
     source: ['vibe-by-role.json'],
   },
   {
     id: 'report-vibe-role-manager',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /The managers-at-47% number is telling\./,
     expectedText: 'The managers-at-46.6% number is telling.',
     source: ['vibe-by-role.json'],
   },
   {
     id: 'report-built-tool-body',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /59% of designers have built their own tool, app, or utility with AI in the last 6 months\./,
     expectedText:
       '59.1% of designers have built their own tool, app, or utility with AI in the last 6 months.',
@@ -198,7 +198,7 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-built-tool-detail',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /59% have built something\.\s*30% want to but haven&apos;t yet\.\s*Only 10\.5% have no plans to\./,
     expectedText:
       '59.1% have built something. 30.5% want to but haven&apos;t yet. Only 10.4% have no plans to.',
@@ -206,7 +206,7 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-trust-line',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /Only 1\.4% trust AI output without oversight\.\s*But 34% trust it for production — with review\./,
     expectedText:
       'Only 1.4% trust AI output without oversight. But 32.8% trust it for production — with review.',
@@ -214,21 +214,21 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-blockers-body',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /The top 3 blockers are within 3 percentage points of each other\./,
     expectedText: 'The top 3 blockers are within 3.5 percentage points of each other.',
     source: ['blockers.json'],
   },
   {
     id: 'report-blockers-title',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /title="The Top 3 Blockers Are Within 3 Points of Each Other"/,
     expectedText: 'The Top 3 Blockers Are Within 3.5 Points of Each Other',
     source: ['blockers.json'],
   },
   {
     id: 'report-workflow-body',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /71% have added AI or gone AI-central in the last 6 months\.\s*Only 10% say/,
     expectedText:
       '71.1% have added AI or gone AI-central in the last 6 months. Only 9.9% say',
@@ -236,7 +236,7 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-workflow-crosstab',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /Startups lead the AI-central shift at 39\.1%\.\s*Enterprise lags at 25\.0% — a 14-point gap/,
     expectedText:
       'Startups lead the AI-central shift at 38.8%. Enterprise is close behind at 34.7% — a much narrower 4.1-point gap.',
@@ -244,7 +244,7 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-investment-body',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /64% say AI-generated coding is their top investment\.\s*Agent workflows at 46% is about[\s\S]*?Design systems at 40%/,
     expectedText:
       '64.0% say AI-generated coding is their top investment. Agent workflows at 46.3% is about automating repetitive work. Design systems at 40.2% shows the systems layer isn&apos;t dead',
@@ -252,14 +252,14 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-summary-built-tool',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /title: '59% of designers have built their own tool with AI in the last 6 months\.'/,
     expectedText: '59.1% of designers have built their own tool with AI in the last 6 months.',
     source: ['built-tool.json'],
   },
   {
     id: 'report-summary-blockers',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /Time to learn \(55\.6%\), too many tools \(53\.1%\), output quality \(52\.2%\) — within 3 points of each other\./,
     expectedText:
       'Time to learn (55.7%), too many tools (53.0%), output quality (52.2%) — within 3.5 points of each other.',
@@ -267,21 +267,21 @@ const reportClaimDefinitions = [
   },
   {
     id: 'report-summary-outlook',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /Researchers: 17% more valuable, 39% less secure\./,
     expectedText: 'Researchers: 17.4% more valuable, 39.1% less secure.',
     source: ['outlook.json'],
   },
   {
     id: 'report-summary-satisfaction',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /No vibe coding: 5\.9\/10\.\s*Heavy vibe coders: 7\.4\/10\./,
     expectedText: 'No vibe coding: 5.93/10. Heavy vibe coders: 7.39/10.',
     source: ['satisfaction.json'],
   },
   {
     id: 'report-methodology-microdata',
-    surface: 'app/explore/page.tsx',
+    surface: 'app/spring-2026/page.tsx',
     actualPattern: /All published data is aggregated — no individual microdata is released\./,
     expectedText:
       'Published charts use aggregated data, and the full de-identified microdata is also available for download.',

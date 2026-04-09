@@ -1,7 +1,7 @@
 [
   {
     "id": "report-region-summary",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "responses.csv.region"
     ],
@@ -11,7 +11,7 @@
   },
   {
     "id": "report-vibe-split-body",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "vibe-distribution.json"
     ],
@@ -21,7 +21,7 @@
   },
   {
     "id": "report-vibe-split-quote",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "vibe-distribution.json"
     ],
@@ -31,7 +31,7 @@
   },
   {
     "id": "report-vibe-role-title",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "vibe-by-role.json"
     ],
@@ -41,7 +41,7 @@
   },
   {
     "id": "report-vibe-role-manager",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "vibe-by-role.json"
     ],
@@ -51,7 +51,7 @@
   },
   {
     "id": "report-built-tool-body",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "built-tool.json"
     ],
@@ -61,7 +61,7 @@
   },
   {
     "id": "report-built-tool-detail",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "built-tool.json"
     ],
@@ -71,7 +71,7 @@
   },
   {
     "id": "report-trust-line",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "trust-level.json"
     ],
@@ -81,7 +81,7 @@
   },
   {
     "id": "report-blockers-body",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "blockers.json"
     ],
@@ -91,7 +91,7 @@
   },
   {
     "id": "report-blockers-title",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "blockers.json"
     ],
@@ -101,7 +101,7 @@
   },
   {
     "id": "report-workflow-body",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "workflow-change.json"
     ],
@@ -111,7 +111,7 @@
   },
   {
     "id": "report-workflow-crosstab",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "workflow-change-by-company.json"
     ],
@@ -121,7 +121,7 @@
   },
   {
     "id": "report-investment-body",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "investing-next.json"
     ],
@@ -131,7 +131,7 @@
   },
   {
     "id": "report-summary-built-tool",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "built-tool.json"
     ],
@@ -141,7 +141,7 @@
   },
   {
     "id": "report-summary-blockers",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "blockers.json"
     ],
@@ -151,7 +151,7 @@
   },
   {
     "id": "report-summary-outlook",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "outlook.json"
     ],
@@ -161,7 +161,7 @@
   },
   {
     "id": "report-summary-satisfaction",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "satisfaction.json"
     ],
@@ -171,7 +171,7 @@
   },
   {
     "id": "report-methodology-microdata",
-    "surface": "app/explore/page.tsx",
+    "surface": "app/spring-2026/page.tsx",
     "source": [
       "responses.csv",
       "responses.json",

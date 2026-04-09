@@ -24,7 +24,7 @@ describe('csp helpers', () => {
     expect(isSensitiveDataPath('/data/responses.csv')).toBe(false)
     expect(isSensitiveDataPath('/data/full-summary.json')).toBe(false)
     expect(isStaticAssetPath('/favicon.ico')).toBe(true)
-    expect(isStaticAssetPath('/explore')).toBe(false)
+    expect(isStaticAssetPath('/spring-2026')).toBe(false)
   })
 
   it('publishes a report-to header for csp telemetry', () => {

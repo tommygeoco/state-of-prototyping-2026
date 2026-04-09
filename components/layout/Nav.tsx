@@ -5,7 +5,7 @@ import { UxToolsLogo } from '@/components/logos/SponsorLogos'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 const navLinks = [
-  { href: '/explore', label: 'Report' },
+  { href: '/spring-2026', label: 'Report' },
   { href: '/download', label: 'Download' },
   { href: '/api', label: 'API' },
   { href: '/agent', label: 'Agents' },

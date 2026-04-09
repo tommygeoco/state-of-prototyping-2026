@@ -4,11 +4,11 @@ Open dataset from the State of Prototyping survey. 1,478 designers across 18 reg
 
 This project has three jobs: publish the canonical report, expose the published summary data and API, and package the strongest findings as shareable chart bites.
 
-**[Read the report →](https://survey.uxtools.co/explore)**
+**[Read the report →](https://survey.uxtools.co/spring-2026)**
 
 ## What's here
 
-- **Report** — 12-section editorial article with live charts at `/explore`
+- **Report** — 12-section editorial article with live charts at `/spring-2026`
 - **Summary tables** — pre-aggregated percentages and cross-tabs
 - **Shareable bites** — chart anchors and PNG exports for the findings that travel
 - **REST API** — public summary endpoints at `/api/v1/*`

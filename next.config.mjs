@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/explore',
+        destination: '/spring-2026',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
