@@ -30,6 +30,21 @@ import type { OutlookDatum, SatisfactionDatum, VibeByRoleDatum, VibeDistribution
 
 export const runtime = 'nodejs'
 
+async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer> {
+  const css = await fetch(
+    `https://fonts.googleapis.com/css2?family=${family}:wght@${weight}&display=swap`,
+    { headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1' } },
+  ).then((res) => res.text())
+  const url = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)?.[1]
+  if (!url) throw new Error(`Failed to load font ${family}@${weight}`)
+  return fetch(url).then((res) => res.arrayBuffer())
+}
+
+const interRegular = loadGoogleFont('Inter', 400)
+const interMedium = loadGoogleFont('Inter', 500)
+const interSemiBold = loadGoogleFont('Inter', 600)
+const interBold = loadGoogleFont('Inter', 700)
+
 const DEFAULT_WIDTH = 720
 const DEFAULT_HEIGHT = 520
 const MIN_WIDTH = 320
@@ -97,7 +112,7 @@ function ChartFrame({
         flexDirection: 'column',
         background: palette.bgCallout,
         color: palette.textPrimary,
-        fontFamily: 'Arial, Helvetica, sans-serif',
+        fontFamily: 'Inter, sans-serif',
         borderRadius: 12,
         overflow: 'hidden',
       }}
@@ -517,6 +532,10 @@ export async function GET(
     return new Response('Not found', { status: 404 })
   }
 
+  const [regularData, mediumData, semiBoldData, boldData] = await Promise.all([
+    interRegular, interMedium, interSemiBold, interBold,
+  ])
+
   return new ImageResponse(
     <ChartFrame sponsor={sponsor}>
       {chart}
@@ -524,6 +543,12 @@ export async function GET(
     {
       width,
       height,
+      fonts: [
+        { name: 'Inter', data: regularData, weight: 400 as const, style: 'normal' as const },
+        { name: 'Inter', data: mediumData, weight: 500 as const, style: 'normal' as const },
+        { name: 'Inter', data: semiBoldData, weight: 600 as const, style: 'normal' as const },
+        { name: 'Inter', data: boldData, weight: 700 as const, style: 'normal' as const },
+      ],
     },
   )
 }
