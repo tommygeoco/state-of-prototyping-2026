@@ -52,13 +52,14 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
       return (
         <HeroStatChart
           value={`${vibeCoding?.value.toFixed(1) ?? '43.8'}%`}
-          label="of designers spend more than half their building time vibe coding"
+          accentLabel="Vibe Coding 50%+"
+          label="of designers now spend more than half their building time on AI-generated code"
         />
       )
     }
     case 'top-10-weekly-tools': {
       const tools = await loadTools()
-      return <AccentHighlightBarChart title="5 of the Top 10 Weekly Tools Are Now AI" items={tools.data} />
+      return <AccentHighlightBarChart title="5 of the Top 10 Weekly Tools Are Now AI" subtitle="What designers use every week · % of respondents" items={tools.data} />
     }
     case 'vibe-by-role': {
       const vibeByRole = await loadVibeByRole()
@@ -67,6 +68,7 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
       return (
         <AdoptionBySegmentChart
           title={`An ${de?.pct.toFixed(1) ?? '80.9'}% vs ${ic?.pct.toFixed(1) ?? '35.0'}% Split in the Same Design Org`}
+          subtitle="% spending 50%+ of building time on AI-generated code, by role"
           items={vibeByRole.data}
         />
       )
@@ -75,25 +77,23 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
       const vibeByRole = await loadVibeByRole()
       const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
       const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
-      return <ComparativeSideBySideChart title="Same Profession, Different Reality" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} leftN={ic?.n} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} rightN={de?.n} />
+      return <ComparativeSideBySideChart title="Same Profession, Different Reality" subtitle="% spending 50%+ time on AI-generated code" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} leftN={ic?.n} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} rightN={de?.n} />
     }
     case 'role-outlook': {
       const outlook = await loadOutlook()
-      return <GroupedComparisonChart title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk." items={outlook.data} />
+      return <GroupedComparisonChart title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk." subtitle="How do you think AI will affect your role in the next 2 years?" items={outlook.data} />
     }
     case 'vibe-coding-distribution': {
       const vibeDistribution = await loadVibeDistribution()
-      return <SegmentedDistributionChart title="The Profession Has Split Into Thirds" distribution={vibeDistribution} />
+      return <SegmentedDistributionChart title="The Profession Has Split Into Thirds" subtitle="How much of your building time is AI-generated code?" distribution={vibeDistribution} />
     }
     case 'built-own-tool': {
-      const builtTool = await loadBuiltTool()
-      const builtSomething = builtTool.data
-        .filter((item) => item.label === 'Yes, once or twice' || item.label === 'Yes, I do it regularly')
-        .reduce((sum, item) => sum + item.pct, 0)
+      const [builtTool, headlineData] = await Promise.all([loadBuiltTool(), loadHeadline()])
+      const builtSomething = headlineData.data.find((item) => item.key === 'built_tool_with_ai')
       return (
         <SimpleBarChart
-          title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
-          subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
+          title={`${builtSomething?.value.toFixed(1) ?? '59.1'}% of Designers Have Built Their Own AI Tool`}
+          subtitle="Have you built your own tool, app, or utility with AI? · last 6 months"
           items={builtTool.data}
           totalN={builtTool.n}
         />
@@ -116,7 +116,7 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
     }
     case 'satisfaction-by-vibe': {
       const [satisfaction, vibeDistribution] = await Promise.all([loadSatisfaction(), loadVibeDistribution()])
-      return <DualAxisChart title="Heavier Vibe Coders Are More Satisfied" satisfaction={satisfaction} tierCounts={Object.fromEntries(vibeDistribution.data.map((d) => [d.tier, d.n]))} />
+      return <DualAxisChart title="Heavier Vibe Coders Are More Satisfied" subtitle="Mean workflow satisfaction (1\u201310) by vibe coding level" satisfaction={satisfaction} tierCounts={Object.fromEntries(vibeDistribution.data.map((d) => [d.tier, d.n]))} />
     }
     case 'satisfaction-delta': {
       const satisfaction = await loadSatisfaction()

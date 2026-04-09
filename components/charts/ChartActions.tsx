@@ -1,11 +1,36 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import { toPng } from 'html-to-image'
 
 type ActionState = 'idle' | 'copied' | 'failed'
 
 interface ChartActionsProps {
   anchorId: string
+}
+
+async function captureNode(node: HTMLElement): Promise<string> {
+  const rect = node.getBoundingClientRect()
+  const w = Math.ceil(rect.width)
+  const h = Math.ceil(rect.height)
+
+  const opts = {
+    pixelRatio: 2,
+    width: w,
+    height: h,
+    style: {
+      overflow: 'visible',
+      margin: '0',
+    } as Partial<CSSStyleDeclaration>,
+    filter: (el: Element | Text) => {
+      if (el instanceof HTMLElement && el.hasAttribute('data-chart-actions')) return false
+      return true
+    },
+  }
+
+  // First pass warms up fonts/images so the second pass is clean
+  await toPng(node, opts).catch(() => {})
+  return toPng(node, opts)
 }
 
 export function ChartActions({ anchorId }: ChartActionsProps) {
@@ -23,18 +48,21 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
     setTimeout(() => setUrlState('idle'), 2000)
   }, [anchorId])
 
-  const openPng = useCallback(() => {
+  const openPng = useCallback(async () => {
     try {
-      const node = document.getElementById(anchorId)
-      const rect = node?.getBoundingClientRect()
-      const params = new URLSearchParams()
-      if (rect) {
-        params.set('w', Math.round(rect.width).toString())
-        params.set('h', Math.round(rect.height).toString())
-      }
-      const pngUrl = `${window.location.origin}/social/png/${anchorId}${params.size ? `?${params.toString()}` : ''}`
-      window.open(pngUrl, '_blank')
       setImgState('copied')
+      const node = document.getElementById(anchorId)
+      if (!node) {
+        setImgState('failed')
+        return
+      }
+
+      const dataUrl = await captureNode(node)
+
+      const link = document.createElement('a')
+      link.download = `${anchorId}.png`
+      link.href = dataUrl
+      link.click()
     } catch {
       setImgState('failed')
     }
@@ -42,7 +70,7 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
   }, [anchorId])
 
   const urlLabel = urlState === 'copied' ? 'Copied!' : 'Copy link to this chart'
-  const imgLabel = imgState === 'copied' ? 'Opened PNG!' : 'Open chart PNG in a new tab'
+  const imgLabel = imgState === 'copied' ? 'Downloading PNG...' : 'Download chart as PNG'
 
   return (
     <div className="chart-actions" data-chart-actions="">
@@ -65,12 +93,12 @@ export function ChartActions({ anchorId }: ChartActionsProps) {
       >
         {imgState === 'copied' ? <CheckIcon /> : <CameraIcon />}
         <span className="chart-action-tooltip">
-          {imgState === 'copied' ? 'Opened PNG!' : 'Open PNG'}
+          {imgState === 'copied' ? 'Downloading...' : 'Download PNG'}
         </span>
       </button>
       <span className="sr-only" aria-live="polite">
         {urlState === 'copied' ? 'Link copied to clipboard' : ''}
-        {imgState === 'copied' ? 'PNG opened in new tab' : ''}
+        {imgState === 'copied' ? 'PNG downloading' : ''}
       </span>
     </div>
   )

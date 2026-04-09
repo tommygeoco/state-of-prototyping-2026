@@ -6,7 +6,7 @@ import { Disclosure } from '@/components/ui/disclosure'
 export const metadata = { title: 'Download' }
 
 const summaryColumns = [
-  { field: 'headline', desc: 'Key topline metrics used across the landing page and share cards' },
+  { field: 'headline', desc: 'Key topline metrics used across the report and share cards' },
   { field: 'tools', desc: 'Top 10 weekly tools with counts and percentages' },
   { field: 'vibe-by-role', desc: 'Published role cross-tab for 50%+ vibe coding' },
   { field: 'satisfaction', desc: 'Workflow satisfaction by vibe coding tier' },

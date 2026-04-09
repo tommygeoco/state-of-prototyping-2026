@@ -158,7 +158,7 @@ curl https://survey.uxtools.co/api/v1/stats/vibe-by-role
           <Disclosure title="OpenAI function definition">
             <CodeBlock code={`{
   "name": "query_prototyping_survey",
-  "description": "State of Prototyping Spring 2026. 1,478 designers. Vibe coding, AI tools, satisfaction, role outlook.",
+  "description": "State of Prototyping Spring 2026. 1,478 designers. The #2 weekly tool after Figma is now an AI. Vibe coding, tool stacks, satisfaction, role outlook.",
   "parameters": {
     "type": "object",
     "properties": { "question": { "type": "string" } },

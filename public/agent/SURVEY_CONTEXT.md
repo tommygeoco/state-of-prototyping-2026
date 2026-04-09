@@ -14,16 +14,18 @@ Publisher: UX Tools. License: CC BY 4.0.
 work_context, role_seat, region, design_tools, code_in_workflow, anticipated_investment, vibe_coding_ratio, built_own_tool, ai_trust, blockers, workflow_shift, role_outlook, workflow_satisfaction
 
 ## Headlines
-- 43.8% of designers spend 50%+ of their building time on AI-generated code (vibe coding)
-- Design engineers: 80.9% vibe code 50%+ · IC designers: 35.0%
-- 45.9-point gap between those two roles
-- Satisfaction gap: 5.93/10 (zero vibe) → 7.39/10 (heavy vibe) = +1.46
-- 59.1% have built a custom tool with AI-generated code
-- 63.1% use AI or no-code to generate code in their workflow
+- The most-used design tool after Figma is now an AI: Claude at 50.8% weekly usage
 - Top weekly tools: Figma (82.6%), Claude (50.8%), ChatGPT (48.2%)
+- 43.8% of designers spend 50%+ of their building time on AI-generated code (vibe coding)
+- The profession split into thirds: 37.7% zero, 18.5% some, 43.8% majority AI-generated
+- Design engineers: 80.9% vibe code 50%+ · IC designers: 35.0%
+- 59.1% have built their own tool with AI in the last 6 months
+- Satisfaction gap: 5.93/10 (zero vibe) → 7.39/10 (heavy vibe) = +1.46
+- Design engineers: 50.0% feel more valuable, 10.6% less secure
+- Researchers: 17.4% feel more valuable, 39.1% feel less secure
 
 ## Data Caveats
-- Public APIs expose published summary tables rather than row-level microdata
+- Public APIs expose both published summary tables and row-level respondent data
 - Some cross-tabs are intentionally withheld when they are not part of the published report
 - "Researcher" role (n=23) is directional only — small sample
 - One malformed role value in the raw CSV is excluded from role-based aggregate tables

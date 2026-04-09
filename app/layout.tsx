@@ -28,11 +28,11 @@ export const metadata: Metadata = {
     template: '%s | State of Prototyping 2026',
   },
   description:
-    '1,478 designers told us how they actually work. 43.8% spend 50%+ of their time vibe coding. Open dataset, API, and full report.',
+    'The most-used design tool after Figma is now an AI. 1,478 designers told us how they actually work. Open dataset, API, and full report.',
   openGraph: {
     title: 'State of Prototyping Spring 2026',
     description:
-      '1,478 designers told us how they actually work. 43.8% spend 50%+ of their time vibe coding. Open dataset, API, and full report.',
+      'The most-used design tool after Figma is now an AI. 1,478 designers told us how they actually work. Open dataset, API, and full report.',
     url: 'https://survey.uxtools.co',
     siteName: 'UX Tools',
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'State of Prototyping Spring 2026',
     description:
-      '1,478 designers told us how they actually work. 43.8% spend 50%+ of their time vibe coding.',
+      'The most-used design tool after Figma is now an AI. 1,478 designers told us how they actually work.',
     images: ['/og-image.jpg'],
     site: '@uxtoolsco',
     creator: '@designertom',

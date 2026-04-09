@@ -77,16 +77,18 @@ const sponsorBySlug: Record<string, string> = {
   'global-respondent-mix': 'Mobbin',
   'where-designers-work': 'MagicPatterns',
   'top-10-weekly-tools': 'Dazl',
+  'claude-hero-stat': 'Mobbin',
   'vibe-coding-hero': 'MagicPath',
   'vibe-coding-distribution': 'Framer',
   'vibe-by-role': 'dscout',
   'ic-vs-design-engineer': 'MagicPatterns',
-  'built-own-tool': 'Framer',
-  'trust-level': 'Mobbin',
+  'built-own-tool': 'Dazl',
+  'trust-level': 'MagicPath',
   'top-blockers': 'dscout',
   'workflow-change': 'Dazl',
   'ai-central-by-company': 'MagicPatterns',
   'role-outlook': 'Mobbin',
+  'role-contrast': 'dscout',
   'investing-next': 'MagicPath',
   'satisfaction-by-vibe': 'dscout',
   'satisfaction-delta': 'Framer',
@@ -420,6 +422,12 @@ async function renderSlug(slug: string) {
       const tools = await loadTools()
       return <SimpleBars title="5 of the Top 10 Weekly Tools Are Now AI" subtitle="What designers use every week · % of respondents" items={tools.data.map((item) => ({ label: item.tool, pct: item.pct }))} accentWinner />
     }
+    case 'claude-hero-stat': {
+      const tools = await loadTools()
+      const topTool = tools.data[0]
+      const secondTool = tools.data[1]
+      return <HeroStat value={`${secondTool?.pct.toFixed(1) ?? '50.8'}%`} accentLabel="The #2 Weekly Tool" label={`${secondTool?.tool ?? 'Claude'} is the #2 weekly tool in design, after ${topTool?.tool ?? 'Figma'}. More embedded in designer workflows than any canvas-first tool.`} />
+    }
     case 'vibe-coding-hero': {
       const headline = await loadHeadline()
       const vibeCoding = headline.data.find((item) => item.key === 'vibe_coding_50plus')
@@ -442,11 +450,9 @@ async function renderSlug(slug: string) {
       return <SimpleBars title="Same Profession, Different Reality" subtitle="% spending 50%+ time on AI-generated code" items={[{ label: 'Design Engineer', pct: de?.pct ?? 80.9 }, { label: 'IC Designer', pct: ic?.pct ?? 35.0 }]} accentWinner />
     }
     case 'built-own-tool': {
-      const data = await loadBuiltTool()
-      const builtSomething = data.data
-        .filter((item) => item.label === 'Yes, once or twice' || item.label === 'Yes, I do it regularly')
-        .reduce((sum, item) => sum + item.pct, 0)
-      return <SimpleBars title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`} subtitle="Have you built your own tool, app, or utility with AI? · last 6 months" items={data.data} accentWinner />
+      const [data, headlineData] = await Promise.all([loadBuiltTool(), loadHeadline()])
+      const builtSomething = headlineData.data.find((item) => item.key === 'built_tool_with_ai')
+      return <SimpleBars title={`${builtSomething?.value.toFixed(1) ?? '59.1'}% of Designers Have Built Their Own AI Tool`} subtitle="Have you built your own tool, app, or utility with AI? · last 6 months" items={data.data} accentWinner />
     }
     case 'trust-level': {
       const data = await loadTrustLevel()
@@ -468,11 +474,14 @@ async function renderSlug(slug: string) {
     }
     case 'ai-central-by-company': {
       const data = await loadWorkflowChangeByCompany()
+      const startup = data.data.find((item) => item.context === 'Startup (2\u2013100)')
+      const enterprise = data.data.find((item) => item.context === 'Enterprise (1,000+)')
+      const gap = ((startup?.pct ?? 0) - (enterprise?.pct ?? 0)).toFixed(1)
       return (
         <SimpleBars
-          title="AI-Central Workflows Show Up Across Company Types"
+          title={`Startups vs Enterprise: A ${gap}-Point Gap`}
           subtitle='Share saying "AI is now central" by work context'
-          items={data.data.map((item) => ({ label: item.context, pct: item.pct }))}
+          items={[{ label: 'Startup (2\u2013100)', pct: startup?.pct ?? 38.8 }, { label: 'Enterprise (1,000+)', pct: enterprise?.pct ?? 34.7 }]}
           accentWinner
         />
       )
@@ -480,6 +489,41 @@ async function renderSlug(slug: string) {
     case 'role-outlook': {
       const data = await loadOutlook()
       return <OutlookTable title="Design Engineers Feel More Valuable. Researchers Feel Most at Risk." subtitle="How do you think AI will affect your role in the next 2 years?" items={data.data} />
+    }
+    case 'role-contrast': {
+      const data = await loadOutlook()
+      const de = data.data.find((item) => item.role === 'Design Engineer')
+      const researcher = data.data.find((item) => item.role === 'Researcher')
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ChartHeader title="Same Industry. Opposite Experience." subtitle="How AI is affecting role confidence, by role" />
+          <div style={{ display: 'flex', width: '100%', gap: 0, alignItems: 'stretch' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: 'center', textAlign: 'center', gap: 12, padding: '8px 16px' }}>
+              <div style={{ display: 'flex', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: palette.bar1 }}>Design Engineer</div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <div style={{ display: 'flex', fontSize: 40, fontWeight: 700, color: palette.textPrimary }}>{`${de?.more_valuable.toFixed(1) ?? '50.0'}%`}</div>
+                <div style={{ display: 'flex', fontSize: 13, color: palette.textBody }}>feel more valuable</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <div style={{ display: 'flex', fontSize: 40, fontWeight: 700, color: palette.textMuted }}>{`${de?.less_secure.toFixed(1) ?? '10.6'}%`}</div>
+                <div style={{ display: 'flex', fontSize: 13, color: palette.textBody }}>feel less secure</div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', width: 1, background: palette.borderCard, flexShrink: 0 }} />
+            <div style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: 'center', textAlign: 'center', gap: 12, padding: '8px 16px' }}>
+              <div style={{ display: 'flex', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: palette.bar1 }}>Researcher</div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <div style={{ display: 'flex', fontSize: 40, fontWeight: 700, color: palette.textMuted }}>{`${researcher?.more_valuable.toFixed(1) ?? '17.4'}%`}</div>
+                <div style={{ display: 'flex', fontSize: 13, color: palette.textBody }}>feel more valuable</div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                <div style={{ display: 'flex', fontSize: 40, fontWeight: 700, color: palette.textPrimary }}>{`${researcher?.less_secure.toFixed(1) ?? '39.1'}%`}</div>
+                <div style={{ display: 'flex', fontSize: 13, color: palette.textBody }}>feel less secure</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     }
     case 'investing-next': {
       const data = await loadInvestingNext()
@@ -536,7 +580,7 @@ export async function GET(
     interRegular, interMedium, interSemiBold, interBold,
   ])
 
-  return new ImageResponse(
+  const response = new ImageResponse(
     <ChartFrame sponsor={sponsor}>
       {chart}
     </ChartFrame>,
@@ -551,4 +595,8 @@ export async function GET(
       ],
     },
   )
+
+  response.headers.set('Cache-Control', 'no-store, must-revalidate')
+
+  return response
 }

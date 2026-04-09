@@ -18,15 +18,17 @@
     "Public exports focus on published summary tables and crosstabs"
   ],
   "headlines": [
+    "The most-used design tool after Figma is now an AI: Claude at 50.8% weekly usage",
+    "Top weekly tools: Figma (82.6%), Claude (50.8%), ChatGPT (48.2%)",
     "43.8% of designers spend 50%+ of their building time on AI-generated code (vibe coding)",
+    "The profession split into thirds: 37.7% zero, 18.5% some, 43.8% majority AI-generated",
     "Design engineers: 80.9% vibe code 50%+ while IC designers are at 35.0%",
+    "59.1% have built their own tool with AI in the last 6 months",
     "Satisfaction rises from 5.93/10 among zero-vibe respondents to 7.39/10 among heavy vibe coders",
-    "59.1% have built a custom tool with AI-generated code",
-    "63.1% use AI or no-code to generate code in their workflow",
-    "Top weekly tools: Figma (82.6%), Claude (50.8%), ChatGPT (48.2%)"
+    "Design engineers: 50.0% feel more valuable, 10.6% less secure. Researchers: 17.4% more valuable, 39.1% less secure"
   ],
   "data_caveats": [
-    "Public APIs expose published summary tables rather than row-level microdata",
+    "Public APIs expose both published summary tables and row-level respondent data",
     "Researcher (n=23) should be treated as directional only",
     "One malformed role value in the raw CSV is excluded from role-based aggregate tables",
     "Multi-select questions sum to more than 100%",
