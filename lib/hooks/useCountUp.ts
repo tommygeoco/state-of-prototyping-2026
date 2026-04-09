@@ -2,9 +2,15 @@
 
 import { useEffect, useState } from 'react'
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
 /**
  * Animates a number from 0 to `target` over `duration` ms, triggered by `active`.
  * Returns the current display value as a formatted string.
+ * Skips animation entirely when the user prefers reduced motion.
  */
 export function useCountUp(
   target: number,
@@ -18,6 +24,11 @@ export function useCountUp(
   useEffect(() => {
     if (!active) {
       setValue(0)
+      return
+    }
+
+    if (prefersReducedMotion()) {
+      setValue(target)
       return
     }
 

@@ -90,6 +90,11 @@ function GroupRow({ group, color, animate, index }: { group: Group; color: strin
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+      tabIndex={0}
+      role="img"
+      aria-label={`${group.label}: ${group.pct.toFixed(1)}%, ${group.n.toLocaleString()} respondents`}
     >
       <div
         style={{
@@ -99,6 +104,7 @@ function GroupRow({ group, color, animate, index }: { group: Group; color: strin
           marginBottom: 6,
           gap: 8,
         }}
+        aria-hidden="true"
       >
         <span
           style={{
@@ -125,6 +131,7 @@ function GroupRow({ group, color, animate, index }: { group: Group; color: strin
       </div>
 
       <div
+        aria-hidden="true"
         style={{
           width: '100%',
           height: 20,

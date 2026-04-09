@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import type { ReactNode } from 'react'
 
 interface DisclosureProps {
@@ -11,6 +11,9 @@ interface DisclosureProps {
 
 export function Disclosure({ title, defaultOpen = false, children }: DisclosureProps) {
   const [open, setOpen] = useState(defaultOpen)
+  const id = useId()
+  const buttonId = `${id}-btn`
+  const panelId = `${id}-panel`
 
   return (
     <div
@@ -23,6 +26,9 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
     >
       <button
         type="button"
+        id={buttonId}
+        aria-expanded={open}
+        aria-controls={panelId}
         onClick={() => setOpen(!open)}
         style={{
           width: '100%',
@@ -47,6 +53,7 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
           {title}
         </span>
         <span
+          aria-hidden="true"
           style={{
             fontFamily: 'var(--font-data)',
             fontSize: 14,
@@ -59,7 +66,12 @@ export function Disclosure({ title, defaultOpen = false, children }: DisclosureP
         </span>
       </button>
       {open ? (
-        <div className="disclosure-content">
+        <div
+          id={panelId}
+          role="region"
+          aria-labelledby={buttonId}
+          className="disclosure-content"
+        >
           {children}
         </div>
       ) : null}

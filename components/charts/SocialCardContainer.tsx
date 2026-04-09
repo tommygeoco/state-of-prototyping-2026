@@ -28,14 +28,14 @@ export function SocialCardContainer({ children, sponsor = 'MagicPath', centered 
     >
       {anchorId ? <ChartActions anchorId={anchorId} /> : null}
 
-      <div className="social-card-body">
+      <figure className="social-card-body" role="figure" aria-label="Chart">
         <div
           className="social-card-content"
           style={centered ? { justifyContent: 'center' } : undefined}
         >
           {children}
         </div>
-      </div>
+      </figure>
 
       <div className="social-card-footer">
         <div className="social-card-footer-left">
@@ -54,7 +54,7 @@ export function SocialCardContainer({ children, sponsor = 'MagicPath', centered 
             sponsorMark
           )}
         </div>
-        <UxToolsLogo className="social-card-footer-brand-logo" style={{ height: 16, width: 'auto', color: 'var(--text-primary)' }} />
+        <UxToolsLogo aria-hidden="true" className="social-card-footer-brand-logo" style={{ height: 16, width: 'auto', color: 'var(--text-primary)' }} />
       </div>
     </div>
   )

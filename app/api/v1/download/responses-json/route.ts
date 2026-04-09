@@ -7,16 +7,17 @@ export async function GET() {
   console.info(
     '[telemetry]',
     JSON.stringify({
-      event: 'responses-api-access',
+      event: 'responses-json-download',
       at: new Date().toISOString(),
     }),
   )
 
-  const raw = await readFile(path.join(process.cwd(), 'public', 'data', 'responses.json'), 'utf8')
+  const json = await readFile(path.join(process.cwd(), 'public', 'data', 'responses.json'), 'utf8')
 
-  return new Response(raw, {
+  return new Response(json, {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
+      'Content-Disposition': 'attachment; filename="state-of-prototyping-spring-2026-responses.json"',
       ...cacheHeaders,
     },
   })

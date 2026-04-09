@@ -21,8 +21,10 @@ export function SatisfactionHeroDeltaChart({
   const animatedDelta = useCountUp(delta, inView, { duration: 1100, decimals: 2 })
 
   return (
-    <div
+    <figure
       ref={ref}
+      role="figure"
+      aria-label={`The Satisfaction Gap: ${overallMean.toFixed(1)} out of 10 overall mean. Heavy vibers score ${delta.toFixed(2)} points higher than non-vibers. ${fromTier}: 5.93, ${toTier}: 7.39.`}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -31,6 +33,7 @@ export function SatisfactionHeroDeltaChart({
         textAlign: 'center',
         flex: '1 1 0%',
         padding: '24px 16px',
+        margin: 0,
       }}
     >
       <div
@@ -110,6 +113,6 @@ export function SatisfactionHeroDeltaChart({
         {fromTier}: 5.93 → {toTier}: 7.39
       </div>
 
-    </div>
+    </figure>
   )
 }

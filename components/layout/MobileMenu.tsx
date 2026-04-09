@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
@@ -16,6 +16,8 @@ const navLinks = [
 export function MobileMenu() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const drawerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setOpen(false)
@@ -24,18 +26,36 @@ export function MobileMenu() {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
+      const firstLink = drawerRef.current?.querySelector<HTMLElement>('a, button')
+      firstLink?.focus()
     } else {
       document.body.style.overflow = ''
     }
     return () => { document.body.style.overflow = '' }
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        buttonRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open])
+
   const toggle = useCallback(() => setOpen((o) => !o), [])
-  const close = useCallback(() => setOpen(false), [])
+  const close = useCallback(() => {
+    setOpen(false)
+    buttonRef.current?.focus()
+  }, [])
 
   return (
     <>
       <button
+        ref={buttonRef}
         type="button"
         className="mobile-menu-btn md:hidden"
         onClick={toggle}
@@ -53,7 +73,14 @@ export function MobileMenu() {
         <div className="mobile-menu-backdrop" onClick={close} aria-hidden="true" />
       )}
 
-      <div className={`mobile-menu-drawer ${open ? 'mobile-menu-drawer-open' : ''}`}>
+      <div
+        ref={drawerRef}
+        className={`mobile-menu-drawer ${open ? 'mobile-menu-drawer-open' : ''}`}
+        role="dialog"
+        aria-modal={open || undefined}
+        aria-label="Site navigation"
+        inert={!open || undefined}
+      >
         <nav className="mobile-menu-nav">
           {navLinks.map((link) => (
             <Link

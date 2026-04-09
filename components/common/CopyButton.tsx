@@ -18,9 +18,16 @@ export function CopyButton({ text, label = 'Copy link' }: CopyButtonProps) {
     window.setTimeout(() => setState('idle'), 2000)
   }
 
+  const statusText = state === 'copied' ? 'Copied!' : state === 'failed' ? 'Copy failed' : label
+
   return (
-    <button type="button" onClick={handleCopy} className="button-secondary">
-      {state === 'copied' ? 'Copied!' : state === 'failed' ? 'Copy failed' : label}
-    </button>
+    <>
+      <button type="button" onClick={handleCopy} className="button-secondary">
+        {statusText}
+      </button>
+      {state !== 'idle' && (
+        <span className="sr-only" aria-live="polite">{statusText}</span>
+      )}
+    </>
   )
 }

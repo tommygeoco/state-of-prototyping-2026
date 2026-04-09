@@ -118,7 +118,7 @@ export default async function ExplorePage() {
   ]
 
   return (
-    <article>
+    <article aria-label="State of Prototyping Spring 2026 Report">
       {/* ── Hero ── */}
       <header style={{ marginBottom: 48 }}>
         <p className="page-eyebrow">UX Tools Survey · Spring 2026</p>
@@ -174,6 +174,7 @@ export default async function ExplorePage() {
                 target="_blank"
                 rel="noreferrer"
                 className="sponsor-card"
+                aria-label={sponsor.name}
               >
                 <div className="sponsor-card-logo">
                   {Logo ? (
@@ -336,7 +337,7 @@ export default async function ExplorePage() {
           something for yourself, not a product, just a thing that solves your own problem, has
           unlocked a new kind of creative leverage.
         </p>
-        <SocialCardContainer sponsor="Framer" anchorId="built-own-tool">
+        <SocialCardContainer sponsor="Dazl" anchorId="built-own-tool">
           <SimpleBarChart
             title={`${builtSomething?.value.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
             subtitle="Have you built your own tool, app, or utility with AI? · last 6 months"
@@ -361,7 +362,7 @@ export default async function ExplorePage() {
           We are in the &ldquo;first drafts I heavily edit&rdquo; era. The trust line is not whether AI
           works. It is how much cleanup it takes before it is usable.
         </p>
-        <SocialCardContainer sponsor="Mobbin" anchorId="trust-level">
+        <SocialCardContainer sponsor="MagicPath" anchorId="trust-level">
           <SimpleBarChart
             title={`${productionWithReviewPct}% Trust AI for Production With Review`}
             subtitle="How far do you trust AI-generated output in your workflow?"
@@ -505,12 +506,12 @@ export default async function ExplorePage() {
         <p className="body-text" style={{ marginBottom: 24 }}>
           Six findings that capture what this data actually says.
         </p>
-        <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        <ol role="list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {summaryFindings.map((item, index) => (
             <li key={index} style={{ marginBottom: 24 }}>
-              <p style={{ fontSize: 16, fontWeight: 600, lineHeight: '24px', color: 'var(--text-primary)', margin: '0 0 4px 0' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: '24px', color: 'var(--text-primary)', margin: '0 0 4px 0' }}>
                 {index + 1}. {item.title}
-              </p>
+              </h3>
               <p className="body-text">{item.body}</p>
             </li>
           ))}

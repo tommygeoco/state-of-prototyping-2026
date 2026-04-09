@@ -38,10 +38,15 @@ export function AgentQueryPlayground() {
       }}
     >
       <form onSubmit={handleSubmit}>
+        <label htmlFor="agent-query" className="sr-only">
+          Enter a question about the survey data
+        </label>
         <textarea
+          id="agent-query"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
           rows={2}
+          aria-describedby="agent-endpoint"
           style={{
             width: '100%',
             display: 'block',
@@ -67,6 +72,7 @@ export function AgentQueryPlayground() {
           }}
         >
           <span
+            id="agent-endpoint"
             style={{
               fontFamily: 'var(--font-data)',
               fontSize: 14,
@@ -80,23 +86,25 @@ export function AgentQueryPlayground() {
           </Button>
         </div>
       </form>
-      {result ? (
-        <pre
-          style={{
-            padding: '16px 20px',
-            margin: 0,
-            fontFamily: 'var(--font-data)',
-            fontSize: 14,
-            lineHeight: '18px',
-            color: 'var(--text-body)',
-            overflow: 'auto',
-            maxHeight: 300,
-            background: 'var(--bg-callout)',
-          }}
-        >
-          <code>{result}</code>
-        </pre>
-      ) : null}
+      <div aria-live="polite">
+        {result ? (
+          <pre
+            style={{
+              padding: '16px 20px',
+              margin: 0,
+              fontFamily: 'var(--font-data)',
+              fontSize: 14,
+              lineHeight: '18px',
+              color: 'var(--text-body)',
+              overflow: 'auto',
+              maxHeight: 300,
+              background: 'var(--bg-callout)',
+            }}
+          >
+            <code>{result}</code>
+          </pre>
+        ) : null}
+      </div>
     </div>
   )
 }

@@ -23,8 +23,10 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
   const animatedValue = useCountUp(num, inView, { duration: 900, decimals })
 
   return (
-    <div
+    <figure
       ref={ref}
+      role="figure"
+      aria-label={`${value} ${label}`}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -33,6 +35,7 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
         textAlign: 'center',
         flex: '1 1 0%',
         padding: '40px 24px',
+        margin: 0,
       }}
     >
       {accentLabel ? (
@@ -53,6 +56,7 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
       ) : null}
 
       <div
+        aria-hidden="true"
         style={{
           fontFamily: 'var(--font-display)',
           fontSize: 'clamp(56px, 12vw, 96px)',
@@ -66,6 +70,7 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
       </div>
 
       <div
+        aria-hidden="true"
         style={{
           width: 40,
           height: 2,
@@ -74,7 +79,7 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
         }}
       />
 
-      <div
+      <figcaption
         style={{
           fontFamily: 'var(--font-body)',
           fontSize: 16,
@@ -84,7 +89,7 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
         }}
       >
         {label}
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   )
 }

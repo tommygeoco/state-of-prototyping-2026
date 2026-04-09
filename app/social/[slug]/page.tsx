@@ -132,7 +132,14 @@ export default async function SocialPage({ params }: SocialPageProps) {
     notFound()
   }
 
-  const chart = await renderChart(socialSlugMap[slug as SocialSlug])
+  const canonical = socialSlugMap[slug as SocialSlug]
+  const chart = await renderChart(canonical)
+  const title = canonical.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
-  return <SocialCardFrame>{chart}</SocialCardFrame>
+  return (
+    <>
+      <h1 className="sr-only">{title} — State of Prototyping Spring 2026</h1>
+      <SocialCardFrame>{chart}</SocialCardFrame>
+    </>
+  )
 }

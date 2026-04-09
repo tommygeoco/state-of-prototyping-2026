@@ -84,7 +84,7 @@ export default async function AgentPage() {
         </div>
       </header>
 
-      <hr className="section-divider" />
+      <hr className="section-divider" aria-hidden="true" />
 
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">Available tools</h2>
@@ -128,14 +128,14 @@ export default async function AgentPage() {
         </div>
       </section>
 
-      <hr className="section-divider" />
+      <hr className="section-divider" aria-hidden="true" />
 
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">Try it</h2>
         <AgentQueryPlayground />
       </section>
 
-      <hr className="section-divider" />
+      <hr className="section-divider" aria-hidden="true" />
 
       <section style={{ marginBottom: 48 }}>
         <h2 className="section-title">Other ways to connect</h2>

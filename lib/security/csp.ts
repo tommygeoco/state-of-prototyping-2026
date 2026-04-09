@@ -50,8 +50,8 @@ export function buildReportToHeader() {
   })
 }
 
-export function isSensitiveDataPath(pathname: string) {
-  return pathname === '/data/responses.json' || pathname === '/data/responses.csv'
+export function isSensitiveDataPath(_pathname: string) {
+  return false
 }
 
 export function isStaticAssetPath(pathname: string) {

@@ -1,23 +1,24 @@
-import { noStoreHeaders } from '@/lib/api/headers'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
 
-export async function GET(request: Request) {
-  console.warn(
-    '[security]',
+import { cacheHeaders } from '@/lib/api/headers'
+
+export async function GET() {
+  console.info(
+    '[telemetry]',
     JSON.stringify({
-      event: 'blocked-row-level-csv-download',
-      pathname: new URL(request.url).pathname,
+      event: 'responses-csv-download',
       at: new Date().toISOString(),
     }),
   )
 
-  return Response.json(
-    {
-      error: 'Row-level response CSV downloads are no longer publicly distributed.',
-      available_downloads: ['/api/v1/download/json', '/api/v1/download/csv'],
+  const csv = await readFile(path.join(process.cwd(), 'public', 'data', 'responses.csv'), 'utf8')
+
+  return new Response(csv, {
+    headers: {
+      'Content-Type': 'text/csv; charset=utf-8',
+      'Content-Disposition': 'attachment; filename="state-of-prototyping-spring-2026-responses.csv"',
+      ...cacheHeaders,
     },
-    {
-      status: 410,
-      headers: noStoreHeaders,
-    },
-  )
+  })
 }

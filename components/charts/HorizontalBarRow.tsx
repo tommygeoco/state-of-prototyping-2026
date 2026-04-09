@@ -46,11 +46,23 @@ export function HorizontalBarRow({
   const hoverDisplay = n != null ? `${n.toLocaleString()} resp.` : defaultDisplay
   const delay = `${animIndex * 60}ms`
 
+  const ariaLabel = n != null
+    ? `${label}: ${defaultDisplay}, ${n.toLocaleString()} respondents`
+    : `${label}: ${defaultDisplay}`
+
+  const handleFocus = useCallback(() => setHovered(true), [])
+  const handleBlur = useCallback(() => setHovered(false), [])
+
   return (
     <div
       style={{ marginBottom: 8 }}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onFocus={n != null ? handleFocus : undefined}
+      onBlur={n != null ? handleBlur : undefined}
+      tabIndex={n != null ? 0 : undefined}
+      role="img"
+      aria-label={ariaLabel}
     >
       <div
         style={{
@@ -60,6 +72,7 @@ export function HorizontalBarRow({
           marginBottom: 4,
           gap: 8,
         }}
+        aria-hidden="true"
       >
         <span
           style={{
@@ -87,6 +100,7 @@ export function HorizontalBarRow({
         </span>
       </div>
       <div
+        aria-hidden="true"
         style={{
           width: '100%',
           height: 16,

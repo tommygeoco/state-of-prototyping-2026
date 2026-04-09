@@ -19,8 +19,9 @@ describe('csp helpers', () => {
     expect(policy).toContain('connect-src \'self\' ws: http: https:')
   })
 
-  it('identifies blocked dataset paths and regular static assets', () => {
-    expect(isSensitiveDataPath('/data/responses.json')).toBe(true)
+  it('no longer blocks respondent data paths (open data)', () => {
+    expect(isSensitiveDataPath('/data/responses.json')).toBe(false)
+    expect(isSensitiveDataPath('/data/responses.csv')).toBe(false)
     expect(isSensitiveDataPath('/data/full-summary.json')).toBe(false)
     expect(isStaticAssetPath('/favicon.ico')).toBe(true)
     expect(isStaticAssetPath('/explore')).toBe(false)

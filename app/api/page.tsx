@@ -35,9 +35,10 @@ export default function ApiDocsPage() {
         </div>
       </header>
 
-      <hr className="section-divider" />
+      <hr className="section-divider" aria-hidden="true" />
 
       <div style={{ marginBottom: 48 }}>
+        <h2 className="section-title">Endpoints</h2>
         {endpoints.map((ep, i) => (
           <div
             key={ep.path}
@@ -70,6 +71,7 @@ export default function ApiDocsPage() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <h2 className="section-title">Code samples</h2>
         <Disclosure title="cURL" defaultOpen>
           <CodeBlock code={`curl https://survey.uxtools.co/api/v1/stats/vibe-by-role`} />
         </Disclosure>
