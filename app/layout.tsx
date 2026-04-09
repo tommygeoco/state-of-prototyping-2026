@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
 import type { ReactNode } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
 import { inter, spaceMono } from '@/lib/fonts'
 
@@ -72,7 +73,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link rel="ai-context" href="/agent/SURVEY_CONTEXT.md" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
