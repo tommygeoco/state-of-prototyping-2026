@@ -7,10 +7,18 @@ export interface Sponsor {
 }
 
 export const sponsors: Sponsor[] = [
-  { name: 'Framer', url: 'https://framer.com', label: 'Design and publish websites', slug: 'framer', description: 'The professional website builder that lets designers ship production sites without writing code.' },
-  { name: 'dscout', url: 'https://dscout.com', label: 'Research platform', slug: 'dscout', description: 'A research platform for gathering in-context insights from real people at scale.' },
-  { name: 'MagicPatterns', url: 'https://magicpatterns.com', label: 'AI design patterns', slug: 'magicpatterns', description: 'Generate UI components and design patterns with AI, directly in your design workflow.' },
-  { name: 'MagicPath', url: 'https://magicpath.ai', label: 'Canvas-first AI prototyping', slug: 'magicpath', description: 'Canvas-first AI prototyping that turns your ideas into interactive prototypes in seconds.' },
-  { name: 'Mobbin', url: 'https://mobbin.com', label: 'Design reference', slug: 'mobbin', description: 'The world\u2019s largest library of real product UI, so you can find design patterns that actually ship.' },
-  { name: 'Dazl', url: 'https://dazl.dev/?utm_source=uxtools&utm_medium=survey', label: 'Portfolio builder', slug: 'dazl', description: 'Build a standout design portfolio in minutes with AI-powered layouts and zero config deployment.' },
+  { name: 'Mobbin', url: 'https://mobbin.com', label: 'Design reference', slug: 'mobbin', description: 'Stop screenshotting apps. Browse the largest curated library of real product UI - search by flow, pattern, or screen.' },
+  { name: 'Framer', url: 'https://framer.com', label: 'Design and publish websites', slug: 'framer', description: 'Ship real sites without writing code. Full design freedom, built-in CMS, and the performance your clients actually need.' },
+  { name: 'MagicPath', url: 'https://magicpath.ai', label: 'Canvas-first AI prototyping', slug: 'magicpath', description: 'Describe what you want, get clickable prototypes on an infinite canvas. Design and code in one place.' },
+  { name: 'dscout', url: 'https://dscout.com', label: 'Research platform', slug: 'dscout', description: 'Run user research from recruit to insight - video diaries, interviews, and surveys in one AI-powered platform.' },
+  { name: 'MagicPatterns', url: 'https://magicpatterns.com', label: 'AI design patterns', slug: 'magicpatterns', description: 'AI prototyping that matches your existing product. Import your design system, generate on-brand UI, export to Figma or code.' },
+  { name: 'Dazl', url: 'https://dazl.dev/?utm_source=uxtools&utm_medium=survey', label: 'AI product platform', slug: 'dazl', description: 'Dazl is the AI platform that takes your product from ideation to hand-off. Visually edit and collaborate with your team in real time at every step of the product journey.' },
 ]
+
+export const sponsorsByName = Object.fromEntries(
+  sponsors.map((sponsor) => [sponsor.name, sponsor]),
+) as Record<string, Sponsor>
+
+export function getSponsorByName(name: string) {
+  return sponsorsByName[name]
+}

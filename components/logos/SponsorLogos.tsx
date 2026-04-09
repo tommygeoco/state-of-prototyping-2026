@@ -95,3 +95,12 @@ export const sponsorLogoScale: Record<string, number> = {
   Mobbin: 0.72,
   dscout: 0.85,
 }
+
+export const sponsorStripLogoScale: Record<string, number> = {
+  Framer: 1,
+  dscout: 0.88,
+  MagicPatterns: 1.08,
+  MagicPath: 1.02,
+  Mobbin: 0.74,
+  Dazl: 0.9,
+}

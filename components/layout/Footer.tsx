@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export function Footer() {
   return (
     <footer style={{ width: '100%', maxWidth: 720, margin: '0 auto', paddingBottom: 64, paddingInline: 24 }}>
@@ -15,24 +17,26 @@ export function Footer() {
             marginBottom: 8,
           }}
         >
-          <a href="https://uxtools.co" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-            UX Tools
-          </a>
-          {' · '}
-          <a href="https://uxtools.co" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-            uxtools.co
-          </a>
+          State of Prototyping · Open Survey + Open Data
         </p>
         <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: '20px' }}>
-          State of Prototyping is part of an ongoing survey initiative by{' '}
-          <a href="https://linkedin.com/in/tommygeoco" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--border-card)' }}>
+          An open survey project by{' '}
+          <a href="https://linkedin.com/in/tommygeoco" target="_blank" rel="noreferrer" className="content-link">
             Tommy Geoco
           </a>
           {' '}and{' '}
-          <a href="https://uxtools.co" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--border-card)' }}>
+          <a href="https://uxtools.co" target="_blank" rel="noreferrer" className="content-link">
             UX Tools
           </a>
-          {' '}to understand how design and software are changing. Spring 2026 edition. n&nbsp;=&nbsp;1,478. CC&nbsp;BY&nbsp;4.0.
+          . Spring 2026 includes n&nbsp;=&nbsp;1,478 responses, a public{' '}
+          <Link href="/download" className="content-link">
+            dataset
+          </Link>
+          , and a public{' '}
+          <Link href="/api" className="content-link">
+            API
+          </Link>
+          . Licensed under CC&nbsp;BY&nbsp;4.0.
         </p>
       </section>
     </footer>

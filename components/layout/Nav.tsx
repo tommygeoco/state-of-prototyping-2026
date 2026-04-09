@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { MobileMenu } from '@/components/layout/MobileMenu'
+import { UxToolsLogo } from '@/components/logos/SponsorLogos'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 const navLinks = [
@@ -18,6 +20,7 @@ export function Nav() {
         borderBottom: '1px solid var(--border-nav)',
         background: 'var(--bg-canvas)',
         backdropFilter: 'blur(8px)',
+        position: 'sticky',
       }}
     >
       <div
@@ -32,37 +35,32 @@ export function Nav() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-          <Link
-            href="/explore"
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 16,
-              fontWeight: 600,
-              lineHeight: '20px',
-              color: 'var(--text-primary)',
-            }}
+          <a
+            href="https://uxtools.co"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="UX Tools"
+            style={{ display: 'flex', alignItems: 'center', color: 'var(--text-primary)' }}
           >
-            State of Prototyping
-          </Link>
+            <UxToolsLogo style={{ height: 24, width: 'auto' }} />
+          </a>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hidden md:inline"
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 14,
-                fontWeight: 400,
-                lineHeight: '18px',
-                color: 'var(--text-muted)',
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <ThemeToggle />
+          <nav aria-label="Main" className="hidden md:contents">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="nav-link"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
+          <MobileMenu />
         </div>
       </div>
     </header>

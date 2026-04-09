@@ -6,8 +6,12 @@ import { Nav } from '@/components/layout/Nav'
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-canvas)' }}>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Nav />
       <main
+        id="main-content"
         style={{
           width: '100%',
           maxWidth: 'var(--content-width)',

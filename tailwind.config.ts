@@ -60,6 +60,10 @@ const config: Config = {
           secondary: 'var(--text-secondary)',
           accent: 'var(--text-accent)',
         },
+        link: {
+          DEFAULT: 'var(--link)',
+          hover: 'var(--link-hover)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

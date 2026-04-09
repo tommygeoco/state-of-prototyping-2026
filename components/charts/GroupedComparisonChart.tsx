@@ -12,7 +12,7 @@ interface GroupedComparisonChartProps {
 export function GroupedComparisonChart({ title, subtitle, items, bare = false }: GroupedComparisonChartProps) {
   return (
     <ChartCard title={title} subtitle={subtitle} bare={bare}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <table className="grouped-comparison-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
             <th
@@ -22,7 +22,7 @@ export function GroupedComparisonChart({ title, subtitle, items, bare = false }:
                 fontWeight: 400,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: 'var(--text-accent)',
+                color: 'var(--text-secondary)',
                 textAlign: 'left',
                 paddingBottom: 16,
               }}
@@ -75,7 +75,11 @@ export function GroupedComparisonChart({ title, subtitle, items, bare = false }:
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr key={item.role} style={{ borderTop: '1px solid var(--border-grid)' }}>
+            <tr
+              key={item.role}
+              className="grouped-comparison-row"
+              style={{ borderTop: '1px solid var(--border-grid)' }}
+            >
               <td
                 style={{
                   fontFamily: 'var(--font-body)',
@@ -125,6 +129,31 @@ export function GroupedComparisonChart({ title, subtitle, items, bare = false }:
           ))}
         </tbody>
       </table>
+      <div className="grouped-comparison-mobile-list">
+        {items.map((item) => (
+          <div key={item.role} className="grouped-comparison-mobile-item">
+            <div className="grouped-comparison-mobile-role">{item.role}</div>
+            <div className="grouped-comparison-mobile-metric">
+              <span className="grouped-comparison-mobile-label">More Valuable</span>
+              <span className="grouped-comparison-mobile-value grouped-comparison-mobile-value-accent">
+                {item.more_valuable.toFixed(1)}%
+              </span>
+            </div>
+            <div className="grouped-comparison-mobile-metric">
+              <span className="grouped-comparison-mobile-label">Less Secure</span>
+              <span className="grouped-comparison-mobile-value grouped-comparison-mobile-value-accent">
+                {item.less_secure.toFixed(1)}%
+              </span>
+            </div>
+            <div className="grouped-comparison-mobile-metric">
+              <span className="grouped-comparison-mobile-label">About Same</span>
+              <span className="grouped-comparison-mobile-value">
+                {item.about_same.toFixed(1)}%
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
     </ChartCard>
   )
 }

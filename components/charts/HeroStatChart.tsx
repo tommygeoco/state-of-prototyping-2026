@@ -1,12 +1,30 @@
+'use client'
+
+import { useCountUp } from '@/lib/hooks/useCountUp'
+import { useInView } from '@/lib/hooks/useInView'
+
 interface HeroStatChartProps {
   value: string
   label: string
   accentLabel?: string
 }
 
+function parseHeroValue(value: string): { num: number; suffix: string; decimals: number } {
+  const match = value.match(/^([\d.]+)(.*)$/)
+  if (!match) return { num: 0, suffix: value, decimals: 1 }
+  const numStr = match[1]
+  const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0
+  return { num: parseFloat(numStr), suffix: match[2], decimals }
+}
+
 export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps) {
+  const { ref, inView } = useInView()
+  const { num, suffix, decimals } = parseHeroValue(value)
+  const animatedValue = useCountUp(num, inView, { duration: 900, decimals })
+
   return (
     <div
+      ref={ref}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -44,7 +62,7 @@ export function HeroStatChart({ value, label, accentLabel }: HeroStatChartProps)
           letterSpacing: '-0.02em',
         }}
       >
-        {value}
+        {animatedValue}{suffix}
       </div>
 
       <div

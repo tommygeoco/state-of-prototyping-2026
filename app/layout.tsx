@@ -1,10 +1,24 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
+import { headers } from 'next/headers'
 import type { ReactNode } from 'react'
 
 import { inter, spaceMono } from '@/lib/fonts'
 
 import './globals.css'
+
+const themeInitScript = `(function () {
+  var storedTheme = localStorage.getItem('theme') || 'system';
+  var resolvedTheme =
+    storedTheme === 'system'
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+      : storedTheme;
+
+  if (resolvedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+})();`
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://survey.uxtools.co'),
@@ -48,12 +62,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const nonce = (await headers()).get('x-nonce') ?? undefined
+
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable}`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <Script src="/theme-init.js" strategy="beforeInteractive" />
+        <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link rel="ai-context" href="/agent/SURVEY_CONTEXT.md" />
       </head>
       <body>{children}</body>

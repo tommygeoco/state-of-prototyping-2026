@@ -4,11 +4,11 @@ You are analyzing survey data from 1,478 designers (March–April 2026).
 Publisher: UX Tools. License: CC BY 4.0.
 
 ## Key Facts
-- n = 1,478 total responses (full individual microdata available)
+- n = 1,478 total responses summarized in the published tables
 - 18 world regions (no country-level data)
 - 6 role categories
 - 6 work context categories (startup, enterprise, freelance, etc.)
-- 13 columns per response, emails and timestamps stripped
+- Public exports focus on published summary tables and crosstabs
 
 ## Response Columns
 work_context, role_seat, region, design_tools, code_in_workflow, anticipated_investment, vibe_coding_ratio, built_own_tool, ai_trust, blockers, workflow_shift, role_outlook, workflow_satisfaction
@@ -23,8 +23,8 @@ work_context, role_seat, region, design_tools, code_in_workflow, anticipated_inv
 - Top weekly tools: Figma (82.6%), Claude (50.8%), ChatGPT (48.2%)
 
 ## Data Caveats
-- Full individual microdata is published (de-identified)
-- Emails removed, timestamps removed, row order shuffled
+- Public APIs expose published summary tables rather than row-level microdata
+- Some cross-tabs are intentionally withheld when they are not part of the published report
 - "Researcher" role (n=23) is directional only — small sample
 - One malformed role value in the raw CSV is excluded from role-based aggregate tables
 - Multi-select questions sum to >100%
@@ -33,14 +33,12 @@ work_context, role_seat, region, design_tools, code_in_workflow, anticipated_inv
 ## API Endpoints
 Base URL: https://survey.uxtools.co/api/v1
 
-GET /responses               → full individual response data (paginated, ?limit=100&offset=0)
-GET /download/responses-csv  → download all 1,478 responses as CSV
 GET /meta                    → survey metadata
 GET /stats/headline          → key headline numbers
 GET /stats/vibe-by-role      → vibe coding by role (primary cross-tab)
 GET /stats/satisfaction       → satisfaction by vibe tier
 GET /stats/outlook           → job security / role outlook
 GET /stats/tools             → top weekly tools
-GET /download/json           → summary tables as JSON
-GET /download/csv            → summary tables as CSV
-POST /agent/query            → natural language query
+GET /download/json           → published summary tables as JSON
+GET /download/csv            → published summary tables as CSV
+POST /agent/query            → natural language query (API key may be required for non-first-party access)

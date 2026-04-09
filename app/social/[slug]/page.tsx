@@ -75,7 +75,7 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
       const vibeByRole = await loadVibeByRole()
       const ic = vibeByRole.data.find((item) => item.role === 'IC Designer')
       const de = vibeByRole.data.find((item) => item.role === 'Design Engineer')
-      return <ComparativeSideBySideChart title="Same Profession, Different Reality" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} />
+      return <ComparativeSideBySideChart title="Same Profession, Different Reality" leftLabel="IC Designer" leftValue={ic?.pct ?? 35.0} leftN={ic?.n} rightLabel="Design Engineer" rightValue={de?.pct ?? 80.9} rightN={de?.n} />
     }
     case 'role-outlook': {
       const outlook = await loadOutlook()
@@ -95,6 +95,7 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
           title={`${builtSomething.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
           subtitle="Have you built your own tool, app, or utility with AI? — last 6 months"
           items={builtTool.data}
+          totalN={builtTool.n}
         />
       )
     }
@@ -109,12 +110,13 @@ async function renderChart(slug: CanonicalSocialSlug): Promise<ReactNode> {
           title={`${trustWithReview}% Trust AI for Production With Review`}
           subtitle="How far do you trust AI-generated output in your workflow?"
           items={trustLevel.data}
+          totalN={trustLevel.n}
         />
       )
     }
     case 'satisfaction-by-vibe': {
-      const satisfaction = await loadSatisfaction()
-      return <DualAxisChart title="Heavier Vibe Coders Are More Satisfied" satisfaction={satisfaction} />
+      const [satisfaction, vibeDistribution] = await Promise.all([loadSatisfaction(), loadVibeDistribution()])
+      return <DualAxisChart title="Heavier Vibe Coders Are More Satisfied" satisfaction={satisfaction} tierCounts={Object.fromEntries(vibeDistribution.data.map((d) => [d.tier, d.n]))} />
     }
     case 'satisfaction-delta': {
       const satisfaction = await loadSatisfaction()

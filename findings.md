@@ -1,11 +1,11 @@
 # Findings
 
-- Existing chart share buttons live in `components/charts/ChartActions.tsx`.
-- Explore-page chart cards are keyed by `anchorId` values in `app/explore/page.tsx`.
-- Existing square share card pages already exist at `app/social/[slug]/page.tsx`.
-- Current social share slugs are: `hero`, `tools`, `vibe-by-role`, `ic-vs-de`, `outlook`, `distribution`, `satisfaction`, `satisfaction-delta`.
-- The most reliable path is to generate PNGs from those existing social pages/routes on the server instead of screenshotting DOM in the client.
-- The implemented stable path is `app/social/png/[slug]/route.tsx` using `ImageResponse` in `nodejs` runtime.
-- `next/og` is strict about mixed text/expression children inside some elements; plain string interpolation is safer than adjacent JSX text nodes there.
-- Browser-side `html-to-image` was blocked by CSP and produced unreliable clipboard/tab behavior, so it was removed from the PNG action path entirely.
+- The app is intentionally public: `app/api/page.tsx` and `app/agent/page.tsx` explicitly say there is no auth, and there is no `middleware.ts` or server-side auth layer in the repo.
+- `app/api/v1/agent/query/route.ts` enforces a 4 KiB size cap only after `await request.text()`, so a chunked or missing `content-length` request can still be fully buffered before rejection.
+- The same agent route uses an in-memory `Map` keyed by `x-forwarded-for` or `x-real-ip`, which is weak on multi-instance/serverless deployments and can grow with attacker-supplied unique keys.
+- `next.config.mjs` ships a production CSP with `script-src 'self' 'unsafe-inline'`, which materially weakens XSS mitigation even though other headers are present.
+- `public/data/responses.json` and `public/data/responses.csv` expose full row-level microdata, and `/api/v1/responses` plus `/download/responses-csv` make the same data easy to automate against.
+- The published data is labeled de-identified, but the combination of role, region, work context, tools, blockers, and outlook still creates a meaningful re-identification/compliance risk for niche respondents.
+- `robots.ts` explicitly allows `/api/`, which increases crawler discovery and scraping pressure on the public API surface.
+- `npm audit --json` and `npm audit --omit=dev --json` both reported zero known dependency vulnerabilities at the current lockfile state.
 

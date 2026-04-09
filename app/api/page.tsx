@@ -7,8 +7,6 @@ import { Disclosure } from '@/components/ui/disclosure'
 export const metadata = { title: 'API' }
 
 const endpoints = [
-  { method: 'GET', path: '/api/v1/responses', desc: 'All 1,478 responses (paginated)' },
-  { method: 'GET', path: '/api/v1/download/responses-csv', desc: 'Full response CSV' },
   { method: 'GET', path: '/api/v1/stats/tools', desc: 'Top 10 weekly tools' },
   { method: 'GET', path: '/api/v1/stats/vibe-by-role', desc: 'Vibe coding by role' },
   { method: 'GET', path: '/api/v1/stats/satisfaction', desc: 'Satisfaction by tier' },
@@ -26,7 +24,10 @@ export default function ApiDocsPage() {
       <header style={{ marginBottom: 48 }}>
         <h1 className="page-title">API</h1>
         <p className="lead-text" style={{ marginBottom: 24 }}>
-          No auth. Same JSON as the charts. CC BY 4.0.
+          Public summary API. Same JSON as the charts. CC BY 4.0.
+        </p>
+        <p style={{ fontSize: 14, lineHeight: '22px', color: 'var(--text-muted)', marginBottom: 24 }}>
+          Row-level microdata is no longer distributed over the public API. Non-first-party agent integrations can be protected with an API key at deployment time.
         </p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <Button asChild variant="outline" size="sm"><a href="/api/openapi.yaml">OpenAPI spec</a></Button>
@@ -89,7 +90,6 @@ print(pd.DataFrame(data["vibe_by_role"]["data"]).sort_values("pct", ascending=Fa
         <Disclosure title="Example response">
           <CodeBlock code={`{
   "question": "Q7 × Q2 cross-tab — Vibe coding 50%+ by role",
-  "n_total": 1478,
   "data": [
     { "role": "Design Engineer", "n": 94, "pct": 80.9 },
     { "role": "Lead / Principal", "n": 280, "pct": 56.8 },

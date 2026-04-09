@@ -1,72 +1,95 @@
+import { noStoreHeaders } from '@/lib/api/headers'
 import { routeAgentQuestion } from '@/lib/agent/router'
+import {
+  AGENT_MAX_BODY_SIZE,
+  agentRateLimiter,
+  getAgentClientKey,
+  hasValidAgentApiKey,
+  isAgentApiKeyConfigured,
+  isAllowedBrowserOrigin,
+  isTrustedFirstPartyRequest,
+  logAgentSecurityEvent,
+  readJsonBodyWithLimit,
+  RequestSecurityError,
+  requireJsonRequest,
+  validateQuestion,
+} from '@/lib/security/agentQuery'
 
-const MAX_BODY_SIZE = 4096
-const MAX_QUESTION_LENGTH = 500
-const RATE_LIMIT_WINDOW_MS = 60_000
-const RATE_LIMIT_MAX_REQUESTS = 30
-const requestLog = new Map<string, number[]>()
-
-function getClientKey(request: Request) {
-  const forwardedFor = request.headers.get('x-forwarded-for')
-  const realIp = request.headers.get('x-real-ip')
-  return forwardedFor?.split(',')[0]?.trim() || realIp || 'anonymous'
-}
-
-function isRateLimited(clientKey: string) {
-  const now = Date.now()
-  const recent = (requestLog.get(clientKey) ?? []).filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS)
-
-  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
-    requestLog.set(clientKey, recent)
-    return true
-  }
-
-  recent.push(now)
-  requestLog.set(clientKey, recent)
-  return false
+function errorResponse(status: number, error: string, headers: HeadersInit = {}) {
+  return Response.json(
+    { error },
+    {
+      status,
+      headers: {
+        ...noStoreHeaders,
+        ...headers,
+      },
+    },
+  )
 }
 
 export async function POST(request: Request) {
-  const contentLength = Number(request.headers.get('content-length') ?? 0)
-  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_SIZE) {
-    return Response.json({ error: 'Request body is too large.' }, { status: 413 })
+  const clientKey = getAgentClientKey(request)
+
+  if (!isAllowedBrowserOrigin(request)) {
+    logAgentSecurityEvent('cross-origin-browser-request-rejected', {
+      clientKey: clientKey.slice(0, 12),
+      origin: request.headers.get('origin'),
+    })
+
+    return errorResponse(403, 'Cross-origin browser requests are not allowed.')
   }
 
-  const contentType = request.headers.get('content-type') ?? ''
-  if (!contentType.toLowerCase().includes('application/json')) {
-    return Response.json({ error: 'Content-Type must be application/json.' }, { status: 415 })
-  }
+  if (isAgentApiKeyConfigured() && !isTrustedFirstPartyRequest(request) && !hasValidAgentApiKey(request)) {
+    logAgentSecurityEvent('integration-api-key-missing-or-invalid', {
+      clientKey: clientKey.slice(0, 12),
+      origin: request.headers.get('origin'),
+      referer: request.headers.get('referer'),
+    })
 
-  const clientKey = getClientKey(request)
-  if (isRateLimited(clientKey)) {
-    return Response.json({ error: 'Rate limit exceeded. Please try again shortly.' }, { status: 429 })
+    return errorResponse(401, 'A valid API key is required for non-first-party agent requests.')
   }
-
-  let body: { question?: string }
 
   try {
-    const rawBody = await request.text()
-    if (rawBody.length > MAX_BODY_SIZE) {
-      return Response.json({ error: 'Request body is too large.' }, { status: 413 })
+    requireJsonRequest(request)
+
+    const rateLimit = agentRateLimiter.check(clientKey)
+    if (!rateLimit.allowed) {
+      logAgentSecurityEvent('rate-limit-exceeded', {
+        clientKey: clientKey.slice(0, 12),
+        retryAfterSeconds: rateLimit.retryAfterSeconds,
+      })
+
+      return errorResponse(429, 'Rate limit exceeded. Please try again shortly.', {
+        'Retry-After': String(rateLimit.retryAfterSeconds ?? 60),
+      })
     }
 
-    body = JSON.parse(rawBody) as { question?: string }
-  } catch {
-    return Response.json({ error: 'Invalid JSON body.' }, { status: 400 })
-  }
+    const body = await readJsonBodyWithLimit<{ question?: string }>(request, AGENT_MAX_BODY_SIZE)
+    const question = validateQuestion(body.question)
 
-  const question = body.question?.trim()
-
-  if (!question) {
-    return Response.json({ error: 'A non-empty `question` field is required.' }, { status: 400 })
-  }
-
-  if (question.length > MAX_QUESTION_LENGTH) {
     return Response.json(
-      { error: `Question must be ${MAX_QUESTION_LENGTH} characters or fewer.` },
-      { status: 400 },
+      await routeAgentQuestion(question),
+      {
+        headers: noStoreHeaders,
+      },
     )
-  }
+  } catch (error) {
+    if (error instanceof RequestSecurityError) {
+      logAgentSecurityEvent('request-rejected', {
+        clientKey: clientKey.slice(0, 12),
+        status: error.status,
+        reason: error.message,
+      })
 
-  return Response.json(await routeAgentQuestion(question))
+      return errorResponse(error.status, error.message, error.headers)
+    }
+
+    logAgentSecurityEvent('unexpected-route-error', {
+      clientKey: clientKey.slice(0, 12),
+      reason: error instanceof Error ? error.message : 'unknown',
+    })
+
+    return errorResponse(500, 'Unable to process the agent query right now.')
+  }
 }

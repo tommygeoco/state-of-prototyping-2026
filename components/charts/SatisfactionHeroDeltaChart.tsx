@@ -1,3 +1,8 @@
+'use client'
+
+import { useCountUp } from '@/lib/hooks/useCountUp'
+import { useInView } from '@/lib/hooks/useInView'
+
 interface SatisfactionHeroDeltaChartProps {
   overallMean: number
   delta: number
@@ -11,8 +16,13 @@ export function SatisfactionHeroDeltaChart({
   fromTier,
   toTier,
 }: SatisfactionHeroDeltaChartProps) {
+  const { ref, inView } = useInView()
+  const animatedMean = useCountUp(overallMean, inView, { duration: 900, decimals: 1 })
+  const animatedDelta = useCountUp(delta, inView, { duration: 1100, decimals: 2 })
+
   return (
     <div
+      ref={ref}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -48,7 +58,7 @@ export function SatisfactionHeroDeltaChart({
           marginBottom: 10,
         }}
       >
-        {overallMean.toFixed(1)}/10
+        {animatedMean}/10
       </div>
 
       <div
@@ -82,7 +92,7 @@ export function SatisfactionHeroDeltaChart({
             color: 'var(--bar-1)',
           }}
         >
-          ▲ +{delta.toFixed(2)}
+          ▲ +{animatedDelta}
         </span>
         <span style={{ fontSize: 14, color: 'var(--text-body)' }}>
           heavy vibers vs. non-vibers

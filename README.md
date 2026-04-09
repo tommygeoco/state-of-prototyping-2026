@@ -2,17 +2,16 @@
 
 Open dataset from the State of Prototyping survey. 1,478 designers across 18 regions. Published by [UX Tools](https://uxtools.co).
 
-This project has three jobs: publish the canonical report, expose the underlying data and API, and package the strongest findings as shareable chart bites.
+This project has three jobs: publish the canonical report, expose the published summary data and API, and package the strongest findings as shareable chart bites.
 
 **[Read the report →](https://survey.uxtools.co/explore)**
 
 ## What's here
 
-- **Full microdata** — 1,478 individual responses, de-identified (emails/timestamps removed, rows shuffled)
 - **Report** — 12-section editorial article with live charts at `/explore`
 - **Summary tables** — pre-aggregated percentages and cross-tabs
 - **Shareable bites** — chart anchors and PNG exports for the findings that travel
-- **REST API** — query endpoints at `/api/v1/*`, no auth required
+- **REST API** — public summary endpoints at `/api/v1/*`
 - **Agent tools** — natural language query endpoint, LLM context file, tool definitions
 
 ## Key findings
@@ -34,7 +33,7 @@ curl -X POST https://survey.uxtools.co/api/v1/agent/query \
   -H "Content-Type: application/json" \
   -d '{"question":"Which role vibes the most?"}'
 
-# Download everything
+# Download the published summary tables
 curl -O https://survey.uxtools.co/api/v1/download/csv
 ```
 
@@ -57,12 +56,10 @@ Requires Node 18+. No database — all data lives in `public/data/*.json`.
 
 ## Data files
 
-All in `public/data/`. The primary dataset is `responses.csv` / `responses.json` with all 1,478 individual responses. Summary tables are pre-aggregated for chart rendering.
+All in `public/data/`. The public download surface is the summary-table set used to render the report charts.
 
 | File | Contents |
 |---|---|
-| `responses.csv` | **All 1,478 individual responses** (13 columns, de-identified) |
-| `responses.json` | Same as above, JSON array |
 | `tools.json` | Top 10 weekly tools (Q4) |
 | `vibe-distribution.json` | Vibe coding tier breakdown (Q7) |
 | `vibe-by-role.json` | 50%+ vibe coding by role (Q7×Q2) |
@@ -85,8 +82,6 @@ All in `public/data/`. The primary dataset is `responses.csv` / `responses.json`
 
 | Method | Path | Description |
 |---|---|---|
-| GET | `/api/v1/responses` | **All 1,478 responses** (paginated, `?limit=100&offset=0`) |
-| GET | `/api/v1/download/responses-csv` | Full response CSV download |
 | GET | `/api/v1/stats/tools` | Top 10 weekly tools |
 | GET | `/api/v1/stats/vibe-by-role` | Vibe coding by role |
 | GET | `/api/v1/stats/satisfaction` | Satisfaction by tier |
@@ -95,7 +90,7 @@ All in `public/data/`. The primary dataset is `responses.csv` / `responses.json`
 | GET | `/api/v1/meta` | Survey metadata |
 | GET | `/api/v1/download/json` | Full dataset |
 | GET | `/api/v1/download/csv` | CSV export |
-| POST | `/api/v1/agent/query` | Natural language query |
+| POST | `/api/v1/agent/query` | Natural language query over the published summary tables |
 | GET | `/api/openapi.yaml` | OpenAPI spec |
 
 ## Agent context
@@ -106,11 +101,12 @@ For LLM system prompts: [`/agent/SURVEY_CONTEXT.md`](public/agent/SURVEY_CONTEXT
 from langchain.tools import StructuredTool
 
 def query_survey(question: str) -> dict:
-    """Query the State of Prototyping 2026 survey. n=1,478."""
+    """Query the State of Prototyping 2026 summary API."""
     import requests
     return requests.post(
         "https://survey.uxtools.co/api/v1/agent/query",
-        json={"question": question}
+        json={"question": question},
+        headers={"Authorization": "Bearer YOUR_API_KEY"}
     ).json()
 
 survey_tool = StructuredTool.from_function(query_survey)

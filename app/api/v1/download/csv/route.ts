@@ -4,6 +4,14 @@ import path from 'node:path'
 import { cacheHeaders } from '@/lib/api/headers'
 
 export async function GET() {
+  console.info(
+    '[telemetry]',
+    JSON.stringify({
+      event: 'summary-csv-download',
+      at: new Date().toISOString(),
+    }),
+  )
+
   const csv = await readFile(path.join(process.cwd(), 'public', 'data', 'full-summary.csv'), 'utf8')
 
   return new Response(csv, {

@@ -6,19 +6,12 @@ import { Disclosure } from '@/components/ui/disclosure'
 export const metadata = { title: 'Download' }
 
 const columns = [
-  { field: 'work_context', desc: 'Company size / work setting' },
-  { field: 'role_seat', desc: 'Role (IC designer, lead, engineer, etc.)' },
-  { field: 'region', desc: 'World region' },
-  { field: 'design_tools', desc: 'Tools used weekly (multi-select)' },
-  { field: 'code_in_workflow', desc: 'How code fits in workflow (multi-select)' },
-  { field: 'anticipated_investment', desc: 'Investment areas next 12mo (multi-select)' },
-  { field: 'vibe_coding_ratio', desc: 'AI-generated code ratio (5 tiers)' },
-  { field: 'built_own_tool', desc: 'Built own tool with AI (4 options)' },
-  { field: 'ai_trust', desc: 'How far they trust AI output (6 levels)' },
-  { field: 'blockers', desc: 'Top workflow blockers (multi-select)' },
-  { field: 'workflow_shift', desc: 'How workflow changed in 6 months' },
-  { field: 'role_outlook', desc: 'How AI will affect their role' },
-  { field: 'workflow_satisfaction', desc: 'Workflow satisfaction (1-10 scale)' },
+  { field: 'headline', desc: 'Key topline metrics used across the landing page and share cards' },
+  { field: 'tools', desc: 'Top 10 weekly tools with counts and percentages' },
+  { field: 'vibe-by-role', desc: 'Published role cross-tab for 50%+ vibe coding' },
+  { field: 'satisfaction', desc: 'Workflow satisfaction by vibe coding tier' },
+  { field: 'outlook', desc: 'Role outlook and job security summary by role' },
+  { field: 'full-summary', desc: 'Merged summary export used for downstream analysis and downloads' },
 ]
 
 export default function DownloadPage() {
@@ -27,21 +20,21 @@ export default function DownloadPage() {
       <header style={{ marginBottom: 48 }}>
         <h1 className="page-title">Get the data</h1>
         <p className="lead-text" style={{ marginBottom: 16 }}>
-          1,478 individual responses. 13 columns. CC BY 4.0.
+          Summary tables and chart-ready exports. CC BY 4.0.
         </p>
         <p style={{ fontSize: 14, lineHeight: '22px', color: 'var(--text-muted)', marginBottom: 24 }}>
-          Emails and timestamps stripped. Row order shuffled. This is the real microdata, not just summaries.
+          Public downloads now focus on aggregated tables and published cross-tabs rather than row-level microdata.
         </p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          <Button asChild><Link href="/api/v1/download/responses-csv">Download CSV (1,478 rows)</Link></Button>
-          <Button asChild variant="outline"><a href="/data/responses.json" download>Download JSON</a></Button>
+          <Button asChild><Link href="/api/v1/download/csv">Download summary CSV</Link></Button>
+          <Button asChild variant="outline"><Link href="/api/v1/download/json">Download summary JSON</Link></Button>
         </div>
       </header>
 
       <hr className="section-divider" />
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 48 }}>
-        <Disclosure title="Columns (13 fields)" defaultOpen>
+        <Disclosure title="Included tables" defaultOpen>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {columns.map((col) => (
               <div
@@ -65,7 +58,7 @@ export default function DownloadPage() {
 
         <Disclosure title="Summary tables (pre-aggregated)">
           <p style={{ fontSize: 14, lineHeight: '22px', color: 'var(--text-body)', marginBottom: 14 }}>
-            Pre-computed percentages and cross-tabs used by the report charts. Available alongside the full response data.
+            Pre-computed percentages and cross-tabs used by the report charts. These are the supported public exports.
           </p>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <Button asChild variant="outline" size="sm"><Link href="/api/v1/download/csv">Summary CSV</Link></Button>
@@ -73,11 +66,10 @@ export default function DownloadPage() {
           </div>
         </Disclosure>
 
-        <Disclosure title="De-identification">
+        <Disclosure title="Published surface">
           <p style={{ fontSize: 14, lineHeight: '22px', color: 'var(--text-body)' }}>
-            Email addresses (1,038 of 1,478 respondents provided one) and all timestamps have been removed.
-            Row order is randomized so submission sequence cannot be used to re-identify.
-            Multi-select fields use comma-separated values. The Researcher role (n=23) is directional only.
+            Public downloads include the summary tables used by the report, not the underlying row-level response export.
+            This keeps the published dataset aligned with the charts while reducing re-identification risk for small respondent cohorts.
           </p>
         </Disclosure>
 
@@ -90,7 +82,7 @@ export default function DownloadPage() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {[
-          { href: '/api', label: 'REST API', desc: 'Query responses and summaries, paginated' },
+          { href: '/api', label: 'REST API', desc: 'Query summary tables and published crosstabs' },
           { href: '/agent', label: 'Agent tools', desc: 'LLM integrations, natural language queries' },
           { href: '/explore', label: 'Full report', desc: '12 sections, all charts' },
         ].map((item) => (

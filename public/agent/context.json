@@ -3,8 +3,6 @@
   "base_url": "https://survey.uxtools.co/api/v1",
   "publisher": "UX Tools",
   "license": "CC BY 4.0",
-  "full_dataset_url": "https://survey.uxtools.co/api/v1/responses",
-  "full_csv_url": "https://survey.uxtools.co/api/v1/download/responses-csv",
   "total_responses": 1478,
   "columns": [
     "work_context", "role_seat", "region", "design_tools", "code_in_workflow",
@@ -13,10 +11,11 @@
   ],
   "de_identification": "Emails removed, timestamps removed, row order shuffled",
   "key_facts": [
-    "n = 1,478 total responses (full individual microdata available)",
+    "n = 1,478 total responses summarized in the published tables",
     "18 world regions with no country-level data",
     "6 role categories",
-    "6 work context categories"
+    "6 work context categories",
+    "Public exports focus on published summary tables and crosstabs"
   ],
   "headlines": [
     "43.8% of designers spend 50%+ of their building time on AI-generated code (vibe coding)",
@@ -27,15 +26,13 @@
     "Top weekly tools: Figma (82.6%), Claude (50.8%), ChatGPT (48.2%)"
   ],
   "data_caveats": [
-    "Full individual microdata is published (de-identified)",
+    "Public APIs expose published summary tables rather than row-level microdata",
     "Researcher (n=23) should be treated as directional only",
     "One malformed role value in the raw CSV is excluded from role-based aggregate tables",
     "Multi-select questions sum to more than 100%",
     "Cross-tab percentages are calculated within each role's n"
   ],
   "endpoints": [
-    "GET /responses — full individual responses (paginated)",
-    "GET /download/responses-csv — all 1,478 responses as CSV",
     "GET /meta",
     "GET /stats/headline",
     "GET /stats/vibe-by-role",
@@ -43,6 +40,7 @@
     "GET /stats/outlook",
     "GET /stats/tools",
     "GET /download/json — summary tables",
-    "POST /agent/query — natural language"
+    "GET /download/csv — summary tables as CSV",
+    "POST /agent/query — natural language (API key may be required for non-first-party access)"
   ]
 }

@@ -1,33 +1,16 @@
-import dynamic from 'next/dynamic'
-
 import { AccentHighlightBarChart } from '@/components/charts/AccentHighlightBarChart'
+import { AdoptionBySegmentChart } from '@/components/charts/AdoptionBySegmentChart'
+import { ComparativeSideBySideChart } from '@/components/charts/ComparativeSideBySideChart'
+import { DualAxisChart } from '@/components/charts/DualAxisChart'
+import { GroupedComparisonChart } from '@/components/charts/GroupedComparisonChart'
+import { HeroStatChart } from '@/components/charts/HeroStatChart'
+import { SatisfactionHeroDeltaChart } from '@/components/charts/SatisfactionHeroDeltaChart'
+import { SegmentedDistributionChart } from '@/components/charts/SegmentedDistributionChart'
 import { SimpleBarChart } from '@/components/charts/SimpleBarChart'
 import { SocialCardContainer } from '@/components/charts/SocialCardContainer'
-import { sponsorLogos, sponsorLogoScale } from '@/components/logos/SponsorLogos'
+import { sponsorLogos, sponsorLogoScale, sponsorStripLogoScale } from '@/components/logos/SponsorLogos'
 import { loadBlockers, loadBuiltTool, loadCompanyContext, loadHeadline, loadInvestingNext, loadOutlook, loadRegionDistribution, loadSatisfaction, loadTools, loadTrustLevel, loadVibeByRole, loadVibeDistribution, loadWorkflowChange, loadWorkflowChangeByCompany } from '@/lib/data/loaders'
 import { sponsors } from '@/lib/site'
-
-const AdoptionBySegmentChart = dynamic(() =>
-  import('@/components/charts/AdoptionBySegmentChart').then((m) => m.AdoptionBySegmentChart),
-)
-const ComparativeSideBySideChart = dynamic(() =>
-  import('@/components/charts/ComparativeSideBySideChart').then((m) => m.ComparativeSideBySideChart),
-)
-const DualAxisChart = dynamic(() =>
-  import('@/components/charts/DualAxisChart').then((m) => m.DualAxisChart),
-)
-const GroupedComparisonChart = dynamic(() =>
-  import('@/components/charts/GroupedComparisonChart').then((m) => m.GroupedComparisonChart),
-)
-const HeroStatChart = dynamic(() =>
-  import('@/components/charts/HeroStatChart').then((m) => m.HeroStatChart),
-)
-const SatisfactionHeroDeltaChart = dynamic(() =>
-  import('@/components/charts/SatisfactionHeroDeltaChart').then((m) => m.SatisfactionHeroDeltaChart),
-)
-const SegmentedDistributionChart = dynamic(() =>
-  import('@/components/charts/SegmentedDistributionChart').then((m) => m.SegmentedDistributionChart),
-)
 
 export const metadata = {
   title: 'State of Prototyping: Spring 2026',
@@ -87,10 +70,12 @@ export default async function ExplorePage() {
   const regionChartItems = regionDistribution.data.slice(0, 6).map((item) => ({
     label: item.region,
     pct: item.pct,
+    n: item.n,
   }))
   const workflowByCompanyItems = workflowChangeByCompany.data.map((item) => ({
     label: item.context,
     pct: item.pct,
+    n: item.n,
   }))
 
   const mostOrNearlyAllPct = ((mostVibe?.pct ?? 0) + (nearlyAllVibe?.pct ?? 0)).toFixed(1)
@@ -147,6 +132,21 @@ export default async function ExplorePage() {
           use every week. How much they&apos;re vibe coding. Whether they trust AI to ship. And
           what they&apos;re investing in next.
         </p>
+        <p className="lead-text" style={{ marginTop: 12 }}>
+          This is an open data project. The full de-identified dataset is available
+          under CC BY 4.0. You can{' '}
+          <a href="/download" className="content-link" style={{ fontWeight: 500 }}>
+            download the raw data
+          </a>
+          , query it through the{' '}
+          <a href="/api" className="content-link" style={{ fontWeight: 500 }}>
+            open API
+          </a>
+          , or connect it to your AI tools via the{' '}
+          <a href="/agent" className="content-link" style={{ fontWeight: 500 }}>
+            MCP server
+          </a>.
+        </p>
       </header>
 
       {/* ── Sponsors ── */}
@@ -155,13 +155,13 @@ export default async function ExplorePage() {
           <p className="sponsor-strip-eyebrow">Spring 2026 Sponsors</p>
           <p className="sponsor-strip-intro">
             This survey was independently run by{' '}
-            <a href="https://linkedin.com/in/tommygeoco" target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--border-card)' }}>
+            <a href="https://linkedin.com/in/tommygeoco" target="_blank" rel="noreferrer" className="content-link" style={{ fontWeight: 500 }}>
               Tommy Geoco
             </a>
             {' '}and{' '}
-            <a href="https://uxtools.co" target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)', fontWeight: 500, textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--border-card)' }}>
+            <a href="https://uxtools.co" target="_blank" rel="noreferrer" className="content-link" style={{ fontWeight: 500 }}>
               UX Tools
-            </a>. Production and distribution was supported by these sponsors.
+            </a>. This report exists as a free, open dataset because these sponsors believed in making design research accessible to everyone.
           </p>
         </div>
         <div className="sponsor-grid">
@@ -177,7 +177,7 @@ export default async function ExplorePage() {
               >
                 <div className="sponsor-card-logo">
                   {Logo ? (
-                    <Logo style={{ height: 16 * (sponsorLogoScale[sponsor.name] ?? 1), width: 'auto' }} />
+                    <Logo style={{ height: 19 * (sponsorStripLogoScale[sponsor.name] ?? sponsorLogoScale[sponsor.name] ?? 1), width: 'auto' }} />
                   ) : (
                     <span style={{ fontFamily: 'var(--font-data)', fontSize: 13, fontWeight: 700 }}>
                       {sponsor.name}
@@ -192,7 +192,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 1. Who took this survey ── */}
-      <hr className="section-divider" />
       <section id="who-took-this-survey" style={{ marginBottom: 48 }}>
         <h2 className="section-title">1. Who took this survey</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -219,13 +218,13 @@ export default async function ExplorePage() {
             title="Where Designers Work"
             subtitle="Company size and work setting · 1,478 respondents, Spring 2026"
             items={companyContext.data}
+            totalN={companyContext.n}
             bare
           />
         </SocialCardContainer>
       </section>
 
       {/* ── 2. The stack right now ── */}
-      <hr className="section-divider" />
       <section id="the-stack-right-now" style={{ marginBottom: 48 }}>
         <h2 className="section-title">2. The stack right now</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -255,7 +254,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 3. The vibe coding split ── */}
-      <hr className="section-divider" />
       <section id="the-vibe-coding-split" style={{ marginBottom: 48 }}>
         <h2 className="section-title">3. The vibe coding split</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -294,7 +292,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 4. Vibe coding by role ── */}
-      <hr className="section-divider" />
       <section id="vibe-coding-by-role" style={{ marginBottom: 48 }}>
         <h2 className="section-title">4. Vibe coding by role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -319,15 +316,16 @@ export default async function ExplorePage() {
             subtitle="% spending 50%+ time on AI-generated code"
             leftLabel="IC Designer"
             leftValue={icDesigner?.pct ?? 35.0}
+            leftN={icDesigner?.n}
             rightLabel="Design Engineer"
             rightValue={designEngineer?.pct ?? 80.9}
+            rightN={designEngineer?.n}
             bare
           />
         </SocialCardContainer>
       </section>
 
       {/* ── 5. Who's building their own tools ── */}
-      <hr className="section-divider" />
       <section id="who-is-building-their-own-tools" style={{ marginBottom: 48 }}>
         <h2 className="section-title">5. Who&apos;s building their own tools</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -343,6 +341,7 @@ export default async function ExplorePage() {
             title={`${builtSomething?.value.toFixed(1)}% of Designers Have Built Their Own AI Tool`}
             subtitle="Have you built your own tool, app, or utility with AI? · last 6 months"
             items={builtTool.data}
+            totalN={builtTool.n}
             bare
           />
         </SocialCardContainer>
@@ -353,7 +352,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 6. The trust line ── */}
-      <hr className="section-divider" />
       <section id="the-trust-line" style={{ marginBottom: 48 }}>
         <h2 className="section-title">6. The trust line</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -368,13 +366,13 @@ export default async function ExplorePage() {
             title={`${productionWithReviewPct}% Trust AI for Production With Review`}
             subtitle="How far do you trust AI-generated output in your workflow?"
             items={trustLevel.data}
+            totalN={trustLevel.n}
             bare
           />
         </SocialCardContainer>
       </section>
 
       {/* ── 7. What's blocking everyone ── */}
-      <hr className="section-divider" />
       <section id="what-is-blocking-everyone" style={{ marginBottom: 48 }}>
         <h2 className="section-title">7. What&apos;s blocking everyone</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -386,13 +384,13 @@ export default async function ExplorePage() {
             title={`The Top 3 Blockers Are Within ${blockerSpread} Points of Each Other`}
             subtitle="What's slowing down your workflow the most?"
             items={blockers.data}
+            totalN={blockers.n}
             bare
           />
         </SocialCardContainer>
       </section>
 
       {/* ── 8. How workflows changed in 6 months ── */}
-      <hr className="section-divider" />
       <section id="how-workflows-changed" style={{ marginBottom: 48 }}>
         <h2 className="section-title">8. How workflows changed in 6 months</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -408,6 +406,7 @@ export default async function ExplorePage() {
             title={`${addedOrCentralPct}% Have Added AI or Gone AI-Central in 6 Months`}
             subtitle="How has your design workflow changed since late 2025?"
             items={workflowChange.data}
+            totalN={workflowChange.n}
             bare
           />
         </SocialCardContainer>
@@ -422,7 +421,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 9. How designers feel about their role ── */}
-      <hr className="section-divider" />
       <section id="how-designers-feel-about-their-role" style={{ marginBottom: 48 }}>
         <h2 className="section-title">9. How designers feel about their role</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -449,7 +447,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 10. Where designers are investing next ── */}
-      <hr className="section-divider" />
       <section id="where-designers-are-investing-next" style={{ marginBottom: 48 }}>
         <h2 className="section-title">10. Where designers are investing next</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -466,13 +463,13 @@ export default async function ExplorePage() {
             title="2 of the Top 3 Investment Areas Are AI"
             subtitle="Where are you investing your time in the next 12 months? (pick 3)"
             items={investingNext.data}
+            totalN={investingNext.n}
             bare
           />
         </SocialCardContainer>
       </section>
 
       {/* ── 11. The satisfaction gap ── */}
-      <hr className="section-divider" />
       <section id="the-satisfaction-gap" style={{ marginBottom: 48 }}>
         <h2 className="section-title">11. The satisfaction gap</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>
@@ -484,6 +481,7 @@ export default async function ExplorePage() {
             title="Heavier Vibe Coders Are More Satisfied"
             subtitle="Mean workflow satisfaction (1–10) by vibe coding level"
             satisfaction={satisfaction}
+            tierCounts={Object.fromEntries(vibeDistribution.data.map((d) => [d.tier, d.n]))}
             bare
           />
         </SocialCardContainer>
@@ -502,7 +500,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── 12. The story in summary ── */}
-      <hr className="section-divider" />
       <section id="the-story-in-summary" style={{ marginBottom: 48 }}>
         <h2 className="section-title">12. The story in summary</h2>
         <p className="body-text" style={{ marginBottom: 24 }}>
@@ -521,7 +518,6 @@ export default async function ExplorePage() {
       </section>
 
       {/* ── Methodology note ── */}
-      <hr className="section-divider" />
       <section id="methodology" style={{ marginBottom: 48 }}>
         <h2 className="section-title">Methodology</h2>
         <p className="body-text" style={{ marginBottom: 16 }}>

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import { ChartActions } from '@/components/charts/ChartActions'
 import { sponsorLogos, sponsorLogoScale, UxToolsLogo } from '@/components/logos/SponsorLogos'
+import { getSponsorByName } from '@/lib/site'
 
 interface SocialCardContainerProps {
   children: ReactNode
@@ -12,6 +13,12 @@ interface SocialCardContainerProps {
 
 export function SocialCardContainer({ children, sponsor = 'MagicPath', centered = false, anchorId }: SocialCardContainerProps) {
   const SponsorLogo = sponsorLogos[sponsor]
+  const sponsorMeta = getSponsorByName(sponsor)
+  const sponsorMark = SponsorLogo ? (
+    <SponsorLogo style={{ height: 16 * (sponsorLogoScale[sponsor] ?? 1), width: 'auto', color: 'var(--text-primary)' }} />
+  ) : (
+    <span className="social-card-footer-sponsor">{sponsorMeta?.name ?? sponsor}</span>
+  )
 
   return (
     <div
@@ -33,13 +40,21 @@ export function SocialCardContainer({ children, sponsor = 'MagicPath', centered 
       <div className="social-card-footer">
         <div className="social-card-footer-left">
           <span className="social-card-footer-label">Presented by</span>
-          {SponsorLogo ? (
-            <SponsorLogo style={{ height: 16 * (sponsorLogoScale[sponsor] ?? 1), width: 'auto', flexShrink: 0, color: 'var(--text-primary)' }} />
+          {sponsorMeta?.url ? (
+            <a
+              href={sponsorMeta.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Visit ${sponsorMeta.name}`}
+              style={{ display: 'inline-flex', alignItems: 'center', color: 'var(--text-primary)', textDecoration: 'none' }}
+            >
+              {sponsorMark}
+            </a>
           ) : (
-            <span className="social-card-footer-sponsor">{sponsor}</span>
+            sponsorMark
           )}
         </div>
-        <UxToolsLogo style={{ height: 16, width: 'auto', flexShrink: 0, color: 'var(--text-primary)' }} />
+        <UxToolsLogo className="social-card-footer-brand-logo" style={{ height: 16, width: 'auto', color: 'var(--text-primary)' }} />
       </div>
     </div>
   )

@@ -5,7 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/api/'],
+        allow: ['/'],
+        disallow: ['/api/', '/data/'],
       },
     ],
     host: 'https://survey.uxtools.co',
