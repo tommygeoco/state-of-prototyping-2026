@@ -8,7 +8,7 @@ Publisher: UX Tools. License: CC BY 4.0.
 - 18 world regions (no country-level data)
 - 6 role categories
 - 6 work context categories (startup, enterprise, freelance, etc.)
-- Public exports focus on published summary tables and crosstabs
+- MCP tools focus on published summary tables and crosstabs, while REST downloads also expose de-identified row-level responses
 
 ## Response Columns
 work_context, role_seat, region, design_tools, code_in_workflow, anticipated_investment, vibe_coding_ratio, built_own_tool, ai_trust, blockers, workflow_shift, role_outlook, workflow_satisfaction
@@ -36,6 +36,9 @@ work_context, role_seat, region, design_tools, code_in_workflow, anticipated_inv
 Base URL: https://survey.uxtools.co/api/v1
 
 GET /meta                    → survey metadata
+GET /questions               → survey question dictionary
+GET /question/{id}           → published result for one question
+GET /question/{id}/crosstab?by=role → published cross-tab result
 GET /stats/headline          → key headline numbers
 GET /stats/vibe-by-role      → vibe coding by role (primary cross-tab)
 GET /stats/satisfaction       → satisfaction by vibe tier
@@ -43,4 +46,7 @@ GET /stats/outlook           → job security / role outlook
 GET /stats/tools             → top weekly tools
 GET /download/json           → published summary tables as JSON
 GET /download/csv            → published summary tables as CSV
+GET /responses              → de-identified respondent rows as JSON
+GET /download/responses-json → de-identified respondent rows as JSON download
+GET /download/responses-csv  → de-identified respondent rows as CSV download
 POST /agent/query            → natural language query (API key may be required for non-first-party access)

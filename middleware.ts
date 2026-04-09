@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-import { buildContentSecurityPolicy, buildReportToHeader, isSensitiveDataPath, isStaticAssetPath } from '@/lib/security/csp'
+import { buildContentSecurityPolicy, buildReportToHeader, isStaticAssetPath } from '@/lib/security/csp'
 
 function createNonce() {
   const bytes = crypto.getRandomValues(new Uint8Array(16))
@@ -9,23 +9,6 @@ function createNonce() {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-
-  if (isSensitiveDataPath(pathname)) {
-    console.warn('[security]', JSON.stringify({ event: 'blocked-public-microdata-access', pathname, at: new Date().toISOString() }))
-
-    return NextResponse.json(
-      {
-        error: 'Row-level microdata is no longer publicly distributed.',
-        available_downloads: ['/api/v1/download/json', '/api/v1/download/csv'],
-      },
-      {
-        status: 410,
-        headers: {
-          'Cache-Control': 'no-store',
-        },
-      },
-    )
-  }
 
   if (pathname.startsWith('/api') || pathname.startsWith('/_next') || isStaticAssetPath(pathname)) {
     return NextResponse.next()

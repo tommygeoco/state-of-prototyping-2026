@@ -221,7 +221,7 @@
       "responses.csv",
       "public/data/*.json"
     ],
-    "status": "verified",
+    "status": "needs_manual_review",
     "actual_pattern": "/59\\.0% have built a custom tool with AI-generated code/",
     "expected_text": "59.1% have built a custom tool with AI-generated code"
   },
@@ -232,7 +232,7 @@
       "responses.csv",
       "public/data/*.json"
     ],
-    "status": "verified",
+    "status": "needs_manual_review",
     "actual_pattern": "/59\\.0% have built a custom tool with AI-generated code/",
     "expected_text": "59.1% have built a custom tool with AI-generated code"
   },

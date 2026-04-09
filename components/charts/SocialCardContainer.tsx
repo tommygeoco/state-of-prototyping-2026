@@ -11,9 +11,24 @@ interface SocialCardContainerProps {
   anchorId?: string
 }
 
+function formatChartLabel(anchorId?: string) {
+  if (!anchorId) {
+    return 'Survey chart'
+  }
+
+  const label = anchorId
+    .split('-')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ')
+
+  return `${label} chart`
+}
+
 export function SocialCardContainer({ children, sponsor = 'MagicPath', centered = false, anchorId }: SocialCardContainerProps) {
   const SponsorLogo = sponsorLogos[sponsor]
   const sponsorMeta = getSponsorByName(sponsor)
+  const chartLabel = formatChartLabel(anchorId)
   const sponsorMark = SponsorLogo ? (
     <SponsorLogo style={{ height: 16 * (sponsorLogoScale[sponsor] ?? 1), width: 'auto', color: 'var(--text-primary)' }} />
   ) : (
@@ -28,7 +43,7 @@ export function SocialCardContainer({ children, sponsor = 'MagicPath', centered 
     >
       {anchorId ? <ChartActions anchorId={anchorId} /> : null}
 
-      <figure className="social-card-body" role="figure" aria-label="Chart">
+      <figure className="social-card-body" role="figure" aria-label={chartLabel}>
         <div
           className="social-card-content"
           style={centered ? { justifyContent: 'center' } : undefined}

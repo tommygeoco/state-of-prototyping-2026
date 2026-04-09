@@ -39,13 +39,14 @@ paths:
           description: Unknown or unpublished question
   /question/{id}/crosstab:
     get:
-      summary: Published cross-tab for one question
+      summary: Published cross-tab for one question or supported derived slice
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
+          description: Question ID such as Q7, or the special derived slice "workflow_shift"
         - in: query
           name: by
           required: true
@@ -98,6 +99,24 @@ paths:
       responses:
         "200":
           description: Downloadable CSV dataset
+  /responses:
+    get:
+      summary: De-identified respondent rows as JSON
+      responses:
+        "200":
+          description: Row-level respondent dataset
+  /download/responses-json:
+    get:
+      summary: De-identified respondent rows as JSON download
+      responses:
+        "200":
+          description: Downloadable row-level respondent JSON
+  /download/responses-csv:
+    get:
+      summary: De-identified respondent rows as CSV download
+      responses:
+        "200":
+          description: Downloadable row-level respondent CSV
   /agent/query:
     post:
       summary: Natural-language survey query over published summary tables

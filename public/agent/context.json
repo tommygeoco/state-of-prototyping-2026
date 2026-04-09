@@ -15,7 +15,7 @@
     "18 world regions with no country-level data",
     "6 role categories",
     "6 work context categories",
-    "Public exports focus on published summary tables and crosstabs"
+    "MCP tools focus on published summary tables and crosstabs, while REST downloads also expose de-identified row-level responses"
   ],
   "headlines": [
     "The most-used design tool after Figma is now an AI: Claude at 50.8% weekly usage",
@@ -36,6 +36,9 @@
   ],
   "endpoints": [
     "GET /meta",
+    "GET /questions",
+    "GET /question/{id}",
+    "GET /question/{id}/crosstab?by=role",
     "GET /stats/headline",
     "GET /stats/vibe-by-role",
     "GET /stats/satisfaction",
@@ -43,6 +46,9 @@
     "GET /stats/tools",
     "GET /download/json — summary tables",
     "GET /download/csv — summary tables as CSV",
+    "GET /responses — de-identified respondent rows as JSON",
+    "GET /download/responses-json — de-identified respondent rows as JSON download",
+    "GET /download/responses-csv — de-identified respondent rows as CSV download",
     "POST /agent/query — natural language (API key may be required for non-first-party access)"
   ]
 }

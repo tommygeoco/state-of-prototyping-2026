@@ -44,7 +44,7 @@ export function Nav() {
           </a>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <nav aria-label="Main" className="hidden md:contents">
+          <nav aria-label="Main" className="nav-desktop">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -55,7 +55,7 @@ export function Nav() {
               </Link>
             ))}
           </nav>
-          <div className="hidden md:block">
+          <div className="desktop-theme-toggle">
             <ThemeToggle />
           </div>
           <MobileMenu />

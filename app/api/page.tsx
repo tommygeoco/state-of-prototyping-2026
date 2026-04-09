@@ -7,14 +7,20 @@ import { Disclosure } from '@/components/ui/disclosure'
 export const metadata = { title: 'API' }
 
 const endpoints = [
+  { method: 'GET', path: '/api/v1/meta', desc: 'Survey metadata' },
+  { method: 'GET', path: '/api/v1/questions', desc: 'Question dictionary' },
+  { method: 'GET', path: '/api/v1/question/{id}', desc: 'Published result for one question' },
+  { method: 'GET', path: '/api/v1/question/{id}/crosstab?by=role', desc: 'Published cross-tab' },
   { method: 'GET', path: '/api/v1/stats/tools', desc: 'Top 10 weekly tools' },
   { method: 'GET', path: '/api/v1/stats/vibe-by-role', desc: 'Vibe coding by role' },
   { method: 'GET', path: '/api/v1/stats/satisfaction', desc: 'Satisfaction by tier' },
   { method: 'GET', path: '/api/v1/stats/outlook', desc: 'Role outlook' },
   { method: 'GET', path: '/api/v1/stats/headline', desc: 'Headline numbers' },
-  { method: 'GET', path: '/api/v1/meta', desc: 'Survey metadata' },
   { method: 'GET', path: '/api/v1/download/json', desc: 'Summary tables JSON' },
   { method: 'GET', path: '/api/v1/download/csv', desc: 'Summary tables CSV' },
+  { method: 'GET', path: '/api/v1/responses', desc: 'Row-level response JSON' },
+  { method: 'GET', path: '/api/v1/download/responses-json', desc: 'Row-level response JSON download' },
+  { method: 'GET', path: '/api/v1/download/responses-csv', desc: 'Row-level response CSV download' },
   { method: 'POST', path: '/api/v1/agent/query', desc: 'Natural language' },
 ]
 
@@ -24,10 +30,10 @@ export default function ApiDocsPage() {
       <header style={{ marginBottom: 48 }}>
         <h1 className="page-title">API</h1>
         <p className="lead-text" style={{ marginBottom: 24 }}>
-          Public summary API. Same JSON as the charts. CC BY 4.0.
+          Public survey API and downloads. Same published data that powers the report, plus de-identified row-level exports. CC BY 4.0.
         </p>
         <p style={{ fontSize: 14, lineHeight: '22px', color: 'var(--text-muted)', marginBottom: 24 }}>
-          Row-level microdata is no longer distributed over the public API. Non-first-party agent integrations can be protected with an API key at deployment time.
+          Summary tables and de-identified respondent exports are both public. Non-first-party agent integrations can be protected with an API key at deployment time.
         </p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <Button asChild variant="outline" size="sm"><a href="/api/openapi.yaml">OpenAPI spec</a></Button>
@@ -78,6 +84,7 @@ export default function ApiDocsPage() {
         <Disclosure title="Natural language query">
           <CodeBlock code={`curl -X POST https://survey.uxtools.co/api/v1/agent/query \\
   -H "Content-Type: application/json" \\
+  # Add Authorization: Bearer ... if your deployment protects non-first-party access \\
   -d '{"question":"What percentage of design engineers vibe code?"}'`} />
         </Disclosure>
         <Disclosure title="JavaScript">

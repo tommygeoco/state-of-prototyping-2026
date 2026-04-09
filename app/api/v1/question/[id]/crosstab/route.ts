@@ -12,12 +12,13 @@ export async function GET(request: Request, { params }: RouteContext) {
   const id = rawId.toUpperCase()
   const { searchParams } = new URL(request.url)
   const by = searchParams.get('by')?.toLowerCase()
+  const workflowShiftAliases = new Set(['WORKFLOW_SHIFT', 'WORKFLOW-CHANGE', 'WORKFLOW_CHANGE', 'Q10'])
 
   if (id === 'Q7' && by === 'role') {
     return Response.json(await loadVibeByRole(), { headers: cacheHeaders })
   }
 
-  if (id === 'Q10' && ['company', 'context', 'work-context'].includes(by ?? '')) {
+  if (workflowShiftAliases.has(id) && ['company', 'context', 'work-context'].includes(by ?? '')) {
     return Response.json(await loadWorkflowChangeByCompany(), { headers: cacheHeaders })
   }
 
@@ -31,7 +32,7 @@ export async function GET(request: Request, { params }: RouteContext) {
   return Response.json(
     {
       error: `No published cross-tab for ${id}${by ? ` by ${by}` : ''}.`,
-      available_cross_tabs: ['Q7 by role', 'Q10 by company'],
+      available_cross_tabs: ['Q7 by role', 'WORKFLOW_SHIFT by company'],
     },
     { status: 404, headers: cacheHeaders },
   )

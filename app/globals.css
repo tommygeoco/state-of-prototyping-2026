@@ -343,6 +343,21 @@ code {
 
 /* ── Nav Links ── */
 
+.nav-desktop,
+.desktop-theme-toggle {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-desktop {
+    display: contents;
+  }
+
+  .desktop-theme-toggle {
+    display: block;
+  }
+}
+
 .nav-link {
   font-family: var(--font-data);
   font-size: 12px;
@@ -994,7 +1009,7 @@ code {
 
 .mobile-menu-drawer {
   position: fixed;
-  top: var(--nav-height);
+  top: 0;
   right: 0;
   bottom: 0;
   width: 260px;
@@ -1004,6 +1019,9 @@ code {
   border-left: 1px solid var(--border-card);
   display: flex;
   flex-direction: column;
+  padding-top: calc(var(--nav-height) + env(safe-area-inset-top));
+  padding-bottom: env(safe-area-inset-bottom);
+  min-height: 100dvh;
   transform: translateX(100%);
   transition: transform 250ms cubic-bezier(0.32, 0.72, 0, 1);
   box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);

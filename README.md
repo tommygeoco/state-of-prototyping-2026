@@ -11,7 +11,7 @@ This project has three jobs: publish the canonical report, expose the published 
 - **Report** — 12-section editorial article with live charts at `/spring-2026`
 - **Summary tables** — pre-aggregated percentages and cross-tabs
 - **Shareable bites** — chart anchors and PNG exports for the findings that travel
-- **REST API** — public summary endpoints at `/api/v1/*`
+- **REST API** — public summary endpoints, question lookups, and row-level downloads at `/api/v1/*`
 - **Agent tools** — natural language query endpoint, LLM context file, tool definitions
 
 ## Key findings
@@ -35,6 +35,9 @@ curl -X POST https://survey.uxtools.co/api/v1/agent/query \
 
 # Download the published summary tables
 curl -O https://survey.uxtools.co/api/v1/download/csv
+
+# Download the de-identified respondent CSV
+curl -O https://survey.uxtools.co/api/v1/download/responses-csv
 ```
 
 ## Run locally
@@ -44,11 +47,11 @@ npm install
 npm run dev
 ```
 
-Requires Node 18+. No database — all data lives in `public/data/*.json`.
+Requires Node 18+. No database — all data lives in `public/data/*`.
 
 ## Stack
 
-- Next.js 14 (App Router)
+- Next.js 15 (App Router)
 - Tailwind CSS + shadcn/ui
 - Custom chart components (no chart library)
 - PP Fraktion Mono + Space Mono + Inter
@@ -56,7 +59,7 @@ Requires Node 18+. No database — all data lives in `public/data/*.json`.
 
 ## Data files
 
-All in `public/data/`. The public download surface is the summary-table set used to render the report charts.
+All in `public/data/`. This includes the published summary-table set used to render the report charts, plus the de-identified respondent-level exports.
 
 | File | Contents |
 |---|---|
@@ -75,21 +78,31 @@ All in `public/data/`. The public download surface is the summary-table set used
 | `workflow-change-by-company.json` | AI-central workflow shift by company context |
 | `investing-next.json` | Investment areas (Q6) |
 | `headline.json` | Key headline stats |
+| `meta.json` | Survey metadata |
+| `questions.json` | Published question dictionary |
 | `full-summary.json` | All tables merged |
 | `full-summary.csv` | CSV export |
+| `responses.json` | De-identified respondent-level JSON export |
+| `responses.csv` | De-identified respondent-level CSV export |
 
 ## API endpoints
 
 | Method | Path | Description |
 |---|---|---|
+| GET | `/api/v1/questions` | Survey question dictionary |
+| GET | `/api/v1/question/{id}` | Published result for one question |
+| GET | `/api/v1/question/{id}/crosstab?by=role` | Published cross-tab result |
 | GET | `/api/v1/stats/tools` | Top 10 weekly tools |
 | GET | `/api/v1/stats/vibe-by-role` | Vibe coding by role |
 | GET | `/api/v1/stats/satisfaction` | Satisfaction by tier |
 | GET | `/api/v1/stats/outlook` | Role outlook |
 | GET | `/api/v1/stats/headline` | Headline numbers |
 | GET | `/api/v1/meta` | Survey metadata |
-| GET | `/api/v1/download/json` | Full dataset |
-| GET | `/api/v1/download/csv` | CSV export |
+| GET | `/api/v1/download/json` | Full summary tables JSON |
+| GET | `/api/v1/download/csv` | Full summary tables CSV |
+| GET | `/api/v1/responses` | Row-level response JSON |
+| GET | `/api/v1/download/responses-json` | Row-level response JSON download |
+| GET | `/api/v1/download/responses-csv` | Row-level response CSV download |
 | POST | `/api/v1/agent/query` | Natural language query over the published summary tables |
 | GET | `/api/openapi.yaml` | OpenAPI spec |
 
@@ -103,10 +116,13 @@ from langchain.tools import StructuredTool
 def query_survey(question: str) -> dict:
     """Query the State of Prototyping 2026 summary API."""
     import requests
+    headers = {"Content-Type": "application/json"}
+    # Add Authorization only if your deployment protects non-first-party access.
+    # headers["Authorization"] = "Bearer YOUR_API_KEY"
     return requests.post(
         "https://survey.uxtools.co/api/v1/agent/query",
         json={"question": question},
-        headers={"Authorization": "Bearer YOUR_API_KEY"}
+        headers=headers
     ).json()
 
 survey_tool = StructuredTool.from_function(query_survey)

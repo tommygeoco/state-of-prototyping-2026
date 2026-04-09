@@ -4,7 +4,7 @@ import path from 'node:path'
 const rootDir = process.cwd()
 const dataDir = path.join(rootDir, 'public', 'data')
 const auditDir = path.join(rootDir, 'audit')
-const explorePagePath = path.join(rootDir, 'app', 'explore', 'page.tsx')
+const reportPagePath = path.join(rootDir, 'app', 'spring-2026', 'page.tsx')
 const readmePath = path.join(rootDir, 'README.md')
 const agentContextJsonPath = path.join(rootDir, 'public', 'agent', 'context.json')
 const agentContextMdPath = path.join(rootDir, 'public', 'agent', 'SURVEY_CONTEXT.md')
@@ -654,7 +654,7 @@ function buildWorkflowChangeByCompany(rows) {
   }).sort((left, right) => right.pct - left.pct || right.n - left.n)
 
   return {
-    question: 'Q10 × Q1 cross-tab — AI is now central by company context',
+    question: 'Workflow shift × Q1 cross-tab — AI is now central by company context',
     n_total: rows.length,
     metric: 'pct_ai_central_by_company_context',
     data,
@@ -1199,7 +1199,7 @@ async function main() {
 
   const csvText = await readFile(path.join(dataDir, 'responses.csv'), 'utf8')
   const jsonRows = JSON.parse(await readFile(path.join(dataDir, 'responses.json'), 'utf8'))
-  const explorePage = await readFile(explorePagePath, 'utf8')
+  const explorePage = await readFile(reportPagePath, 'utf8')
   const duplicateFileContents = {
     [readmePath]: await readFile(readmePath, 'utf8'),
     [agentContextJsonPath]: await readFile(agentContextJsonPath, 'utf8'),

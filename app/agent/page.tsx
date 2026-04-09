@@ -55,7 +55,7 @@ export default async function AgentPage() {
         <h1 className="page-title">Connect your agent</h1>
         <p className="lead-text" style={{ marginBottom: 24 }}>
           17 tools, 2 resources, zero cost. Give any MCP-compatible agent
-          direct access to the full State of Prototyping dataset.
+          direct access to the published survey summary tables and grounding context.
         </p>
 
         <div
@@ -153,7 +153,7 @@ curl https://survey.uxtools.co/api/v1/stats/tools
 # Get vibe coding by role
 curl https://survey.uxtools.co/api/v1/stats/vibe-by-role
 
-# All endpoints listed at /api`} />
+# Row-level downloads and all endpoints are listed at /api`} />
           </Disclosure>
           <Disclosure title="OpenAI function definition">
             <CodeBlock code={`{
