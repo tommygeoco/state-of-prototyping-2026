@@ -158,6 +158,17 @@ export default async function ExplorePage() {
         </p>
       </header>
 
+      {/* ── Video ── */}
+      <section aria-label="Survey video" className="video-embed">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/fN6RpBaPdxg"
+          title="State of Prototyping: Spring 2026 — survey video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </section>
+
       {/* ── Sponsors ── */}
       <section className="sponsor-strip">
         <div className="sponsor-strip-header">
