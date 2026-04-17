@@ -31,6 +31,7 @@ export function buildContentSecurityPolicy(nonce: string, isDev: boolean) {
     "form-action 'self'",
     "frame-ancestors 'none'",
     "object-src 'none'",
+    "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com",
     `script-src ${getScriptSrc(nonce, isDev)}`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob:",
